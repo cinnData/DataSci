@@ -1,4 +1,4 @@
-## 1. What is data science?
+# 1. What is data science?
 
 ### Data science and data mining
 
