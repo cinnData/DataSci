@@ -68,4 +68,4 @@ The main types are:
 
 2. J VanderPlas (2017), Python Data Science Handbook, O'Reilly.
 
-3. J Zelle (2010), *Python Programming --- An Introduction to Computer Science}, Franklin, Beedle & Associates.
+3. J Zelle (2010), *Python Programming --- An Introduction to Computer Science*, Franklin, Beedle & Associates.
