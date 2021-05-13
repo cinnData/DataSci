@@ -62,6 +62,40 @@ The main types are:
 
 * Python also has type `datetime` for dealing with **dates and times**. This will also be discussed later in a specific chapter.
 
+### Data containers
+
+Python has various **data container** classes, which are used to group together other values. The most versatile is the **list**, which is represented as a sequence of comma-separated values inside square brackets:
+
+`mylist = ['Messi', 'Cristiano', 'Neymar', 'Coutinho']`
+
+A **set** is represented in the same way as a list, but with curly braces replacing the square brackets:
+
+`myset = {'Messi', 'Cristiano', 'Neymar', 'Coutinho'}`
+
+A difference between the list and the set is that the elements of a set are not ordered, and repetition is ignored.
+
+A **tuple** is like a list, represented with parentheses instead of square brackets:
+
+`mytuple = ('Messi', 'Cristiano', 'Neymar', 'Coutinho')`
+
+**Dictionaries** are relevant for data scientists, since they provide a simple way to manage data coming in a special format called JSON. In Python, JSON data are just read as a combination of dictionaries and lists.
+
+The following dictionary contains three features of an individual:
+
+`mydict = {'name': 'Joan', 'gender': 'F', 'age': 32}`
+
+A dictionary looks like a set, but the elements are **pairs key/value**.
+
+### Functions
+
+Python is a fully functional language. Part of its power comes from the ability to define the operations that we wish to perform as **functions**, so they can be applied many times. Besides the built-in functions (those available in Python) and those coming in the packages that you may import, you can define your own functions. The definition will be forgotten when the session is closed, so you have to include the definition in your code.
+
+A simple example of a user-defined function follows. Note the indentation after the colon.
+
+`def f(x): return 1/(1 - x**2)`
+
+Longer definitions would take several lines. In that case, all lines after the semicolon must be *indented*. Jupyter interfaces create the indentation by themselves.
+
 ### References
 
 1. W McKinney (2017), *Python for Data Analysis --- Data Wrangling with Pandas, NumPy, and IPython*, O'Reilly.
