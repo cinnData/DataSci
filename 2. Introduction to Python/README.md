@@ -1,10 +1,8 @@
 # 2. Introduction to Python
 
-### Data science and data mining
+### What is Python?
 
-**Python** is a programming language, introduced in 1991. We find it everywhere, and it is currently in the top places in the many lists of the most used or more liked programming languages. It has been said to be the preferred choice for developers of malicious software (and those people are knowledgeable).
-
-There are currently two versions of the Python language: Python 2 and Python 3. These notes use Python 3. Although beginners are currently adopting Python 3, there is a lot of Python 2 code still in circulation, in particular in the older editions of many books. Even if most of the Python 2 code runs in Python 3, one finds trouble from time to time. So, it is recommended to check Python's version before copypasting somebody else's code.
+**Python** is a programming language, introduced in 1991. There are currently two versions of the Python language: Python 2 and Python 3. These notes use Python 3. Although beginners are currently adopting Python 3, there is a lot of Python 2 code still in circulation, in particular in the older editions of many books. Even if most of the Python 2 code runs in Python 3, one finds trouble from time to time. So, it is recommended to check Python's version before copypasting somebody else's code.
 
 ### The Anaconda distribution
 
