@@ -64,4 +64,4 @@ Columns can be extracted from a data frame by naming them:
 
 * `df[colname]` returns the column `colname` as a Pandas series.
 
-* `df[[colname1, colname2, . . .]]` returns a data frame containing the columns specified. Note that  `df[colname]` is series, while `df[[colname]]` is a data frame with one column, which is not the same thing.
+* `df[[colname1, colname2, . . .]]` returns a data frame containing the columns specified. Note that  `df[colname]` is a series, while `df[[colname]]` is a data frame with one column, which is not the same thing.
