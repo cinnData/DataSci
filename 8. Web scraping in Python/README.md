@@ -2,7 +2,7 @@
 
 ### What is web scraping?
 
-**Web scraping** is concerned with extracting data from websites, in particular data that would be difficult to get on a large scale using traditional data collection methods. There is a whole industry buil around web scraping, as it is used to track product price changes or discounts, to gather data from social profiles, to capture real estate listings, in search engine optimization (SEO), etc.
+**Web scraping** is concerned with extracting data from websites, in particular data that would be difficult to get on a large scale using traditional data collection methods. There is a whole industry built around web scraping, as it is used to track product price changes or discounts, to gather data from social profiles, to capture real estate listings, in search engine optimization (SEO), etc.
 
 Scraping a web page involves downloading the page and extracting data from it. Both things can be done with many languages, in particular with Python. There are also specialized web scraping software applications, such as **Octoparse**. This note describes how to scrape simple pages, meaning those that are rendered to the browser in a single step (explanation later in this note). Although we use in this course the package lxml, you can use other Python packages, such as Beautiful Soup and Scrapy.
 
