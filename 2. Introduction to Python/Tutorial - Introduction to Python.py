@@ -46,7 +46,7 @@ mylist[3:]                                          # In [24]
 mylist[:3]                                          # In [25]
 
 # Other data containers #
-set(newist)                                        # In [26]
+set(newlist)                                        # In [26]
 list(set([1, 0, 1, 0, 7]))                         # In [27]
 mytuple = tuple(mylist)                            # In [28]
 mytuple
