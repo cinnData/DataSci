@@ -16,7 +16,7 @@ Arrays can be created directly from lists with the NumPy function `array`. Two s
 
 `arr2 = np.array([[2, 3, 1], [7, -3, 2.6]])`
 
-An array has a collection of attributes, such as `ndim`, `shape` and `dtype`. They are extracted as `arr.attr`. For instance, `arr1.shape` would return `(10,)`, while `arr2.shape` will return `(2,4)`.
+An array has a collection of attributes, such as `ndim`, `shape` and `dtype`. They are extracted as `arr.attr`. For instance, `arr1.shape` would return `(4,)`, while `arr2.shape` will return `(3,3)`.
 
 ### NumPy functions
 
