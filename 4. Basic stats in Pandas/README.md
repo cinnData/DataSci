@@ -16,7 +16,7 @@ Although defaults work in most cases satisfactorily, it is worth to comment a fe
 
 * `dtype` specifies the data types of the columns of the data frame. This saves a lot of time with big data sets. The default is `dtype=None`, which means that Python will guess the data type, based on what it reads. When all the entries in a column are numbers, that column is imported as numeric. If there is, at least, one entry that is not numeric, it is read as strings, and type `object` is assigned.
 
-* `encoding`. If the string data contained in a CSV file can contain special characters (such as \~n, or \'a), which can make trouble, I recommend you to set the argument as `encoding='utf-8'`, which is the default in Python.
+* `encoding`. If the string data contained in a CSV file can contain special characters (such as ñ, or á), which can make trouble, I recommend you to set the argument as `encoding='utf-8'`, which is the default in Python.
 
 ### Summary statistics
 
@@ -32,7 +32,7 @@ Basic statistics can also be calculated separately. For instance, `df.mean()` re
 
 We typically visualize the data with bar plots, histograms, scatter plots and line plots. They can be obtained directly from a Pandas object. 
 
-Suppose first that `df` is a Pandas data frame and let `cname1` be the *x*-column and `cname2` the *y*-column (numeric). To explore the dependence of the *y*-column on the *x* column, we use a **bar plot**, when the *x*-column is categorical, and a **scatter plot**, when it is numeric:
+Suppose first that `df` is a Pandas data frame and let `cname1` be the *x*-column and `cname2` the *y*-column (numeric). To explore the dependence of the *y*-column on the *x*-column, we use a **bar plot**, when the *x*-column is categorical, and a **scatter plot**, when it is numeric:
 
 * `df.plot.bar(x=cname1, y=cname2)` returns a bar plot. The bars represent the values of `cname2` for the different values of `cname1`. If you do not specify the *x*-column, the index is used instead.
 
