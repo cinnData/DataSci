@@ -30,11 +30,10 @@ There are two useful Pandas functions for managing **duplicates**:
 
 Exploring data, we often use tables. They can be produced in various ways in Pandas:
 
-* `value_counts` extracts a table of counts as a series. For a Pandas series `s`, the syntax is `s.value_counts()`. This returns a table containing the counts of the occurrences of every value of `s`. It does not include missing values.
+* `value_counts` extracts a table of counts as a series. For a Pandas series `s`, the syntax is `s.value_counts()`. This returns a table containing the counts of the occurrences of every value of `s`. It does not include the missing values.
 
 * `crosstab` extracts a simple cross tabulation as a Pandas data frame. For a pair of series of the same length `s1` and `s2`, the syntax is `pd.crosstab(s1, s2)`. Then `s1` will be placed on the rows and `s2` on the columns. By default, `crosstab` extracts a frequency table, unless an array of values and an aggregation function are passed, eg as `values=s3` and `aggfunc=fname`.
 
 * `pivot_table` extracts a spreadsheet-style pivot table as a data frame. For a Pandas data frame `df`, the syntax is `pd.pivot_table(df, values=cname1, index=cname2)`. This returns a one-way table containing the average value of `cname1` for the groups defined by `cname2`. Instead of the average, you can get a different summary by adding an argument `aggfunc=fname`. With an additional argument `columns=cname3`, you get a two-way table. For two-way tables, it works the same as `crosstab`, but it only applies to columns from the same data frame.
 
-* `groupby` groups the rows of a data frame so that an aggregation function can be applied, extracting a SQL-like table as a data frame. For a Pandas data frame `df`, a syntax example could be `df.groupby(by=cname).mean()`, which would return a data frame with the average value of the numeric columns of `df` for the groups defined by `cname`.
-
+* `groupby` groups the rows of a data frame so that an aggregation function can be applied, extracting a SQL-like table as a data frame. For a Pandas data frame `df`, the syntax could be `df.groupby(by=cname).mean()`. This will return a data frame with the average value of the numeric columns of `df` for the groups defined by `cname`.
