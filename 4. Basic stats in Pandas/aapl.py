@@ -28,7 +28,7 @@ df['return'].plot.hist(figsize=(8,6), color='gray', rwidth=0.98);
 df['volume'].plot.hist(figsize=(8,6), color='gray', rwidth=0.98);
 
 # Association between daily returns and trading volume #
-df.plot.scatter(x='volume', y='returns', figsize=(6,6), color='gray');
+df.plot.scatter(x='volume', y='return', figsize=(6,6), color='gray');
 df['volume'].corr(df['return'])
 import numpy as np
 df['volume'].corr(np.abs(df['return']))
