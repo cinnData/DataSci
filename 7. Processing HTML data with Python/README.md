@@ -42,7 +42,7 @@ The structure of a HTML document is made by the tags. Every part of the document
 
 The tag `<html>` tells the browser that this is a HTML document. The `html` node is the **root node**, with two **child nodes**, `head` and `body`. A HTML document is always split in this way. In the example, the `head` node has one child, while the `body` node has three children, which are **siblings**.
 
-In the example, the `title` node contains the string `'Data Viz'`, enclosed between the start tag and the end tag (this can also be said of the `head` node). This string is the **node value**. Also, some nodes have **attributes**. The attributes are contained in the start tag. In our example, the `div` nodes have one `class` attribute, while the `a` node has two attributes, a `class` attribute and a `href` attribute. `class` attributes, which specify one or more `class` names for an HTML element, are very frequent, and can be used in any HTML element. The value of a `class` attribute can be used by CSS and JavaScript to perform certain tasks for elements with that `class` value.
+In the example, the `title` node contains the string `'Data Viz'`, enclosed between the start tag and the end tag (this can also be said of the `head` node). This string is the **node value**. Also, some nodes have **attributes**. The attributes are contained in the start tag. In our example, the `div` nodes have one `class` attribute, while the `a` node has two attributes, a `class` attribute and a `href` attribute. `class` attributes, which specify one or more `class` names for a node, are very frequent, and can be used in any node. The value of a `class` attribute can be used by CSS and JavaScript to perform certain tasks for nodes with that `class` value.
 
 The `a` node has a special role. It marks a **hyperlink**, which is used to link a page to another page, or to download a file. The most important attribute of the this node is the `href` attribute, which indicates the link's destination.
 
@@ -50,9 +50,9 @@ The `a` node has a special role. It marks a **hyperlink**, which is used to link
 
 The package lxml provides many useful tools for parsing XML (and HTML) documents, both local and accessible via HTTP or FTP. It also offers access to a XPath interpreter. 
 
-Suppose that the HTML code displayed above has been imported in Python as a string variable. The function `html.fromstring` can parse that string, learning the tree structure encoded in the HTML document, which is stored in an `lxml` object of type `lxml.html.HtmlElement`. Let us call `tree` that object. Then, `tree[0]` is the `head` node and `tree[1]` is the `body` node. Branching further, `tree[1][0]` and `tree[1][1]` are the two nodes and `tree[1][2]` is the `a` node.
+Suppose that the HTML code displayed above has been imported in Python as a string variable. The function `html.fromstring` can parse that string, learning the tree structure encoded in the HTML document, which is stored in an `lxml` object of type `lxml.html.HtmlElement`. Let me call `tree` that object. Then, `tree[0]` is the `head` node and `tree[1]` is the `body` node. Branching further, `tree[1][0]` and `tree[1][1]` are the two nodes and `tree[1][2]` is the `a` node.
 
-To extract the information from these objects in a format which can be managed by common Python tools, we have two functions: 
+To extract the information from these objects in a format which can be managed by common Python tools, two functions are available: 
 
 * `text` extracts the node value, that is, the text between the node tags. For the first `div` node, the syntax would be `tree[1][0].text`.
 
@@ -60,7 +60,7 @@ To extract the information from these objects in a format which can be managed b
 
 ### XML and XPath
 
-HTML is a special case of another language called **XML** (eXtensible Markup Language), which has a wider scope. The markup in XML is also defined by the tags, but these are not predefined as in HTML (`head`, `body`, etc). 
+HTML is (approximately) a special case of another language called **XML** (eXtensible Markup Language), which has a wider scope. The markup in XML is also defined by the tags, but these are not predefined as in HTML (`head`, `body`, etc). 
 
 **XPath** is a query language for selecting nodes from a XML document. XPath expressions look like the path expressions in UNIX (Mac/Linux) file systems. For instance, `/html/head` denotes the `head` node, while `/html/body` denotes the `body` node. These two are easy, because there is only one `head` node and one `body` node. But there are typically many `div` nodes. In the example, `/html/body/div` denotes the two `div` nodes. These nodes can be identified as `/html/body/div[1]` and `/html/body/div[2]`.
 
@@ -73,4 +73,3 @@ Since HTML documents can be large, it is practical to shorten XPath expressions 
 * Specify an attribute value, as in `//div[@class='course']`, which identifies the first `div` node of the example.
 
 * Specify a substring of an attribute value, as in `//div[contains(@class, 'cour')]`. This is practical with long attribute values.
-
