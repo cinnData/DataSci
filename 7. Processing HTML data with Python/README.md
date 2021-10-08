@@ -64,8 +64,6 @@ HTML is (approximately) a special case of another language called **XML** (eXten
 
 **XPath** is a query language for selecting nodes from a XML document. XPath expressions look like the path expressions in UNIX (Mac/Linux) file systems. For instance, `/html/head` denotes the `head` node, while `/html/body` denotes the `body` node. These two are easy, because there is only one `head` node and one `body` node. But there are typically many `div` nodes. In the example, `/html/body/div` denotes the two `div` nodes. These nodes can be identified as `/html/body/div[1]` and `/html/body/div[2]`.
 
-*Note*. XPath starts counting at 1, not at 0 like Python.
-
 Since HTML documents can be large, it is practical to shorten XPath expressions by omitting intermediate nodes. So, the `div` nodes of the example can be simply identified as `//div`. Although this is very practical, it would not be specific enough in a HTML document containing many `div` nodes in different places. The following three formulas provide unambiguous identification in most cases:
 
 * Specify a substring of a node value, as in `//div[contains(text(), 'MBA')]]`, which identifies the second `div` node of the example.
