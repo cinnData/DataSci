@@ -23,13 +23,13 @@ tree[1][0]
 tree[1][0].text
 tree[1][0].attrib['class']
 
-# XPath expressions #
+# The function xpath #
 tree.xpath('/html/body/div')
 tree.xpath('//div')
 tree.xpath('/html/body/div[@class="course"]')
+
+# Extracting information from the nodes #
 tree.xpath('//div/text()')
-tree.xpath('//div/text()')[0]
 tree.xpath('//div')[0].text
 tree.xpath('//a/@href')[0]
 tree.xpath('//a')[0].attrib['href']
-
