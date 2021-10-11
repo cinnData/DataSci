@@ -76,8 +76,3 @@ df = pd.DataFrame({'job': job, 'location': location, 'division': division, 'dept
   'employmentType': employmentType, 'datePosted': datePosted, 'description': description}, index=id)
 df.info()
 df.head()
-
-
-
-
-
