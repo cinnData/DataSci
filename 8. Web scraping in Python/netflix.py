@@ -66,9 +66,10 @@ f(link[0])
 # Looping over the individual pages #
 employmentType, datePosted, description = [], [], []
 for l in link:
-    employmentType = employmentType + [f(l)[0]]
-    datePosted = datePosted + [f(l)[1]]
-    description = description + [f(l)[2]]
+    data = f(l)
+    employmentType = employmentType + [data[0]]
+    datePosted = datePosted + [data[1]]
+    description = description + [data[2]]
 
 # Gather the information collected in a data frame #
 import pandas as pd
