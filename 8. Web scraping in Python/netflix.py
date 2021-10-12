@@ -39,6 +39,8 @@ import json
 json_list = [{'Name': 'John', 'Age': 27},
      {'Name': 'Peter', 'Age': 32, 'Children': 'Louis'},
      {'Name': 'Maria', 'Age': 29, 'Children': ['Edward', 'Christine']}]
+json_doc = json.dumps(json_list)
+json_doc
 json.loads(json_doc)
 
 # Scraping data in JSON format #
