@@ -8,7 +8,7 @@ Although defaults work in most cases satisfactorily, it is worth to comment a fe
 
 * `sep` specifies the column separator. The default is `sep=','`, but CSV files created with Excel may need `sep=';'`.
 
-* `header` and `names` specify the row where the data start and the column names. The default is `header=0, names=None`, which makes Pandas start reading from the first row and take it as the column names. When the data come without names, you can use {`header=0, names=namelist` to provide a list of names. With a positive value for `header`, you can skip some rows.
+* `header` and `names` specify the row where the data start and the column names. The default is `header=0, names=None`, which makes Pandas start reading from the first row and take it as the column names. When the data come without names, you can use {`header=None, names=namelist` to provide a list of names. With a positive value for `header`, you can skip some rows.
 
 * `index_col` specifies a column that you wish to use as the index, if that is the case. The default is `index_col=None`. If the index comes in the first column, you use `index_col=0`.
 
