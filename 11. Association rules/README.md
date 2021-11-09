@@ -2,9 +2,9 @@
 
 ### What is an association rule?
 
-An **association rule** takes usually the form A => B. A is the **antecedent** (LHS) and B is the **consequent** (RHS). The rule is read as *if A, then B*. Association rules are, in general, **local patterns**, which apply only to a small proportion of samples.
+An **association rule** takes usually the form A => B. A is the **antecedent** (LHS) and B is the **consequent** (RHS). The rule is read as *if A, then B*. Association rules are, in general, **local patterns**, which apply only to a small proportion of data points.
 
-Association rules are typically searched in **transactions data**. Each transaction contains a set of **items**. The antecedent and the consequent of a rule are always **disjoint**, that is, they do not have common items. Let me refresh two popular examples:
+Association rules are typically searched in **transactions data**, in which every data point is a transaction containing a set of **items**. Two popular examples are:
 
 * In a typical application to **market basket analysis**, the transactions are the visits of the customers to a supermarket, and the items are the different products purchased: milk, sugar, etc. An example of an association rule is {butter} => {whole milk}.
 
@@ -24,7 +24,7 @@ An **itemset** is a set of items. The **support of an itemset** is the proportio
 
 supp(*A*) = *N*(*A*)/*N*.
 
-To illustrate this, suppose that a supermarket data set covers 9,835 transactions, and that whole milk is included in 2,513 transactions, butter in 545 transactions, and both together in 271 transactions. Then, the support of {whole milk} is 2,513/9,385 = 0.256, the support of {butter} is 545/9,385 = 0.505, and the support of {butter, whole milk} is 271/9,385 = 0.028.
+To illustrate this, suppose that a supermarket data set covers 9,835 transactions, and that whole milk is included in 2,513 transactions, butter in 545 transactions, and both together in 271 transactions. Then, the support of {whole milk} is 2,513/9,385 = 0.256, the support of {butter} is 545/9,385 = 0.055, and the support of {butter, whole milk} is 271/9,385 = 0.028.
 
 The support of an itemset can be regarded as an estimate of the **probability** that a transaction includes that itemset. So, we may think that the probability that a customer buys whole milk in a visit to the supermarket is 25.6%.
 
@@ -32,11 +32,11 @@ The **frequent itemsets** are those with the highest support. The favorite algor
 
 ### Parameters for mining association rules
 
-Formally defined, a rule is a pair of disjoint itemsets, the antecedent and the consequent. Association rules are evaluated by means of three parameters, the support, the confidence and the lift. The **support of a rule** of is the same as the support of the itemset resulting from the union of the antecedent and the consequent, that is, the proportion of transactions containing both antecedent and consequent,
+Formally defined, a rule is a pair of disjoint itemsets, the antecedent and the consequent. Association rules are evaluated by means of three parameters, the support, the confidence and the lift. The **support of a rule** is the same as the support of the itemset resulting from the union of the antecedent and the consequent, that is, the proportion of transactions containing both antecedent and consequent items:
 
 supp(*A* => *B*) = *N*(*AB*)/N.
 
-Here, *AB* denotes the union of *A* and *B*. The **confidence** of a rule is the proportion of transactions that contain both the antecedent and the consequent among those that contain the antecedent,
+Here, *AB* denotes the union of *A* and *B*. The **confidence** of a rule is the proportion of transactions that contain both the antecedent and the consequent among those that contain the antecedent items:
 
 conf(*A* => *B*) = supp(*AB*)/supp(*A*) = *N*(*AB*)/*N*(*A*).
 
@@ -54,9 +54,9 @@ In the typical implementation of the Apriori algorithm, the user specifies a min
 
 ### Association rules in Python
 
-Association rules can be mined in Python with functions from the  package `mlextend`, which was developed as an extension of scikit-learn. The process is split in two steps: (a) extracting the most frequent itemsets, and (b) selecting association rules by support and confidence. We do not always find these two steps separated in data science software applications, but they are so in `mlextend`.
+Association rules can be mined in Python with functions from the  package `mlxtend`, which contains miscellaneous methods. The process is split in two steps: (a) extracting the most frequent itemsets, and (b) selecting association rules by support and confidence. We do not always find these two steps separated in data science software applications, but they are so in `mlxtend`.
 
-The two steps are made by means of the functions `apriori` and `association_rules`, respectively. We load them as usual:
+The two steps are made by means of the functions `apriori` and `association_rules`, respectively. You can import them as follows:
 
 `from mlxtend.frequent_patterns import apriori, association_rules`
 
@@ -73,4 +73,3 @@ To mine association rules, you can use the function `association_rules`. For ins
 `rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.4)`
 
 The function `association_rules` returns a data frame with many columns. Among them, we find `antecedents`, `consequents`, `support`, `confidence`, and `lift`.
-
