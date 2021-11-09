@@ -70,15 +70,3 @@ cos.head()
 cos.index[:10]
 t1 = pd.DataFrame({'cos': cos[:10]})
 t1.join(t2)[['title', 'author', 'cos']]
-
-
-
-
-
-
-
-
-
-
-
-
