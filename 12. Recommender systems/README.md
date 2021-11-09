@@ -45,21 +45,21 @@ Note that, for users (not for items), the formula of the adjusted cosine is iden
 
 ### Collaborative filtering (1): The user-based approach
 
-In order to simplify later calculations, the similarity of two users is set to zero the following cases:
+In order to simplify later calculations, the similarity of two users is set to zero in the following cases:
 
 * When the adjusted cosine formula returns a negative value.
 
-* If the ratings of two customers have no intersection.
+* When the ratings of two customers have no intersection.
 
 * When there no is variation in the two rows involved, so the adjusted cosine is 0/0.
 
-The neighbors of a customer are the customers with highest similarity. Although there is no definite idea about the optimal number of neighbors to be used in recommender systems, a number in the range 20--50 is reasonable, according to the experts. Because of the sparsity of the similarity data, some users may not have enough neighbors.
+The neighbors of a user are those users with highest similarity. Although there is no definite idea about the optimal number of neighbors to be used in recommender systems, a number in the range 20-50 is reasonable, according to the experts. Because of the sparsity of the similarity data, some users may not have enough neighbors.
 
 Once the neighbors of a user *u* have been determined, we can calculate a predicted rating for every item the user has not rated yet. The predicted rating is calculated as the weighted average of the ratings of the neighbors, if available, with the weights given by the similarities. The formula is
 
 <img src="https://render.githubusercontent.com/render/math?math=\large \hat R(u,i) = \bar R(u) %2B \frac{\displaystyle \sum_v\big[R(v,i) - \bar R(v)\big]\,s(u,v)} {\displaystyle \sum_v s(u,v)}\,,">
 
-where *R*(*u*,*i*) is the rating of restaurant *i* by user *u*, *s*(*u*,*v*) is the similarity between users *u* and *v*, and the sum is performed across the neighbors of the user *u* who rated item *i*.
+where *R*(*u*,*i*) is the rating of item *i* by user *u*, *s*(*u*,*v*) is the similarity between users *u* and *v*, and the sum is performed across the neighbors of the user *u* who rated item *i*.
 
 ### Collaborative filtering (2): The item-based approach
 
@@ -81,7 +81,7 @@ CF systems have been very successful in the past, but their widespread use has r
 
 * *Response time*. The bottleneck in conventional user-based CF algorithms is the search for neighbors among a large population of potential neighbors. Because the relationships between items are relatively static, item-based algorithms may require less online computation. The fact that the item neighborhood is less likely to change over time allows us to pre-compute it. This favors item-based systems.
 
-These pre-computed neighborhoods can also be used in (not user specific) **generic recommendations**, such as those of Amazon (customers interested in this product are also interested in ...). These recommendations typically come with a discount for buying both products. 
+These pre-computed neighborhoods can also be used in (not user specific) **generic recommendations**, such as those of Amazon (customers interested in this product are also interested in ...). These recommendations may come with a discount for buying both products. 
 
 ### Recommendation based on association rules
 
@@ -97,7 +97,7 @@ Roughly speaking, **content-based recommendation** is based on the match between
 
 The user profiles may be entered by the users themselves in a template, and stored in a table whose fields have a set of predefined options. Higher complexity in the profile system allows for more sophistication in the recommendations. For instance, users of a movie rental website may enter information about their preferences: Western, thriller, Sci-Fi, etc. The item description may contain information such as the genre or the director of a movie. Matching user preferences with item descriptions depends strongly on a careful design.
 
-Although user-provided profiles allow for recommendations without any purchase record, they are hard to get in e-commerce, specially rich profiles. So, they can be replaced by historical data on previous purchases by the customer. Then, similar products are recommended. When the similarity is based on product description, it is still considered as content-based. Sometimes product description and similarity calculation can be based on keywords.
+Although user-provided profiles allow for recommendations without any purchase record, they are hard to get in e-commerce, specially rich profiles. So, they can be replaced by historical data on previous purchases by the customer. Then, similar products are recommended. Sometimes product description and similarity calculation are based on **keywords**.
 
 Content-based recommendation has two advantages: (a) it does not require a large user group, and (b) new items can be immediately recommended, as soon as their characteristics are available. Even CF systems need this for new products, which nobody has rated/purchased before.
 
@@ -105,4 +105,4 @@ Content-based recommendation has two advantages: (a) it does not require a large
 
 ### Knowledge-based recommender systems
 
-Finally, there are recommender systems based on matching customer requirements and technical information about the products recommended. A typical example is the digital camera. These **knowledge-based recommender systems** sometimes allow the customers send queries to the system.
+Finally, there are recommender systems based on matching customer requirements and technical information about the products recommended. A typical example is the digital camera. These **knowledge-based recommender systems** sometimes allow the customers to send queries to the system.
