@@ -1,70 +1,91 @@
 ## Tutorial - Introduction to Python ##
 
 # Typing Python code #
-2 + 2               # In [1]
-a = 2 + 2           # In [2]
-a                   # In [3]
-b = 2 * 3           # In [4]
+2 + 2
+a = 2 + 2
+a
+a = 7 - 2
+a
+b = 2 * 3
 b - 1
 b**2
 
 # Python packages #
-import math         # In [5]
+import math
 math.sqrt(2)
-from math import * # In [6]
+from math import sqrt
 sqrt(2)
 
 # Numeric types #
-type(a)             # In [7]
-b = math.sqrt(2)    # In [8]
+type(a)
+b = math.sqrt(2)
 type(b)
-type(2)             # In [9]
-type(2.0)           # In [10]
-float(2)            # In [11]
-int(2.3)            # In [12]
+type(2)
+type(2.0)
+float(2)
+int(2.3)
 
-# Boolean variables #
-d = 5 < a           # In [13]
+# Boolean data #
+d = 5 < a
 d
-type(d)             # In [14]
-a == 4              # In [15]
-math.sqrt(d)        # In [16]
-1 - d               # In [17]
+type(d)
+a == 4
+math.sqrt(d)
+1 - d
 
 # Strings #
-c = 'Messi'         # In [18]
+c = 'Messi'
 type(c)
 
 # Lists #
-mylist = ['Messi', 'Cristiano', 'Neymar', 'Coutinho']    # In [19]
-len(mylist)                                              # In [20]
-newlist = mylist + [2, 3]                                # In [21]
+mylist = ['Messi', 'Cristiano', 'Neymar', 'Coutinho']
+len(mylist)
+newlist = mylist + [2, 3]
 newlist
-len(newlist)                                        # In [22]
-mylist[0:2]                                         # In [23]
-mylist[3:]                                          # In [24]
-mylist[:3]                                          # In [25]
+len(newlist)
+mylist[0:2]
+mylist[2:]
+mylist[:3]
 
-# Other data containers #
-set(newlist)                                        # In [26]
-list(set([1, 0, 1, 0, 7]))                         # In [27]
-mytuple = tuple(mylist)                            # In [28]
-mytuple
-muylist[3] = 'Griezmann'                           # In [29]
-muylist
-mytuple[3] = 'Griezmann'                           # In [30]
-mytuple
-my_dict = {'name': 'Joan', 'gender': 'F', 'age': 32}   # In [31]
-my_dict.keys()                                         # In [32]
-my_dict['name']                                        # In [33]
+# Ranges #
+myrange = range(0, 10, 2)
+list(myrange)
+list(range(5, 12))
+list(range(10))
+
+# Dictionaries #
+my_dict = {'name': 'Joan', 'gender': 'F', 'age': 32}
+my_dict.keys()
+my_dict['name']
 
 # Functions #
-def f(x):                                   # In [34]
+def f(x):
     y = 1/(1 - x**2)
-    return(y)
-f(2)                                        # In [35]
-f(1)                                        # In [36]
-f('Mary')                                   # In [37]
-def g(x, y): return x*y/(x**2 + y**2)       # In [38]
+    return y
+f(2)
+f(1)
+f('Mary')
+def g(x, y): return x*y/(x**2 + y**2)
 g(1, 1)
-f = lambda x: 1/(1 - x**2)                  # In [39]
+
+# For loops #
+squares = []
+for i in range(1, 5):
+    squares = squares + [i**2]
+squares
+squares = [i**2 for i in range(1, 5)]
+squares
+[len(name) for name in mylist]
+
+# If statements #
+if 3 < 5:
+    print('Minor')
+else:
+    print('Major')
+if math.sqrt(1) < 1:
+    print('Minor')
+elif math.sqrt(1) == 1:
+    print('Equal')
+else:
+    print('Major')
+[len(name) for name in mylist if name[0] != 'M']
