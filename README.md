@@ -1,8 +1,8 @@
 # Data Science Course
 
-### 1. What is data science? 
+1. What is data science? 
 
-### 2. Introduction to Python
+2. Introduction to Python
 
 ### 3. NumPy and Pandas
 
