@@ -49,20 +49,24 @@ The **data types** in Python are similar to those of other languages. The data t
 Python has various **data container** types. The most versatile is the **list**, which is represented as a sequence of comma-separated values inside square brackets:
 
 ```
-`mylist = ['Messi', 'Cristiano', 'Neymar', 'Coutinho']`
+mylist = ['Messi', 'Cristiano', 'Neymar', 'Coutinho']
 ```
 
 An item is extracted from a list by indicating its place between square brackets. For instance, `mylist[1]` would return `'Cristiano'` (in Python we start at zero). To extract a sublist with several consecutive terms, we indicate the corresponding range. For instance, `mylist[1:3]` returns the sublist `['Cristiano', 'Neymar']` (in Python, the left limit is included but the right limit is not).
 
 A **range** is like a sequence of integers, but the terms of the sequence are not saved as in a list. Instead, only the procedure to create the sequence is saved. The syntax is:
 
-`myrange = range(start, end, step)`
+```
+myrange = range(start, end, step)
+```
 
 If the step is omitted, it is assumed to be `step=1`. If the start is also omitted, it is assumed to be `start=0`.
 
 A **dictionary** is a set of **pairs key/value**. For instance, the following dictionary contains three features of an individual:
 
-`mydict = {'name': 'Joan', 'gender': 'F', 'age': 32}`
+```
+mydict = {'name': 'Joan', 'gender': 'F', 'age': 32}
+```
 
 An item is extracted from a dictionary using the corresponding key. For instance, `mydict['name']` would return `'Joan'`. 
 
@@ -74,6 +78,8 @@ A **function** takes a collection of **arguments** and performs an action. The f
 
 A simple example of a user-defined function would be:
 
-`def f(x): return 1/(1 - x**2)`
+```
+def f(x): return 1/(1 - x**2)
+```
 
-Longer definitions can involve several lines of code. In that case, all the lines after the colon must be *indented*. Jupyter interfaces create the indentation automatically when we press the *Return* key after
+Longer definitions can involve several lines of code. In that case, all the lines after the colon must be *indented*. Jupyter interfaces create the indentation automatically when we press the *Return* key after the colon.
