@@ -39,13 +39,13 @@ A **wildcard** is a symbol which can match any single character (letter, digit, 
 The Pandas methods `str.contains`, `str.findall`, `str.replace` and `str.split` accept a regular expression as a matching pattern, with the argument `regex=True`, but read the pattern as a fixed string with `regex=False`. For instance, 
 
 ```
-s.str.replace('. ', repl, regex=False)` 
+s.str.replace('. ', repl, regex=False) 
 ```
 
 replaces every instance of the string made by a dot plus a white space by the string `repl`, but 
 
 ```
-s.str.replace('. ', repl, regex=True)` 
+s.str.replace('. ', repl, regex=True) 
 ```
 
 replaces any single character (letter, digit, whitespace, etc), followed by a white space by `repl`.
