@@ -1,4 +1,4 @@
-# [DS-05E] Example - Barcelona Airbnb listings
+# Example - Barcelona Airbnb listings
 
 ## Introduction
 
