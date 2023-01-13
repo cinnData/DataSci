@@ -1,4 +1,4 @@
-# [DS-04E] Example - Assessing home values in West Roxbury
+# Example - Assessing home values in West Roxbury
 
 ## Introduction
 
