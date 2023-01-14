@@ -18,7 +18,7 @@ Jupyter provides an alternative approach, based on the **notebook** concept. In 
 
 Besides the Jupyter tools, Anaconda also provides a Python IDE (Integrated Development Environment) called **Spyder**, where you can manage a console and an text editor for your code. If you have previous experience with this type of interface, for instance from working with R in RStudio, you may prefer Spyder to Qt Console.
 
-Alternatively, you can bypass the navigator calling those interfaces in a shell application. To start Qt Console, enter `jupyter qtconsole`. To get access to the notebooks in the default browser, enter `jupyter notebook`. To start Spyder, enter ``spyder``.
+Alternatively, you can bypass the navigator calling those interfaces in a shell application. To start Qt Console, enter `jupyter qtconsole`. To get access to the notebooks in the default browser, enter `jupyter notebook`. To start Spyder, enter `spyder`.
 
 *Note*. Use *Terminal* in Mac and *Anaconda Prompt* in Windows. Don't use the standard Windows prompt, because it will not find the Anaconda apps unless you specify the path.
 
