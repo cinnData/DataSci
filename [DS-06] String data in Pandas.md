@@ -10,6 +10,8 @@ Non-ASCII characters can be encoded by different computers or different text edi
 
 The preferred **encoding** is **UTF-8** (`utf-8`), which is the default encoding in Macintosh computers. Reading and writing text files in Pandas, the argument `encoding` allows you to manage both UTF-8 and the alternative encoding **Latin-1** (`latin1`). Windows computers use their own system, which is region specific. In US and Western Europe, this is **Windows-1252**, which is very close to Latin-1, though not exactly the same.
 
+----
+
 ## Strings as sequences
 
 In Python, strings and lists are two types of **sequences**, and some basic methods are common to both types. A string can be regarded as a list of characters. For instance, the function `len` gives you the number of characters of a string:
