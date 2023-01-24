@@ -357,6 +357,8 @@ Note that, in the definition of `g`, I have used a shorter way. Most programmers
 
 ## Homework
 
-1. Write a Python function which, given three integers, returns `True` if any of them is zero, and `False` otherwise.
+1. Use Python to evaluate the expressions `1/3 + 1/3 == 2/3` and `4/3 + 1/3 + 1/3 == 4/3 + 2/3`. Do you get what you expected? Why?
+ 
+2. Write a Python function which, given three integers, returns `True` if any of them is zero, and `False` otherwise.
 
-2. Write a Python function which, given three integers, returns `True` if they are in order from smallest to largest, and `False` otherwise.
+3. Write a Python function which, given three integers, returns `True` if they are in order from smallest to largest, and `False` otherwise.
