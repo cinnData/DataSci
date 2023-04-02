@@ -2,33 +2,33 @@
 
 ## What is Python?
 
-**Python** is a programming language, introduced in 1991. The latest stable version (when I'm writing this) is Python 3.11. To work with Python, you will pick an interface to a Python interpreter among the many available choices. You can have several instances of the interpreter, called **kernels**, running independently in your computer.
+**Python** is a programming language, introduced in 1991. The latest stable version (when this is being written) is Python 3.11. To work with Python, you will pick an interface to a Python interpreter among the many available choices. You can have several instances of the interpreter, called **kernels**, running independently in your computer.
 
 Warning: Python is **case sensitive**. For instance, `type` is a Python function which returns the type of an object, but `Type` is not recognized (unless you create a new object with this name), and will return an error message.
 
 ## The Anaconda distribution
 
-There are many distributions of Python. In the data science community, **Anaconda** (`anaconda.com`) is the favorite one. The current Anaconda distribution comes with Python 3.9. Downloading and installing Anaconda leaves you with the **Anaconda Navigator**, which opens in the browser and allows you to choose among different interfaces to the Python interpreter. Alternatively, once Anaconda is installed, you can bypass the navigator by calling the interface from a **shell application** (meaning Terminal in Mac computers and Anaconda Prompt in Windows computers).
+There are many distributions of Python. In the data science community, **Anaconda** (`anaconda.com`) is the favorite one. The current Anaconda distribution comes with Python 3.9. Downloading and installing Anaconda leaves you with the **Anaconda Navigator**, which opens in the browser and allows you to choose among different interfaces to the Python interpreter. 
 
-Among the many interfaces offered by Anaconda, I recommend you **Jupyter Qt Console**, which is a shell-like app with some extra features. Jupyter (Julia/Python/R) is a new name for an older project called **IPython** (Interactive Python). IPython's contribution was the IPython shell, which added some features to the mere Python language. Qt Console is the result of adding a graphical interface (GUI), with drop-down menus, mouse-clicking, etc, to the IPython shell, with a toolkit called Qt.
+Among the many interfaces offered by Anaconda, I recommend you **Jupyter Qt Console**, which is a shell-like app with some extra features. Jupyter (Julia/Python/R) is a new name for an older project called **IPython** (Interactive Python). IPython's contribution was the IPython shell, which added some features to the mere Python language. Qt Console is the result of adding a graphical interface (GUI), with drop-down menus, mouse-clicking, etc, to the IPython shell, by means of a toolkit called Qt.
 
-Part of the popularity of the IPython shell was due to the **magic commands**, which were extra commands written as %cmd. For instance, %cd allowed you to change the **working directory**. These commands are not part of Python. Some textbooks and tutorials are still very keen on magic commands, which are occasionally mentioned in this course. To get more information about them, enter %quickref in the console. Although, in practice, you can omit the percentage sign (so %cd works exactly the same as cd), it is always safer to keep using it to distinguish the magic commands, which are NOT Python, from the Python code.
+Part of the popularity of the IPython shell was due to the **magic commands**, which were extra commands written as `%cmd`. For instance, `%cd` allowed you to change the **working directory**. These commands are not part of Python. Some textbooks and tutorials are still very keen on magic commands, which are occasionally mentioned in this course. To get more information about them, enter `%quickref` in the console. Although, in practice, you can omit the percentage sign (so `%cd` works exactly the same as `cd`), it is always safer to keep using it to distinguish the magic commands, which are NOT Python, from the Python code.
 
-Jupyter provides an alternative approach, based on the **notebook** concept. In a notebook, you can combine input, output and ordinary text. In the notebook arena, **Jupyter Notebook** is the leading choice. Notebooks are multilingual, that is, they can be used with other languages, like R, besides Python. Most data scientists prefer the console for developing their code, but use notebooks for diffusion, specially for posting their work on platforms like GitHub.
+Jupyter provides an alternative approach, based on the **notebook** concept. In a notebook, you can combine input, output and ordinary text. In the notebook arena, **Jupyter Notebook** is the leading choice. Notebooks are multilingual, that is, they can be used, not only with Python, but also with other languages like R. Most data scientists prefer the console for developing their code, but use notebooks for diffusion, specially for posting their work on platforms like GitHub.
 
 Besides the Jupyter tools, Anaconda also provides a Python IDE (Integrated Development Environment) called **Spyder**, where you can manage a console and an text editor for your code. If you have previous experience with this type of interface, for instance from working with R in RStudio, you may prefer Spyder to Qt Console.
 
-Alternatively, you can bypass the navigator calling those interfaces in a shell application. To start Qt Console, enter `jupyter qtconsole`. To get access to the notebooks in the default browser, enter `jupyter notebook`. To start Spyder, enter `spyder`.
+Once Anaconda is installed, you can bypass the navigator by calling your preferred interface from a **shell application** (meaning Terminal in Mac computers and Anaconda Prompt in Windows computers). To start Qt Console, enter `jupyter qtconsole`. To get access to the notebooks in the default browser, enter `jupyter notebook`. To start Spyder, enter `spyder`.
 
-*Note*. Use *Terminal* in Mac and *Anaconda Prompt* in Windows. Don't use the standard Windows prompt, because it will not find the Anaconda apps unless you specify the path.
+*Note*. Use *Anaconda Prompt* in Windows, instead of the standard Windows prompt, which will not find the Anaconda apps unless you change the path.
 
 ## Typing Python code
 
-Let me assume that you are using Jupyter Qt Console, though almost everything would be also valid in other interfaces, with minor adjustments. When you start the console, it opens a window where you can type or paste your code. You can resize the window and zoom inside it as in many other applications.
+Let me assume that you are using Jupyter Qt Console, though almost everything would also be valid in other interfaces, with minor adjustments. When you start the console, it opens a window where you can type or paste your code. You can resize the window and zoom inside it as in many other applications.
 
 The console can have several tabs open, just as a browser. To open a new tab, enter either *Cmd+T* (Mac) or *Ctrl+T* (Windows), or use the menu *File >> New tab with New Kernel*. Every tab is an interface between you and a Python kernel. These kernels run independently. You can interrupt a running process with *Ctrl+C* or restart a kernel in the same tab with *Ctr+.*.
 
-The console produces input prompts (such as `In[1]:`), where you can type a command and press `Return`. Then Python returns either an output (preceded by `Out[1]:`), a (typically long and difficult) error message, or no answer at all. Here is a supersimple example:
+The console produces input prompts (such as `In[1]:`), where you can type a command and press `Return`. Then Python returns either an output (preceded by `Out[1]:`), a (typically long and difficult) error message, or no answer at all. A simple example follows.
 
 ```
 In [1]: 2 + 2
@@ -57,7 +57,7 @@ In [5]: a
 Out[5]: 5
 ```
 
-If you copypaste in the console code chunks from a text editor (which is what you would do if you were working in the console, so you could readily save your code), you can input several code lines at once. In that case, you will only get the output for the last line. If the cursor is not at the end of the last line, you have to press *Shift+Return* to get the output. Here is a simple example:
+If you copypaste in the console code chunks from a text editor (which is what you would do if you were working in the console, so you could readily save your code), you can input several code lines at once. In that case, you will only get the output for the last line. If the cursor is not at the end of the last line, you have to press *Shift+Return* to get the output. An example follows.
 
 ```
 In [6]: b = 2 * 3
@@ -70,16 +70,16 @@ Out[6]: 36
 
 ## Python packages
 
-Many additional resources have been added to Python in the form of **modules**. A module is just a text file containing Python code. Modules are grouped in libraries, also called **packages**, because their elements are packed according to some specific rules which allow you to install and call them together. Python can be extended by more than 300,000 packages. Some big packages, like scikit-learn, are not single modules, but collections of modules, which are then called **subpackages**.
+Many additional resources have been added to Python in the form of **modules**. A module is just a text file containing Python code. Modules are grouped in libraries, also called **packages**, because their elements are packed according to some specific rules which allow you to install and call them together. Python can be extended by more than 300,000 packages. Some big packages are not single modules, but collections of modules, which are then called **subpackages**.
 
-Since the basic Python toolkit (without any package) is quite limited, you will need additional resources for practically everything. For instance, suppose that you want to do some math, and calculate the square root of 2. You will then **import** the package `math`, whose resources include the square root and many other mathematical functions. Once the package has been imported, all its functions are available. You can then apply the function `math.sqrt`. This notation indicates that sqrt is a function of the module math.
+Since the basic Python toolkit (without any package) is quite limited, you will need additional resources for practically everything. For instance, suppose that you want to do some math, and calculate the square root of 2. You will then **import** the package `math`, whose resources include the square root and many other mathematical functions. Once the package has been imported, all its functions are available. You can then apply the function `math.sqrt`. This notation indicates that `sqrt` is a function of the module `math`.
 
 In the console, the square root calculation shows up as:
 
 ```
-In [5]: import math
+In [7]: import math
    ...: math.sqrt(2)
-Out[5]: 1.4142135623730951
+Out[7]: 1.4142135623730951
 ```
 
 Alternatively, you can import only the functions that you plan to use:
@@ -90,15 +90,13 @@ In [8]: from math import sqrt
 Out[8]: 1.4142135623730951
 ```
 
-Packages are imported just for the current kernel. You finish the session by either closing the console or by restarting the kernel. You can do this with *Kernel >> Restart current Kernel* or by typing *Ctrl+.*. You can only import a package only if it is already **installed** in your computer. `math` is part of the **Python Standard Library**, so it is included in any Python distribution.
-
-With Anaconda, most packages used in this course are already available and can be directly imported. If it is not the case, you have to install the package (only once). There is a basic installation procedure in Python, which uses a package installer called `pip` (see `pypi.org/project/pip`). Using `pip` you can have a conflict of versions between packages which are related. If this is the case, you can use an alternative installer called `conda`, which checks your Anaconda distribution, taking care of the conflicts. Mind that, due to all those checks, `conda` is much slower than `pip`.
+Packages are imported just for the current kernel. You can only import a package only if it is already **installed** in your computer. With the Anaconda distribution, all the packages used in this course are already available and can be directly imported. 
 
 ## The main packages
 
-This course does not look at Python as a programming language, that is, as one for developing software applications, but from a very specific perspective. Our approach is mainly based on the **package Pandas**.
+This course does not look at Python as a programming language, but from a very specific perspective. Our approach is mainly based on the **package Pandas**.
 
-In the data science context, teh main Python packages are:
+In the data science context, the main Python packages are:
 
 * **NumPy** adds support for large vectors and matrices, called there **arrays**.
 
@@ -125,7 +123,7 @@ type(b)
 Out[10]: float
 ```
 
-There are subdivisions of these two basic types (such as `int64`), but I skip them in this brief tutorial. Note that, in Python, integers are not, as in the mathematics textbook, a subset of the real numbers, but a different type:
+There are subdivisions of these two basic types (such as `int64`), but we skip them in this brief tutorial. Note that, in Python, integers are not, as in the mathematics textbook, a subset of the real numbers, but a different type:
 
 ```
 In [11]: type(2)
@@ -164,7 +162,7 @@ In [16]: type(d)
 Out[16]: bool
 ```
 
-Even if they don't appear explicitly, Booleans may come under the hood. When you enter an expression involving a comparison such as `5 < a`, the Python interpreter evaluates it, returning either `True` or `False`.  Here, I have defined a variable by means of such an expression, so I got a Boolean variable. Warning: as a comparison operator, equality is denoted by two equal signs. This may surprise you.
+Even if they don't appear explicitly, Booleans may come under the hood. When you enter an expression involving a comparison such as `5 < a`, the Python interpreter evaluates it, returning either `True` or `False`.  Here, we have defined a variable by means of such an expression, so we got a Boolean variable. Warning: as a comparison operator, equality is denoted by two equal signs. This may surprise you.
 
 ```
 In [17]: a == 4
@@ -254,14 +252,14 @@ In [28]: myrange = range(0, 10, 2)
 Out[28]: [0, 2, 4, 6, 8]
 ```
 
-Note that the items from a range cannot printed directly. So, I have converted the range to a list here with the function `list`. If the step is omitted, it is assumed to be 1:
+Note that the items from a range cannot printed directly. So, we have converted the range to a list with the function `list`. If  `step` is omitted, it is assumed to be 1:
 
 ```
 In [29]: list(range(5, 12))
 Out[29]: [5, 6, 7, 8, 9, 10, 11]
 ```
 
-If the start is also omitted, it is assumed to be 0:
+If `start` is also omitted, it is assumed to be 0:
 
 ```
 In [30]: list(range(10))
@@ -358,7 +356,7 @@ Note that, in the definition of `g`, I have used a shorter way. Most programmers
 ## Homework
 
 1. Use Python to evaluate the expressions `1/3 + 1/3 == 2/3` and `4/3 + 1/3 + 1/3 == 4/3 + 2/3`. Do you get what you expected? Why?
- 
+
 2. Write a Python function which, given three integers, returns `True` if any of them is zero, and `False` otherwise.
 
 3. Write a Python function which, given three integers, returns `True` if they are in order from smallest to largest, and `False` otherwise.
