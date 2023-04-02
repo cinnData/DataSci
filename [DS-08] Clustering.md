@@ -1,4 +1,4 @@
-# [DS-09] Clustering
+# [DS-08] Clustering
 
 ## What is a clustering algorithm?
 
