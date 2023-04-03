@@ -4,7 +4,7 @@
 
 In mathematics, a **vector** is a sequence of numbers, and a **matrix** is a rectangular arrangement of numbers. Operations with vectors and matrices are the subject of a branch of mathematics called linear algebra. In Python (and in many other languages), vectors are called one-dimensional (1D) **arrays**, while matrices are called two-dimensional (2D) arrays. Arrays of more than two dimensions can be managed in Python without pain.
 
-Python arrays are not necessarily numeric. Indeed, vectors of dates and strings appear frequently in data science. In principle, all the terms of an ordinary array must have the same type, so the array itself can have a type, although you can relax this constraint using mixed types. Arrays were already implemented in plain Python, but the functionality of the Python arrays was enlarged in NumPy, intended to be the fundamental library for scientific computing in Python.
+Python arrays are not necessarily numeric. Indeed, vectors of dates and strings appear frequently in data science. In principle, all the terms of an ordinary array must have the same type, so the array itself can have a type, though you can relax this constraint using mixed types (not covered by this course). Arrays were already implemented in plain Python, but the functionality of the Python arrays was enlarged in **NumPy**, intended to be the fundamental library for scientific computing in Python.
 
 The usual way to import NumPy is:
 
@@ -129,7 +129,7 @@ In [15]: import pandas as pd
 
 Pandas provides two data container classes, the series (one-dimensional) and the data frames (two-dimensional). A **series** can be understood as the combination of a 1D array containing the **values** and a list containing the names of the values, called the **index**. These components can be extracted as the attributes `values` and `index`.
 
-A **data frame** can be seen as formed by one or several series with the same index (hence, with the same length). It can be seen as a table for which the index provides the row names. In a Pandas data frame, each column has its own data type. The numeric types work as usual, but Pandas uses the data type `object` for many things, in particular for strings.
+A **data frame** can be seen as formed by one or several series with the same index (hence, with the same length). It can also be seen as a table for which the index provides the row names. In a Pandas data frame, each column has its own data type. The numeric types work as usual, but Pandas uses the data type `object` for many things, in particular for strings.
 
 ## Pandas series
 
@@ -161,7 +161,7 @@ In [18]: s1.index
 Out[18]: RangeIndex(start=0, stop=5, step=1)
 ```
 
-Instead of an array, a list can be used to provide the values of a series. In the list, the items can have different type, but Pandas converts them to a common type, as shown in the following example. Here, instead of leting Python to create an index automatically, as a `RangeIndex`, I specify an index directly:
+Instead of an array, a list can be used to provide the values of a series. In the list, the items can have different type, but Pandas converts them to a common type, as shown in the following example. Here, instead of letting the Python kernel to create an index automatically, as a `RangeIndex`, we specify an index directly:
 
 ```
 s2 = pd.Series([1, 5, 'Messi'], index = ['a', 'b', 'c'])
@@ -240,7 +240,7 @@ Data frames can also be extracted from a data source (local or remote), such as 
 
 ## Exploring Pandas objects
 
-The functions `head` and `tail` extract the first and the last rows of a data frame, respectively. The default number of rows extracted is 5, but you can pass a custom number.
+The methods `head` and `tail` extract the first and the last rows of a data frame, respectively. The default number of rows extracted is 5, but you can pass a custom number.
 
 ```
 In [26]: df.head(2)
@@ -250,7 +250,7 @@ Out[26]:
 1   1  b -1.3
 ```
 
-The content of a data frame can also be explored with the function `info`. It reports the dimensions, the data type and the number of non-missing values of every column of the data frame. Note that the data type of the second column, for which you would have expected `str`, is reported as `object`. Don't worry about this, you can apply string functions to this column, as will be seen later in this course.
+The content of a data frame can also be explored with the method `info`. It reports the dimensions, the data type and the number of non-missing values of every column of the data frame. Note that the data type of the second column, for which you would have expected `str`, is reported as `object`. Don't worry about this, you can apply the string methods to this column, as will be seen later in this course.
 
 ```
 In [27]: df.info()
@@ -266,7 +266,7 @@ dtypes: float64(1), int64(1), object(1)
 memory usage: 248.0+ bytes
 ```
 
-The function `describe` returns a conventional statistical summary. The columns of type `object` are omitted, except when all the columns have that type. Then the report contains only counts. This function also works for series.
+The method `describe` extracts a conventional statistical summary of a Pandas object. The columns of type `object` are omitted, except when all the columns have that type. Then the report contains only counts. 
 
 ```
 In [28]: df.describe()
@@ -297,7 +297,7 @@ Out[29]:
 Name: v2, dtype: object
 ````
 
-You can also extract a **data subaframe** containing a subset of complete columns from a data frame. You can specify this with a list containing the names of those columns:
+Note that the syntax is the same as for extracting the value of a key from a dictionary (not by chance). You can also extract a **data subaframe** containing a subset of complete columns from a data frame. You can specify this with a list containing the names of those columns:
 
 ```
 In [30]: df[['v1', 'v2']]
@@ -332,7 +332,7 @@ Out[32]:
 4   4  e
 ```
 
-Besides this, there are two additional ways to carry out a selection:
+Besides this, there are two additional ways to carry out a selection, specifying rows and columns in one shot:
 
 * **Selection by label** is specified by adding  `.loc` after the name of the data frame. The selection of the rows is based on the index, and that of the columns is based on the column names.
 
@@ -342,4 +342,4 @@ In both cases, if you enter a single specification inside the brackets, it refer
 
 ## Homework
 
-1. For `x = np.array([True, False])` and `y = np.array([True, True])`, calculate `~x`, `x & y` and `x | y`. What is the meaning of these operations?
+For `x = np.array([True, False])` and `y = np.array([True, True])`, calculate `~x`, `x & y` and `x | y`. What is the meaning of these operations?
