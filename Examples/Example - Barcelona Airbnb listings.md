@@ -4,11 +4,11 @@
 
 **Airbnb** is a peer-to-peer online marketplace and homestay network, which enables people to list or rent short-term lodging in residential properties, with the cost of such accommodation set by the property owner. The company receives percentage service fees from both guests and hosts in conjunction with every booking. Starting in 2008, it has grown exponentially, and it currently has over 2 million listings in about 200 countries.
 
-Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The update posted in July 2019 covers 101 areas, most of them in US and Europe. This example uses data from Barcelona, captured on April 14th, 2019. 
+Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The update posted in July 2019 covers 101 areas, most of them in US and Europe. This example uses data from Barcelona, captured on April 14th, 2019.
 
 ## The data set
 
-The file `airbnb.csv` contains data on 18,302 Airbnb listings in Barcelona. The language in the descriptions is typically English or Spanish (with exceptions). The text comes in UTF-8 encoding, so special characters may not be correctly shown (in Spanish words such as 'habitación') in Windows machines and Microsoft applications. 
+The file `airbnb.csv` contains data on 18,302 Airbnb listings in Barcelona. The language in the descriptions is typically English or Spanish (with exceptions). The text comes in UTF-8 encoding, so special characters may not be correctly shown (in Spanish words such as 'habitación') in some applications like Excel.
 
 The variables are:
 
@@ -32,17 +32,17 @@ The variables are:
 
 * `number_of_reviews`, the number of reviews of that listing that have been posted.
 
-* `review_scores_rating`, the average reviewers' rating of overall experience (*What was your guest’s overall experience?*). Listings are rated in the range 1-100. 
+* `review_scores_rating`, the average reviewers' rating of overall experience (*What was your guest’s overall experience?*). Listings are rated in the range 1-100.
 
 Source: Inside Airbnb, edited.
 
 ## Questions
 
-Q1. How many duplicates do you find in this data set? Drop them. 
+Q1. How many duplicates do you find in this data set? Drop them.
 
-Q2. The attribute `host_since` is the date of the host's first listing in Airbnb. For how many listings the host started before 2010? How many hosts started before that year? 
+Q2. The attribute `host_since` is the date of the host's first listing in Airbnb. For how many listings the host started before 2010? How many hosts started before that year?
 
-Q3. What is the proportion of listings whose rating is missing? 
+Q3. What is the proportion of listings whose rating is missing?
 
 Q4. Use a histogram to explore the distribution of the price. Is it useful? Maybe not, since some very expensive listings distort the whole picture. How can you trim the data, dropping the most expensive listings, to get a better picture?
 
