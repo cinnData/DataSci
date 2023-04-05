@@ -8,7 +8,7 @@ The crossing or exchanging of books may take various forms, including wild-relea
 
 BookCrossing was launched on April 21, 2001. By November 2019, there were over 1.9 million members and over 13 million books traveling through 132 countries, of which over 25 thousand books newly "released in the wild" in the previous month across over 60 countries. Over 80% of the books were released in the eight most active countries (Germany, United States, Spain, Italy, Australia, United Kingdom, the Netherlands and Brasil). The world's first official International BookCrossing Day took place on April 21st, 2014.
 
-Cai-Nicolas Zeigler collected over one million ratings of books from the BookCrossing website. Since the books are identified by the ISBN, what we call here a book is, really, an edition of a book. Popular books, such as *Harry Potter and the Sorcerer's Stone*, have several editions in this database. Individual users come mixed with book rings, so some of the users have a very high number of book pickings. Since these rings also rate the books, they have not been removed. 
+Cai-Nicolas Zeigler collected over one million ratings of books from the BookCrossing website. Since the books are identified by the ISBN, what we call here a book is, really, an edition of a book. Popular books, such as *Harry Potter and the Sorcerer's Stone*, have several editions in this database. Individual users come mixed with book rings, so some of the users have a very high number of book pickings. Since these rings may also rate the books (with a single rating), they have not been removed. 
 
 ## The data set
 
@@ -26,13 +26,13 @@ The file `book_items.csv` contains information about 271,360 books on circulatio
 
 * `title`, the title of the book.
 
-* `author`, the book's author, obtained from Amazon Web Services. In case of several authors, only the first one is provided. One value missing.
+* `author`, the book's author, obtained from Amazon Web Services. In case of several authors, only the first one is provided. One value is missing.
 
 * `year`, the year of publication, obtained from Amazon Web Services. 1.7% of the values are missing.
 
 * `publisher`, the book's publisher, obtained from Amazon Web Services. Two values are missing.
 
-* `image`, an URL linking to cover images. These URLs point to the Amazon web site. Two values are missing.
+* `image`, an URL linking to the cover image. These URL's point to the Amazon web site. Two values are missing.
 
 The file `book_ratings.csv` contains 1,031,136 ratings. The columns are:
 
@@ -54,4 +54,4 @@ Q3. Which books have been rated highest? Restrict the search to the titles that 
 
 Q4. How many editions of the SF classic *The Martian Chronicles* are offered by BookCrossing?
 
-Q5. From the data provided, extract a list of 5 books to be recommended to users having picked *The Martian Chronicles*.
+Q5. From the data provided, extract a list of 5 books to be recommended to users having picked *The Martian Chronicles*. A simple approach would be to search for the titles that have been picked more often by the users who have also picked *The Martian Chronicles*.
