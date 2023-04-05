@@ -2,13 +2,13 @@
 
 ## Introduction
 
-More than 50,000 job offers are posted at the **Amazon Jobs** website (`amazon.jobs/en-gb`). Given The interest of the data for the community, a **web scraping** project at IESE Business School was started, with the focus on this website. It was discovered that the information shown at the Amazon Jobs pages were loaded from JSON documents which could be accessed directly at `amazon.jobs/en-gb/search.json`. So the project was reoriented and the data were extracted directly from the JSON documents, captured by playing with the URL parameters at that site.
+More than 50,000 job offers are posted at the **Amazon Jobs** website (`amazon.jobs/en-gb`). Given the interest of these data for the community, a **web scraping** project at IESE Business School was started, with the focus on this website. It was discovered that the information shown at the Amazon Jobs pages was loaded from JSON documents which could be accessed directly at `amazon.jobs/en-gb/search.json`. So the project was reoriented and the data were extracted directly from the JSON documents, captured by playing with the URL parameters at that site.
 
 This example is based on a data subset resulting from selecting the job category **Software Development** and the business category **Amazon Web Services** (AWS).
 
 ## The data set
 
-The file `amzn.csv` contains data for 8,116 software developement positions at AWS, captured in November 2021. The variables are:
+The file `amzn.csv` (zipped) contains data for 8,116 software developement positions at AWS, captured in November 2021. The variables are:
 
 * `id`, a unique identifier for the position. Example: '996246'.
 
@@ -34,7 +34,7 @@ The file `amzn.csv` contains data for 8,116 software developement positions at A
 
 ### Questions
 
-Q1. Leaving aside the job ID, which is unique for every job, how many duplicates do you find in this data set? Drop the duplicates, so all the positions are different, in at least one field. 
+Q1. Leaving aside the job ID, which is unique for every job posting, how many duplicates do you find in this data set? Drop the duplicates, so all the positions are different, in at least one field. 
 
 Q2. Which are the top-ten locations for software developement at AWS? Suppose that a potential candidate is interested in finding a position in India. Does Amazon have something for him/her? In which locations? Is the city always included in the location data?
 
