@@ -10,7 +10,7 @@ The data set (file `aapl.csv`) covers 251 trading days. The data come in the typ
 
 The variables are:
 
-* `date`, the date, as `'yyyy-mm-dd'`.
+* `date`, the date, as 'yyyy-mm-dd'.
 
 * `open`, the price (US dollars) of the stock at the beginning of the trading day. It can be different from the closing price of the previous trading day.
 
@@ -28,7 +28,7 @@ Source: `finance.yahoo.com/quote/AAPL/history?p=AAPL`.
 
 ## Questions
 
-Q1. Import the data to a Pandas data frame in such a way that the dates became the index of the data frame, in a `DatetimeIndex` format.
+Q1. Import this data set to a Pandas data frame with the dates as index, in a `DatetimeIndex` format.
 
 Q2. Use that index to extract the data for the trading days previous to January 15th. 
 
