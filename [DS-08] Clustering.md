@@ -30,7 +30,7 @@ It is not rare, in real data, that some features show a much higher variation th
 
 **In min-max normalization**, all the features are forced, through a linear transformation, into the 0-1 range. The formula for this transformation is
 
-$$Z=\frac{X-\min(X)}{\max(X)-\min(X)}{\,}.$$
+$$Z=\frac{X-\min(X)}{\max(X)-\min(X)}\hbox{\thinspace}.$$
 
 Some methods of statistical analysis require the variables to have zero mean and unit variance, so you may find in textbooks the formula
 
