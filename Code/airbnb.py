@@ -3,8 +3,8 @@
 # Importing the data #
 import pandas as pd
 path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
-fname = path + 'airbnb.csv'
-df = pd.read_csv(fname, index_col=0)
+filename = path + 'airbnb.csv'
+df = pd.read_csv(filename, index_col=0)
 df.info()
 df.isna().sum()
 df.head()
