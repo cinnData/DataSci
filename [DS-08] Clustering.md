@@ -55,7 +55,7 @@ Suppose that you wish to group the samples in $k$ clusters using $p$ numeric fea
 
 The centers can also be used to assign a cluster to a new sample which has not been used to find the centers. We just select the cluster whose center is closer to that new sample.
 
-In real-world applications, we look at the center as an artificial sample which we consider as the ``typical element'' of the cluster. The values that this artificial sample takes for the different features are used to produce a description of the cluster, as far as that makes sense. This is the typical approach in customer segmentation. So a marketing manager can describe a segment of customers as individuals above 60, with annual family income between $100,000 and $250,000, who frequently watch soap opera TV comedy series. This would really be a description of the center of that segment.
+In real-world applications, we look at the center as an artificial sample which we consider as the "typical element'' of the cluster. The values that this artificial sample takes for the different features are used to produce a description of the cluster, as far as that makes sense. This is the typical approach in customer segmentation. So a marketing manager can describe a segment of customers as individuals above 60, with annual family income between $100,000 and $250,000, who frequently watch soap opera TV comedy series. This would really be a description of the center of that segment.
 
 The methods that use this approach differ on how the centers are extracted from the training data. Let us see how it works in the $k$-means clustering algorithm.
 
@@ -73,27 +73,27 @@ The $k$-means search is iterative. The steps are:
 
 * Create $k$ clusters so that every sample is in the same cluster as the closest center (in the  Euclidean distance).
 
-* Take the average of every cluster as the new center and reassign the samples based on the new centers.
+* Take the average of every cluster as the new center and cluster the samples around the new centers.
 
 * Iterate until a prespecified stopping criterion is met.
 
-* The algorithm returns the collection of centers and a vector containing the **cluster labels**.
+* The algorithm returns the collection of centers and a vector containing the **cluster labels**, which indicate the cluster membership.
 
 Despite some drawbacks, $k$-means remains the most widely used clustering algorithm. It is simple, easily understandable and reasonably scalable, and it can be easily modified to deal with streaming data.
 
-In $k$-means clustering, you have to specify the number of clusters $k$. Even if this is something on which you do not have a definite number, you will probably have a preliminary idea, so you will work around that. For instance, you may wish to have a number of clusters from 3 to 6. You will then try $k = 3, 4, 5, 6$, comparing the results. You will probably consider the cluster sizes, since you do not want clusters which are too small, and you will monitor how the clusters change when you increase the number of clusters.
+In $k$-means clustering, you have to specify the number of clusters. Even if this is something on which you do not have a definite number, you will probably have a preliminary idea, so you will work around that. For instance, you may wish to have a number of clusters from 3 to 6. You will then try $k = 3, 4, 5, 6$, comparing the results. You will probably consider the cluster sizes, since you do not want clusters which are too small, and you will monitor how the clusters change when you increase the number of clusters.
 
-**Stability** is expected from a respectable segmentation. First, mind that, due to the random start, two runs of the $k$-means clustering can give different results. The difference should not be relevant. 
+**Stability** is expected from a respectable segmentation. Mind that, due to the random start, two runs of the $k$-means clustering can give different results. The difference should not be relevant. 
 
 ## *k*-means clustering in Python
 
-*k*-means clustering is available in the Python packages **SciPy** and scikit-learn, both included in the Anaconda distribution. This is not difficult to manage if you have a clear mind about what you want to extract from the data, meaning:
+$k$-means clustering is available in the Python packages SciPy and scikit-learn, both included in the Anaconda distribution. This is not difficult to manage if you have a clear mind about what you want to extract from the data, meaning:
 
 * A vector, of length equal to the number of rows of the data set, containing the cluster labels.
 
 * A matrix with one row for every center. For every row, the terms of that row would be the mean values of the features on the corresponding cluster.
 
-I explain here the SciPy option. *k*-means clustering is provided by the subpackage `scipy.cluster.vq`. You can import it, with a friendly name, as:
+I explain here the **SciPy** version. $k$-means clustering is provided by the subpackage `scipy.cluster.vq`. You can import it, with a friendly name, as:
 
 ```
 import scipy.cluster.vq as cluster
