@@ -3,8 +3,8 @@
 # Importing the data (edit path) #
 import pandas as pd
 path = 'Dropbox/ds_course/data/'
-fname = path + 'roxbury.csv'
-df = pd.read_csv(fname)
+filename = path + 'roxbury.csv'
+df = pd.read_csv(filename)
 df.shape
 df.index
 df.columns
