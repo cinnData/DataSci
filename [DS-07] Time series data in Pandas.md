@@ -2,11 +2,11 @@
 
 ## Date and datetime
 
-In computer environments, we usually find two **time data types**, called `date` and `datetime` (or `timestamp`). In type `date` we store dates, that is, year, month and day. Software applications for data management and analysis can deal with different date formats. The default format for dates in most languages, including Python, is `'yyyy-mm-dd'`. I advise you to use this format everywhere. Under the hood, a variable of type `date` is just a number, the number of days since a time origin, which typically (in particular in Python) is `'1970-01-01'`.
+In computer environments, we usually find two **time data types**, called `date` and `datetime` (or `timestamp`). In type `date` we store dates, that is, year, month and day. Software applications for data management and analysis can deal with different date formats. The default format for dates in most languages, including Python, is `'yyyy-mm-dd'`. I advise you to use this format everywhere. 
 
-In data type `datetime`, we also store hour, minute and second. The preferred format is `yyyy-mm-dd hh:mm:ss`. In some languages, an indication of the time zone is added at the end. Examples are CET (Central European Time), CEST (Central European Summer Time), GMT (Greenwich Mean Time) and UTC (Coordinated Universal Time). A datetime is just the number of seconds since the time origin.
+In data type `datetime`, we also store hour, minute and second. The preferred format is `yyyy-mm-dd hh:mm:ss`. In some languages, an indication of the time zone is added at the end. Examples are CET (Central European Time), CEST (Central European Summer Time), GMT (Greenwich Mean Time) and UTC (Coordinated Universal Time). Under the hood, a datetime is just the number of seconds since a time origin, recorded down to the microsecond. The time origin in Python is `1970-01-01 01:00:00`. 
 
-Data of type `datetime` can be managed in many ways in Python, by means of different packages. In the standard library, we have the package `datetime`, recommended for dealing with times one by one. The functions `datetime.date` and `datetime.datetime` can be used to create dates and datetimes. The dates are just datetimes in disguise, that is, the date `'1954-04-30'` is the same as the datetime `'1954-04-30 00:00:00'`.
+Data of type `datetime` can be managed in many ways in Python, by means of different packages. In the Python Standard Library, we have the package `datetime`, recommended for dealing with times one by one. The functions `datetime.date` and `datetime.datetime` can be used to create dates and datetimes. The dates are just datetimes in disguise, that is, the date `1954-04-30` is the same as the datetime `1954-04-30 00:00:00`.
 
 The Python `date` and `datetime` types became obsolete when the type `datetime64` was introduced in NumPy. In this data type, times are recorded down to the nanosecond. So, a `datetime64` is just the number of nanoseconds since the time origin. 
 
