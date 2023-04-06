@@ -34,7 +34,7 @@ $$Z=\frac{X-\min(X)}{\max(X)-\min(X)}\hbox{\thinspace}.$$
 
 Some methods of statistical analysis require the variables to have zero mean and unit variance, so you may find in textbooks the formula
 
-$$Z=\frac{X-\bar X}{\textrm{std}(X)}\,.$$
+$$Z=\frac{X-\bar X}{\textrm{std}(X)}\hbox{\thinspace}.$$
 
 This is called **standardization**. These transformations are available in some Python packages, like scikit-learn. You can also create a specific function for your preferred normalization formula. For the min-max normalization, this would be:
 
