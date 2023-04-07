@@ -48,7 +48,7 @@ Source: Daqing Chen, School of Engineering, London South Bank University, London
 
 ## Questions
 
-Q1. Create a new column indicating, for every transaction, the number of days from the date the invoice was generated to the last day in the data set (2009-12-09).
+Q1. Create a new column indicating, for every transaction, the number of days from the date the invoice was generated to the last day in the data set (2011-12-09).
 
 Q2. Group by customer and aggregate to create the RFM data set. In this new data set there should be three columns: (a) `Recency`, obtained by averaging the variable suggested in the preceding question , (b) `Frequency`, obtained by counting the number of transactions per customer, and (c) `Monetary`, obtained by summing the money spent per customer.
 
