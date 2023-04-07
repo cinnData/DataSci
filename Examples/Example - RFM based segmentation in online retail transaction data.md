@@ -54,5 +54,5 @@ Q2. Group by customer and aggregate to create the RFM data set. In this new data
 
 Q3. Perform a 8-cluster analysis of the RFM data set. 
 
-Q4. Convert every dimension in this RFM data set to a binary scale (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with that of the preceding question and discuss. 
+Q4. Convert every dimension of the RFM data set to a binary scale (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with that of the preceding question and discuss. 
 
