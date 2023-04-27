@@ -164,8 +164,8 @@ Out[18]: RangeIndex(start=0, stop=5, step=1)
 Instead of an array, a list can be used to provide the values of a series. In the list, the items can have different type, but Pandas converts them to a common type, as shown in the following example. Here, instead of letting the Python kernel to create an index automatically, as a `RangeIndex`, we specify an index directly:
 
 ```
-s2 = pd.Series([1, 5, 'Messi'], index = ['a', 'b', 'c'])
-s2
+In [19]: s2 = pd.Series([1, 5, 'Messi'], index = ['a', 'b', 'c'])
+    ...: s2
 Out[19]:
 a        1
 b        5
