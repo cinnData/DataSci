@@ -32,7 +32,7 @@ Exploring data, we often use tables. They can be produced in various ways in Pan
 
 * The method `value_counts` extracts a **frequency table** as a series. The table contains the counts of the occurrences of every value of a given series. It does not include the missing values.
 
-* The function `crosstab` extracts a simple **cross tabulation** as a Pandas data frame. For two series of the same length `s1` and `s2`, the syntax is `pd.crosstab(s1, s2)`. Then `s1` will be placed on the rows and `s2` on the columns. By default, `crosstab` extracts a frequency table, unless an array of values and an **aggregation function** are passed, eg as `values=s3` and `aggfunc=fname`.
+* The function `crosstab` extracts a simple **cross tabulation** as a Pandas data frame. For two series of the same length `s1` and `s2`, the syntax is `pd.crosstab(s1, s2)`. Then `s1` will be placed on the rows and `s2` on the columns. By default, `crosstab` extracts a frequency table, unless an array of values and an **aggregation function** are passed, *e.g*. as `values=s3` and `aggfunc=fname`.
 
 * The function `pivot_table` extracts a **spreadsheet-style pivot table** as a data frame. For a Pandas data frame `df`, the syntax is `pd.pivot_table(df, values=cname1, index=cname2)`. This returns a one-way table containing the average value of `cname1` for the groups defined by `cname2`. Instead of the average, you can get a different summary by adding an argument `aggfunc=fname`. With an additional argument `columns=cname3`, you get a two-way table. For two-way tables, it works the same as `crosstab`, but it only applies to columns from the same data frame.
 
