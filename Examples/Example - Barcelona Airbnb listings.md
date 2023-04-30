@@ -4,11 +4,11 @@
 
 **Airbnb** is a peer-to-peer online marketplace and homestay network, which enables people to list or rent short-term lodging in residential properties, with the cost of such accommodation set by the property owner. The company receives percentage service fees from both guests and hosts in conjunction with every booking. Starting in 2008, it has grown exponentially, and it currently has over 2 million listings in about 200 countries.
 
-Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The update posted in July 2019 covers 101 areas, most of them in US and Europe. This example uses data from Barcelona, captured on April 14th, 2019.
+Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The updates posted in March 2023 covers 116 areas, most of them in US and Europe. This example uses data from Barcelona.
 
 ## The data set
 
-The file `airbnb.csv` contains data on 18,302 Airbnb listings in Barcelona. The language in the descriptions is typically English or Spanish (with exceptions). The text comes in UTF-8 encoding, so special characters may not be correctly shown (in Spanish words such as 'habitación') in some applications like Excel.
+The file `airbnb.csv` contains data on 15,655 Airbnb listings in Barcelona. The language in the descriptions is typically English or Spanish (with exceptions). The text comes in UTF-8 encoding, so special characters may not be correctly shown (in Spanish words such as 'habitación') in some applications like Excel.
 
 The variables are:
 
