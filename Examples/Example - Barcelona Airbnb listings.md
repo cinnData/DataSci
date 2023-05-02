@@ -4,7 +4,7 @@
 
 **Airbnb** is a peer-to-peer online marketplace and homestay network, which enables people to list or rent short-term lodging in residential properties, with the cost of such accommodation set by the property owner. The company receives percentage service fees from both guests and hosts in conjunction with every booking. Starting in 2008, it has grown exponentially, and it currently has over 2 million listings in about 200 countries.
 
-Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The updates posted in March 2023 covers 116 areas, most of them in US and Europe. This example uses data from Barcelona.
+Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The updates posted in March 2023 cover 116 areas, most of them in US and Europe. This example uses data from Barcelona.
 
 ## The data set
 
@@ -20,15 +20,17 @@ The variables are:
 
 * `name`, the listing's name. A minimal description (maximum 35 characters) of the place, intended to be appealing, such as 'Centric Bohemian next Ramblas\&Macba'.
 
-* `neighbourhood`, the neighbourhood of the listing. The neighbourhoods are sourced from city or open source GIS files.
+* `neighbourhood`, the neighbourhood (barrio) of the listing. The neighbourhoods are sourced from the city.
 
-* `property_type`, the type of property listed. Typically 'Appartment', 'Bed & Breakfast' or 'House', but it can also be 'Boat', 'Loft', or others.
+* `district`, the district of the listing. The districts, called neighbourhood groups at Airbnb, are sourced from the city. There are 10 districts in Barcelona, each grouping several neighbourhoods.
 
-* `room_type`, taking values 'Entire home/apt', 'Private room' and 'Shared room'.
+* `property_type`, the type of property listed. 75% of the listings come as 'Entire rental unit', or 'Private room in rental unit', but Airbnb admits many other possibilities.
+
+* `room_type`, taking values 'Entire home/apt', 'Private room', 'Shared room' and 'Hotel room'.
 
 * `bedrooms`, the number of available bedrooms.
 
-* `price`, the daily listing's price on that date in euros. The price shown is for the listing as a whole, not per person. The price that you see when you search Airbnb (with dates selected) is the total price divided by the number of nights you selected. When a listing has been booked for several days, the price can be lower, since the host can apply different prices depending on the number of days booked.
+* `price`, the daily listing's price on that date, in euros. The price shown is for the listing as a whole, not per person. The price that you see when you search Airbnb (with dates selected) is the total price divided by the number of nights you selected. When a listing has been booked for several days, the price can be lower, since the host can apply different prices depending on the number of days booked.
 
 * `number_of_reviews`, the number of reviews of that listing that have been posted.
 
