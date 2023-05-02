@@ -19,9 +19,6 @@ df.shape
 df['host_id'][df['host_since'] < '2010-01-01'].value_counts()
 df['host_id'].unique()
 len(df['host_id'].unique())
-(df['host_id'].value_counts() == 1).sum()
-df['host_id'].value_counts().head(10)
-(df['host_id'].value_counts() > 10).sum()
 
 # Q3. Proportion of listings with missing ratings #
 df.isna().sum()
