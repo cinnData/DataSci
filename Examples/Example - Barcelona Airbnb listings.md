@@ -2,9 +2,9 @@
 
 ## Introduction
 
-**Airbnb** is a peer-to-peer online marketplace and homestay network, which enables people to list or rent short-term lodging in residential properties, with the cost of such accommodation set by the property owner. The company receives percentage service fees from both guests and hosts in conjunction with every booking. Starting in 2008, it has grown exponentially, and it currently has over 2 million listings in about 200 countries.
+**Airbnb** is a peer-to-peer online marketplace and homestay network, which enables people to list or rent short-term lodging in residential properties, with the cost of such accommodation set by the property owner. The company receives percentage service fees from both guests and hosts in conjunction with every booking. Starting in 2008, it has grown exponentially, and it currently has over 6 million listings in about 200 countries.
 
-Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The updates posted in March 2023 cover 116 areas, most of them in US and Europe. This example uses data from Barcelona.
+Airbnb currently releases and updates data at the Inside Airbnb site (`insideairbnb.com`). The updates posted in March 2023 cover 116 areas, most of them in US and Europe. This example uses data from Barcelona. In Barcelona, vacation apartments are subject to the highest rate of property tax, and platforms must share data with regulators.
 
 ## The data set
 
@@ -18,7 +18,7 @@ The variables are:
 
 * `host_since`, the date of the host's first listing in Airbnb, as yyyy-mm-dd.
 
-* `name`, the listing's name. A minimal description (maximum 35 characters) of the place, intended to be appealing, such as 'Centric Bohemian next Ramblas\&Macba'.
+* `name`, the listing's name. A minimal description (maximum 35 characters) of the place, intended to be appealing, such as 'Centric Bohemian next Ramblas & Macba'.
 
 * `neighbourhood`, the neighbourhood (barrio) of the listing. The neighbourhoods are sourced from the city.
 
