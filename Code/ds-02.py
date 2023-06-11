@@ -68,24 +68,3 @@ f('Mary')
 def g(x, y): return x*y/(x**2 + y**2)
 g(1, 1)
 
-# For loops #
-squares = []
-for i in range(1, 5):
-    squares = squares + [i**2]
-squares
-squares = [i**2 for i in range(1, 5)]
-squares
-[len(name) for name in mylist]
-
-# If statements #
-if 3 < 5:
-    print('Minor')
-else:
-    print('Major')
-if math.sqrt(1) < 1:
-    print('Minor')
-elif math.sqrt(1) == 1:
-    print('Equal')
-else:
-    print('Major')
-[len(name) for name in mylist if name[0] != 'M']
