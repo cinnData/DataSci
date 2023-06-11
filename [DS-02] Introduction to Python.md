@@ -119,7 +119,7 @@ So, `a` has type `int` (meaning integer). Another numeric type is that of **floa
 
 ```
 In [10]: b = math.sqrt(2)
-type(b)
+   ...: type(b)
 Out[10]: float
 ```
 
