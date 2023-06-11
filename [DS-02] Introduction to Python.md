@@ -166,7 +166,7 @@ Even if they don't appear explicitly, Booleans may come under the hood. When you
 
 ```
 In [17]: a == 4
-Out[17]: True
+Out[17]: False
 ```
 
 Boolean variables can be converted to `int` and `float` type by the functions mentioned above, but also by a mathematical operator:
