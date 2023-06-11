@@ -202,7 +202,7 @@ In [21]: mylist = ['Messi', 'Cristiano', 'Neymar', 'Coutinho']
 ```
 
 ```
-In [22]: len(x)
+In [22]: len(mylist)
 Out[22]: 4
 ```
 
