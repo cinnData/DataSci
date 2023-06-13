@@ -45,5 +45,3 @@ Q1. How is the distribution of the home assessed value in West Roxbury?
 Q2. Popular wisdom suggests that there is a positive association between the size of a house and its value. How can we evaluate that?
 
 Q3. Statistical measures of association are frequently affected by extreme values. Can this happen in this case? Explore this by trimming the data, retaining only those homes for which the most influential size measure falls between two threshold values that make sense for you. 
-
-Q4. How is the distribution of the living area expressed as a percentage of the gross area? Is there an association with the home value?
