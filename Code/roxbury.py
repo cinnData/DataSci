@@ -25,8 +25,3 @@ df.plot.scatter(x='living_area', y='value', figsize=(5,5), color='gray');
 df1 = df[df['living_area'].between(1000, 2000)]
 df1[['value', 'lot_sqft', 'gross_area', 'living_area']].corr().round(2)
 df1.plot.scatter(x='living_area', y='value', figsize=(5,5), color='gray');
-
-# Q4. Percentage of living area #
-df['living_percent'] = 100*df['living_area']/df['gross_area']
-df['living_percent'].plot.hist(figsize=(7,5), color='gray', edgecolor='white');
-df['living_percent'].corr(df['value']).round(2)
