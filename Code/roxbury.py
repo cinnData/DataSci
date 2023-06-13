@@ -14,7 +14,7 @@ df.info()
 df.describe()
 
 # Q1. Distribution of the home assessed value #
-df['value'].plot.hist(figsize=(8,6), color='gray', rwidth=0.97);
+df['value'].plot.hist(figsize=(8,6), color='gray', edgecolor='white');
 
 # Q2. Association between value and size measures #
 df[['value', 'lot_sqft', 'gross_area', 'living_area']].corr()
