@@ -19,7 +19,7 @@ df['value'].plot.hist(figsize=(7,5), color='gray', edgecolor='white');
 # Q2. Association between value and size measures #
 df[['value', 'lot_sqft', 'gross_area', 'living_area']].corr()
 df[['value', 'lot_sqft', 'gross_area', 'living_area']].corr().round(2)
-df.plot.scatter(x='living_area', y='value', figsize=(6,6), color='gray');
+df.plot.scatter(x='living_area', y='value', figsize=(5,5), color='gray');
 
 # Q3. Trimming the data #
 df1 = df[df['living_area'].between(1000, 2000)]
