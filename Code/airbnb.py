@@ -25,10 +25,9 @@ df.isna().sum()
 df['review_scores_rating'].isna().mean().round(3)
 
 # Q4. Distribution of the price #
-df['price'].plot.hist(figsize=(8,6), color='gray', rwidth=0.98);
+df['price'].plot.hist(figsize=(7,5), color='gray', edgecolor='white');
 df['price'].describe()
-df['price'][(df['price'] >= 25) & (df['price'] <= 150)].plot.hist(figsize=(8,6),
-  color='gray', rwidth=0.94, bins=25);
+df['price'][(df['price'].between(25,150)].plot.hist(figsize=(7,5), color='gray', edgecolor='white', bins=25);
 
 # Q5. Average price per room type #
 df.groupby(by='room_type')['price'].mean().round()
@@ -36,5 +35,4 @@ df.groupby(by='room_type')['price'].median().round()
 
 # Q6. Top-10 neighbourhoods #
 df['neighbourhood'].value_counts().head(10)
-df.groupby(by='neighbourhood')['price'].agg(['count', 'median']).sort_values(by='count',
-  ascending=False).head(10)
+df.groupby(by='neighbourhood')['price'].agg(['count', 'median']).sort_values(by='count', ascending=False).head(10)
