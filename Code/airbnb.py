@@ -6,7 +6,6 @@ path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
 filename = path + 'airbnb.csv'
 df = pd.read_csv(filename, index_col=0)
 df.info()
-df.isna().sum()
 df.head()
 
 # Q1. Counting duplicates #
@@ -17,8 +16,7 @@ df.shape
 
 # Q2. How old are the hosts? #
 df['host_id'][df['host_since'] < '2010-01-01'].value_counts()
-df['host_id'].unique()
-len(df['host_id'].unique())
+df['host_id'].unique().shape
 
 # Q3. Proportion of listings with missing ratings #
 df.isna().sum()
@@ -27,7 +25,7 @@ df['review_scores_rating'].isna().mean().round(3)
 # Q4. Distribution of the price #
 df['price'].plot.hist(figsize=(7,5), color='gray', edgecolor='white');
 df['price'].describe()
-df['price'][(df['price'].between(25,150)].plot.hist(figsize=(7,5), color='gray', edgecolor='white', bins=25);
+df['price'][df['price'].between(25,150)].plot.hist(figsize=(7,5), color='gray', edgecolor='white', bins=25);
 
 # Q5. Average price per room type #
 df.groupby(by='room_type')['price'].mean().round()
