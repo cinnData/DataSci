@@ -2,7 +2,7 @@
 
 This assignment is based on the examples **Assessing home values in West Roxbury** and **Barcelona Airbnb listings**.
 
-### Questions on Roxbury example
+### Questions on the West Roxbury example
 
 Q1. How is the distribution of the living area expressed as a percentage of the gross area? Is there an association with the home value?
 
