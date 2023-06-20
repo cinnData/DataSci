@@ -1,4 +1,4 @@
-## Tutorial - String data in Python ##
+## Tutorial - String data in Pandas ##
 
 # Strings as lists #
 iese = 'IESE Business School'
