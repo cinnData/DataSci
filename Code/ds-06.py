@@ -24,7 +24,7 @@ pres.str.lower()
 pres.str.replace(' ', '-')
 pres.str.split()
 pres.str.contains('a')
-pres[~(pres.isna())]
+pres = pres[~(pres.isna())]
 pres[~pres.str.contains('a')]
 pres.str.findall('e')
 
