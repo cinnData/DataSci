@@ -1,4 +1,4 @@
-## Amazon jobs data #
+## Example - Amazon jobs ##
 
 # Importing the data (edit path) #
 import pandas as pd
@@ -33,17 +33,20 @@ df['basic_qualifications'].str.contains('java', case=False).mean().round(3)
 df['basic_qualifications'].str.contains('javascript', case=False).mean().round(3)
 df['basic_qualifications'].str.contains('java script', case=False).mean().round(3)
 df['basic_qualifications'].str.contains('c#', case=False).mean().round(3)
-df['basic_qualifications'].str.contains('c\+\+', case=False, regex=True).mean().round(3)
-df['basic_qualifications'].str.contains('c++', case=False, regex=False).mean().round(3)
+df['basic_qualifications'].str.contains('c\+', case=False, regex=True).mean().round(3)
+df['basic_qualifications'].str.contains('c+', case=False, regex=False).mean().round(3)
+df['basic_qualifications'].str.contains('c+', case=False, regex=True).mean().round(3)
+df['basic_qualifications'].str.contains('c+', case=False).mean().round(3)
 df['basic_qualifications'].str.contains('sql', case=False).mean().round(3)
 df['basic_qualifications'].str.contains('mysql', case=False).mean().round(3)
 df['basic_qualifications'].str.contains('python', case=False).mean().round(3)
 
 # Q3b. Programming languages in basic qualifications (alternative) #
 bags = df['basic_qualifications'].str.lower().str.findall('\w+\+*')
+bags
 def f(x): return 'java' in x
-def g(x): return 'c++' in x
 bags.apply(f).mean().round(3)
+def g(x): return 'c++' in x
 bags.apply(g).mean().round(3)
 
 # Q4. Experience in preferred qualifications #
