@@ -52,6 +52,6 @@ Q2. Which titles have been picked more times?
 
 Q3. Which books have been rated highest? Restrict the search to the titles that have been rated by at least 25 users.
 
-Q4. How many editions of the SF classic *The Martian Chronicles* are offered by BookCrossing?
+Q4. How many editions of the SF classic *The Martian Chronicles* in English are offered by BookCrossing?
 
 Q5. From the data provided, extract a list of 5 books to be recommended to users having picked *The Martian Chronicles*. A simple approach would be to search for the titles that have been picked more often by the users who have also picked *The Martian Chronicles*.
