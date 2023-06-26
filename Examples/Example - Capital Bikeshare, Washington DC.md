@@ -1,4 +1,4 @@
-# Bay Wheels Bike Share Program
+# Example - Capital Bikeshare, Washington DC
 
 ## Introduction
 
