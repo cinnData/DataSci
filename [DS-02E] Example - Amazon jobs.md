@@ -129,7 +129,6 @@ id
 981888       IL, Tel Aviv  2019-11-05      13 days  team-sde-primary  
 ```
 
-
 ## Q1. Count and drop duplicates
 
 ``` 
@@ -259,6 +258,45 @@ Out[18]:
 8       1
 7       1
 Name: preferred_qualifications, dtype: int64
+```
+
+```
+In [2]: df[df['preferred_qualifications'].str.count('[0-9]\+? years')> 5]
+Out[2]: 
+                                                  title   
+id                                                        
+1588664                        Senior Software Engineer  \
+1542577  Sr. Software Development Engineer-Verification   
+
+                         company_name   
+id                                      
+1588664  Amazon Dev Center U.S., Inc.  \
+1542577    Amazon Data Services, Inc.   
+
+                                               description   
+id                                                           
+1588664  AWS Commerce platform is looking for a Senior ...  \
+1542577  Do you enjoy solving complex problems and driv...   
+
+                                      basic_qualifications   
+id                                                           
+1588664   4+ years of professional software development...  \
+1542577   Bachelors degree or higher in Computer Scienc...   
+
+                                  preferred_qualifications   job_type   
+id                                                                      
+1588664   5+ years of experience in writing code using ...  full-time  \
+1542577   +10 years' experience developing fully automa...  full-time   
+
+                  location posted_date updated_time   
+id                                                    
+1588664  US, VA, Arlington  2021-06-08      12 days  \
+1542577  US, CA, Cupertino  2021-05-04       7 days   
+
+                                      team  
+id                                          
+1588664                   team-sde-primary  
+1542577  team-hardware-development-primary  
 ```
 
 ```
