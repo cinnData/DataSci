@@ -1,20 +1,20 @@
-## Tutorial - String data in Pandas ##
+## [DS-02] String data in Python ##
 
-# Strings as lists #
+# Strings as sequences #
 iese = 'IESE Business School'
 len(iese)
 iese[5:]
 iese[:4] + ', A way to learn'
 'IE' in iese
 
-# Python string functions #
+# Python string methods #
 iese.lower()
 iese.replace('IESE', 'Iese')
 iese.split()
 iese.split('i')
 iese.count('s')
 
-# Pandas string functions #
+# Pandas string methods #
 import pandas as pd
 pres = pd.Series(['Donald Trump', 'Joe Biden', '', None])
 pres
@@ -23,6 +23,7 @@ pres.str[0]
 pres.str.lower()
 pres.str.replace(' ', '-')
 pres.str.split()
+pres.str.count('e')
 pres.str.contains('a')
 pres = pres[~(pres.isna())]
 pres[~pres.str.contains('a')]
