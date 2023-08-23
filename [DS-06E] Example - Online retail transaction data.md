@@ -22,7 +22,7 @@ In spite of the popularity of the discrete RFM model, it has been argued that va
 
 In this example, we use a real online retail transaction data set of two years. This data set contains all the transactions occurring for a UK-based and registered non-store online retail, between December 1rst 2009 and December 9th 2011. The company mainly sells unique all-occasion gift-ware. Many customers of the company are wholesalers.
 
-# The data set
+## The data set
 
 The data come in the file `retail.csv` (zipped), which has 406,829 rows. Every row corresponds to an item included in a transaction. There are 22,190 transactions, identified by the invoice number. These transactions involve 4,372 different customers. 
 
