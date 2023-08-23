@@ -88,6 +88,7 @@ Data columns (total 8 columns):
  7   Country      406829 non-null  object        
 dtypes: datetime64[ns](1), float64(1), int64(2), object(4)
 memory usage: 24.8+ MB```
+```
 
 ```
 In [4]: df.head()
