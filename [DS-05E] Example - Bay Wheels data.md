@@ -298,6 +298,32 @@ In [25]: df[['casual', 'member', 'hour']].groupby('hour').mean().plot.bar(figsiz
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_9.png)
 
+## Q5. Intraweek variation
+
+```
+In [26]: df['weekday'] = df.index.weekday
+``` 
+
+```
+In [27]: df[['casual', 'member', 'weekday']].groupby('weekday').mean().plot.bar(figsize=(8,6),
+    ...:    color=['0.4', '0.7'], stacked=True);
+```
+
+![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_10.png)
+
+
+## Q6. Monthly seasonality #
+
+```
+In [28]: df['month'] = df.index.month
+```
+
+```
+In [29]: df[['casual', 'member', 'month']].groupby('month').mean().plot(figsize=(10,6), color='black', linewidth=1, legend=False);
+```
+
+![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_11.png)
+
 
 ## Homework
 
