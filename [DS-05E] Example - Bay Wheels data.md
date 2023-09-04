@@ -247,7 +247,7 @@ In [17]: df['total'].resample('M').mean().plot(figsize=(10,6), color='black', li
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_4.png)
 
-To see whether the trend is the same for the two user types, we can draw separate charts, which show that the trend only happens in the member group.
+To see whether the trend is the same for the two user types, we can draw separate charts, which show that the trend only happens in the member group. This may be due to workforce discountinuing remote work and going back to office after the Stay Home order.
 
 ```
 In [18]: df['casual'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
@@ -263,10 +263,12 @@ In [19]: df['member'].resample('M').mean().plot(figsize=(10,6), color='black', l
 
 ## Q4. Intraday variation
 
+To examine the intraday variation, we need to extract an average value for every hour. First, we create a column containing (only) the hour, with the method `.hour`.
+
 ```
-In [21]: df['hour'] = df.index.hour
+In [20]: df['hour'] = df.index.hour
     ...: df.head()
-Out[21]: 
+Out[20]: 
                      casual  member  total  hour
 2021-01-01 00:00:00      39      21     60     0
 2021-01-01 01:00:00      48      27     75     1
@@ -275,9 +277,11 @@ Out[21]:
 2021-01-01 04:00:00      12       4     16     4
 ```
 
+Nom, we group by hour and aggregate to 24 average values. For the casual users, this would be as follows.
+
 ```
-In [22]: df[['casual', 'hour']].groupby('hour').mean().round(1)
-Out[22]: 
+In [21]: df[['casual', 'hour']].groupby('hour').mean().round(1)
+Out[21]: 
       casual
 hour        
 0       38.3
@@ -306,20 +310,24 @@ hour
 23      62.0
 ```
 
+You may prefere to see this in a **bar chart**. Comparing the charts of the two user types, we see the influence of work schedule in the intraday variation pattern of the members.  
+
 ```
-In [23]: df[['casual', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), color='gray', legend=False);
+In [22: df[['casual', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), color='gray', legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_7.png)
 
 ```
-In [24]: df[['member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), color='gray', legend=False);
+In [23]: df[['member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), color='gray', legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_8.png)
 
+You may prefer to pack both charts as a **stacked bar chart**, which is east in Pandas, as we seen next.
+
 ```
-In [25]: df[['casual', 'member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6),
+In [24]: df[['casual', 'member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6),
     ...: 	color=['0.4', '0.7'], stacked=True);
 
 ```
