@@ -42,7 +42,7 @@ Q1. Add a column `hour` to the table `rides`, containing the hour of the start t
 
 Q2. Group by `hour` and aggregate so you get a a new table with two columns, `casual` and `member` containing, for every hour, the total number of rides of the types of users. 
 
-Q3. After aggregating the data in the preceding question, can see you see a **time trend** in the number of rides? To visualize the trend, would it be better to aggregate more, *e.g*. to use daily data? Do you see a similar trend for the two types of users?
+Q3. After aggregating the data in the preceding question, can see you see a **time trend** in the number of rides? To visualize the trend, would it be better to aggregate more, *e.g*. to use daily data? Do you see a similar trend for the two user types?
 
 Q4. Can you describe in an easy way the pattern for **intraday variation** (across hours) of the number of rides? Is this pattern different for the two user types?
 
@@ -78,7 +78,7 @@ In [4]: rides = pd.concat([rides1, rides2, rides3])
 
 ## Exploring the data
 
-We check the content of the data farme `rides` as usual, with the methods `.info()` and `.head()`. Everything is as expected. Note that the stations ID's are missing for some of the electric bikes, as explained in the introduction.
+We check the content of the data frame `rides` as in other examples, with the methods `.info()` and `.head()`. Everything is as expected. Note that the station ID is missing for some of the electric bikes, as explained in the introduction.
 
 ```
 In [5]: rides.info()
@@ -116,8 +116,10 @@ Out[6]:
 
 ## Q1. Add a column with the hour
 
+The start and end times have type `str`, so we can create the new column with string methods. There many ways to do it. A simple one is to drop the last six characters, which are the minutes and seconds, replacing them by the string `':00:00'`.
+
 ```
-In [7]: rides['hour'] = rides['start_time'].str.replace(':[0-9]{2}:[0-9]{2}', ':00:00', regex=True)
+In [7]: rides['hour'] = rides['start_time'].str[:-6] + ':00:00'
    ...: rides.head()
 Out[7]: 
   user_type bike_type           start_time start_station_id   
@@ -134,6 +136,8 @@ Out[7]:
 3  2021-01-01 00:44:51            NaN  2021-01-01 00:00:00  
 4  2021-01-01 00:22:02            NaN  2021-01-01 00:00:00  
 ```
+
+We need to convert this new column to a datetime type, to be able to extract the weekdays. Type conversions in Pandas are easily managed with the method `.astype()`. 
 
 ```
 In [8]: rides['hour'] = rides['hour'].astype('datetime64[ns]')
@@ -156,19 +160,19 @@ Name: hour, Length: 4602456, dtype: datetime64[ns]
 
 ## Q2. Aggregate to hourly data
 
+To build the data set for this question we need two additional columns, `casual` and `member``. We create them as dummies, so that we can aggregate them to get the number of rides for each group.
+
 ```
 In [9]: rides['casual'] = rides['user_type'] == 'casual'
    ...: rides['member'] = rides['user_type'] == 'member'
 ```
 
-```
-In [10]: rides = rides.drop(columns=['bike_type', 'user_type', 'start_time', 'start_station_id', 'end_time', 'end_station_id'])
-```
+Now, we group by hour and aggregate with the function `sum()`. To get a cleaner picture, we include only the columns which are relevant for the rest of this example. Note the double bracketing, which is needed, since the columns included have to be specified as a list.
 
 ```
-In [11]: df = rides.groupby(by='hour').sum()
+In [10]: df = rides[['hour', 'casual', 'member']].groupby(by='hour').sum()
     ...: df.head()
-Out[11]: 
+Out[10]: 
                      casual  member
 hour                               
 2021-01-01 00:00:00      39      21
@@ -178,9 +182,11 @@ hour
 2021-01-01 04:00:00      12       4
 ```
 
+Note that `hour` is no longer a column, but the index. This is the default of the method `.groupby()`. given the type conversions that we performed above, to data type `datetime64`, this index is a `DatetimeIndex`.
+
 ```
-In [12]: df.index
-Out[12]: 
+In [11]: df.index
+Out[11]: 
 DatetimeIndex(['2021-01-01 00:00:00', '2021-01-01 01:00:00',
                '2021-01-01 02:00:00', '2021-01-01 03:00:00',
                '2021-01-01 04:00:00', '2021-01-01 05:00:00',
@@ -197,46 +203,60 @@ DatetimeIndex(['2021-01-01 00:00:00', '2021-01-01 01:00:00',
 
 ## Q3. Time trend
 
-```
-In [13]: df.index.name = None
-```
+We get rid of the index name, so that it does not appear in the plots below, which could be confusing.
 
 ```
-In [14]: df['total'] = df['member'] + df['casual']
+In [12]: df.index.name = None
 ```
 
+Though this is not absolutely necessary, we create a new column with the total number of rides.
+
 ```
-In [15]: df['total'].plot(figsize=(10,6), color='black', linewidth=1);
+In [13]: df['total'] = df['member'] + df['casual']
+```
+
+Time trends are typically spotted by means of **line charts**. See below a sample using the hourly total number of rides.
+
+```
+In [14]: df['total'].plot(figsize=(10,6), color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_1.png)
 
+We see here a combination of a trend with time-based patterns, but it is difficult to conclude much with so many observations and the current granularity of the data. Since intraday patterns can be responsible for a significant part of the variation that we see in the chart, we aggregate to a daily data set. We use the mean so the vertical scale in the successive charts remains the same. Note that here, we don't use `.groupby()`, but `.resample()`, and we don't need to create a new data set for plotting.
+
 ```
-In [16]: df['total'].resample('D').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [15]: df['total'].resample('D').mean().plot(figsize=(10,6), color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_2.png)
 
+Now, the picture is more clear, though part of the variation is probably due to weekends and holidays. Going a bit further, we can aggregate to a weekly data set, again with `.resample()`.`
+
 ```
-In [17]: df['total'].resample('W').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [16]: df['total'].resample('W').mean().plot(figsize=(10,6), color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_3.png)
 
+Even further, we can aggregate to a monthly data set. The chart shows a combination of a trend plus monthly seasonality.
+
 ```
-In [18]: df['total'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [17]: df['total'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_4.png)
 
+To see whether the trend is the same for the two user types, we can draw separate charts, which show that the trend only happens in the member group.
+
 ```
-In [19]: df['casual'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [18]: df['casual'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_5.png)
 
 ```
-In [20]: df['member'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [19]: df['member'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_6.png)
