@@ -336,12 +336,16 @@ In [24]: df[['casual', 'member', 'hour']].groupby('hour').mean().plot.bar(figsiz
 
 ## Q5. Intraweek variation
 
-```
-In [26]: df['weekday'] = df.index.weekday
-``` 
+A similar approach can be followed for the intraweek variation. First, we create a new column extracting the weekday from the index, now with `.weekday` (Monday = 0, Sunday = 6).
 
 ```
-In [27]: df[['casual', 'member', 'weekday']].groupby('weekday').mean().plot.bar(figsize=(8,6),
+In [25]: df['weekday'] = df.index.weekday
+``` 
+
+The stacked bar chart is obtained as in Q4. As there, the different patterns suggests that members and casuals use the bike  travelling with different purposes (work/leisure). 
+
+```
+In [26]: df[['casual', 'member', 'weekday']].groupby('weekday').mean().plot.bar(figsize=(8,6),
     ...:    color=['0.4', '0.7'], stacked=True);
 ```
 
@@ -350,12 +354,16 @@ In [27]: df[['casual', 'member', 'weekday']].groupby('weekday').mean().plot.bar(
 
 ## Q6. Monthly seasonality #
 
-```
-In [28]: df['month'] = df.index.month
-```
+For the month seasonality we need twelve monthly averages. Again, we create a new column, now with months (January = 1, December = 12).
 
 ```
-In [29]: df[['casual', 'member', 'month']].groupby('month').mean().plot(figsize=(10,6), color='black', linewidth=1, legend=False);
+In [27]: df['month'] = df.index.month
+```
+
+The patterns are similar.
+
+```
+In [28]: df[['casual', 'member', 'month']].groupby('month').mean().plot(figsize=(10,6), color='black', linewidth=1, legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_11.png)
