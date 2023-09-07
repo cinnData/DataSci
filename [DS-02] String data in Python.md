@@ -12,11 +12,13 @@ The preferred **encoding** is **UTF-8** (`utf-8`), which is the default in Macin
 
 ## Strings as sequences
 
-In Python, strings and lists are two types of **sequences**, and for many purposes, a string can be regarded as a list of characters. So, some basic tools are common to lists and strings. For instance, the function `len()` gives you the number of characters of a string:
+In Python, strings and lists are two types of **sequences**, and, for many purposes, a string can be regarded as a list of characters. So, some basic methods are common to lists and strings. Let us see this with a simple example.
 
 ```
 In [1]: iese = 'IESE Business School'
 ```
+
+First, the function `len()` gives you the number of characters of a string:
 
 ```
 In [2]: len(iese)
@@ -37,7 +39,7 @@ In [4]: iese[:4] + ', A way to learn'
 Out[4]: 'IESE, A way to learn'
 ```
 
-A difference between strings and lists is found in the use of `in`. For strings, it can be used to relate, not only a character to a string, but a substring to a string:
+A difference between strings and lists is found in the use of the **membership operator** `in`. For strings, it can be used to relate, not only a character to a string, but a substring to a string:
 
 ```
 In [5]: 'IE' in iese
@@ -100,7 +102,7 @@ Out[12]:
 dtype: object
 ```
 
-The method `str.len()` is a vectorized version of the function `len()` eplained above. So, it returns the length of every term of a string series. `.str` is just a flag for string methods in Pandas. In this example, the **empty string** (`''`) has length zero. Since `None` has no length, a `NaN` value has been returned as the fourth term. Also, the series has then been converted by Python to data type `float`, to cope with that (it would be `int` if all the terms had length).
+The method `str.len()` is a vectorized version of the function `len()`, explained above. So, it returns the length of every term of a string series. `.str` is just a flag for string methods in Pandas. In this example, the **empty string** (`''`) has length zero. Since `None` has no length, a `NaN` value has been returned as the fourth term. Also, the series has then been converted by Python to data type `float`, to cope with that (it would be `int` if all the terms had length).
 
 ```
 In [13]: pres.str.len()
@@ -112,7 +114,7 @@ Out[13]:
 dtype: float64
 ```
 
-We can also slice the terms of a string series as we do with single strings, adding the flag `.str`. For instance, the initials of the presidents can be extracted as:
+We can also **slice** the terms of a string series as we do with a single string, adding the flag `.str`. For instance, the initials of the presidents can be extracted as:
 
 ```
 In [14]: pres.str[0]
@@ -191,9 +193,9 @@ Out[20]:
 dtype: object
 ```
 
-* Note*. `~` is the logical operator `not` for Boolean series. It turns `True` into `False` and conversely.
+* *Note*. `~` is the logical operator `not` for Boolean series. It turns `True` into `False` and conversely.
 
-Finally, the method `.str.findall()` **extracts matching patterns** from the terms of a string series. It returns, for every term, a list containing all the occurrences of that pattern. 
+Finally, the method `.str.findall()` extracts **matching patterns** from the terms of a string series. It returns, for every term, a list containing all the occurrences of that pattern. 
 
 ```
 In [21]: pres.str.findall('e')
@@ -296,3 +298,5 @@ dtype: int64
 'https://www.wise.jobs/role/3276007-senior-product-designer',
 'https://www.wise.jobs/role/3350217-product-analyst-northam']
 ```
+
+4. Create a data frame with two columns, `first_name` and `last_name`, filling it the first and last names of the US presidents in the series `pres`. Replace the names in `pres` by 'Donald John Trump' and 'Joseph Robinette Biden' and create a data frame with three columns `first_name`, `mid_name` and `last_name`, splitting the three-part names. How would you manage this if the data include names with the middle component, such as 'Pedro Sánchez'?
