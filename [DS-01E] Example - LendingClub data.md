@@ -108,15 +108,117 @@ Q3.
 
 
 ## Import the data
-import pandas as pd
-path = 'Dropbox (Personal)/lending/'
-fname = path + 'lending.csv.zip'
-df = pd.read_csv(fname, index_col=0)
+
+We use here the Pandas funcion `read_csv()` to import the data. First, we import the package:
+
+```
+In [1]: import pandas as pd
+```
+
+The source file is in a GitHub repository, so we use a remote path to get access. The source file comes zipped, but `.read_csv()` can manage this without any specification if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV file, whose header is `id` is taken as the index, so the resulting data frame will have 34 columns.
+
+``` 
+In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
+   ...: filename = path + 'lending.csv.zip'
+   ...: df = pd.read_csv(filename, index_col=0)
+```
 
 ## Exploring tha data
-df.info()
-df.head()
 
+To explore the data set, we use the standard Pandas methods. First, the method `.info()` prints a report of the data frame content. By default, the non-null count is shown only if the data frame is smaller than a certain size specified somewhere (don't ask), which is not the case in this example. The argument `show_counts=True` forces the counts to be printed, irrespective of the data frame's shape. As explained in the introduction of this example, there are missing values in some columns.
+
+```
+In [3]: df.info(show_counts=True)
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 2923423 entries, 1077501 to 99799684
+Data columns (total 34 columns):
+ #   Column                      Non-Null Count    Dtype  
+---  ------                      --------------    -----  
+ 0   loan_amnt                   2923423 non-null  int64  
+ 1   term                        2923423 non-null  int64  
+ 2   int_rate                    2923423 non-null  float64
+ 3   installment                 2923423 non-null  float64
+ 4   grade                       2923423 non-null  object 
+ 5   emp_title                   2659461 non-null  object 
+ 6   emp_length                  2718240 non-null  object 
+ 7   home_ownership              2923423 non-null  object 
+ 8   annual_inc                  2923423 non-null  int64  
+ 9   verification_status         2923423 non-null  object 
+ 10  issued                      2923423 non-null  object 
+ 11  purpose                     2923423 non-null  object 
+ 12  addr_state                  2923423 non-null  object 
+ 13  dti                         2920315 non-null  float64
+ 14  fico                        2923423 non-null  int64  
+ 15  open_acc                    2923399 non-null  float64
+ 16  total_acc                   2923399 non-null  float64
+ 17  initial_list_status         2923423 non-null  object 
+ 18  out_prncp                   2923423 non-null  float64
+ 19  out_prncp_inv               2923423 non-null  float64
+ 20  total_pymnt                 2923423 non-null  float64
+ 21  total_rec_prncp             2923423 non-null  float64
+ 22  total_rec_int               2923423 non-null  float64
+ 23  application_type            2923423 non-null  object 
+ 24  acc_now_delinq              2923399 non-null  float64
+ 25  avg_cur_bal                 2855093 non-null  float64
+ 26  delinq_amnt                 2923399 non-null  float64
+ 27  mort_acc                    2875418 non-null  float64
+ 28  num_actv_bc_tl              2855205 non-null  float64
+ 29  pub_rec_bankruptcies        2922090 non-null  float64
+ 30  tax_liens                   2923325 non-null  float64
+ 31  total_bal_ex_mort           2875418 non-null  float64
+ 32  total_il_high_credit_limit  2855205 non-null  float64
+ 33  loan_status                 2923423 non-null  object 
+dtypes: float64(19), int64(4), object(11)
+memory usage: 780.6+ MB
+```
+
+The method `.head()` displays the first five rows.
+
+```
+In [4]: df.head()
+Out[4]: 
+         loan_amnt  term  int_rate  installment grade  \
+id                                                      
+1077501       5000     3     10.65       162.87    B2   
+1077430       2500     6     15.27        59.83    C4   
+1077175       2400     3     15.96        84.33    C5   
+1076863      10000     3     13.49       339.31    C1   
+1075358       3000     6     12.69        67.79    B5   
+
+                        emp_title emp_length home_ownership  annual_inc  \
+id                                                                        
+1077501                       NaN  10+ years           RENT       24000   
+1077430                     Ryder   < 1 year           RENT       30000   
+1077175                       NaN  10+ years           RENT       12252   
+1076863       AIR RESOURCES BOARD  10+ years           RENT       49200   
+1075358  University Medical Group     1 year           RENT       80000   
+
+        verification_status  ... acc_now_delinq avg_cur_bal delinq_amnt  \
+id                           ...                                          
+1077501            Verified  ...            0.0         NaN         0.0   
+1077430     Source Verified  ...            0.0         NaN         0.0   
+1077175        Not Verified  ...            0.0         NaN         0.0   
+1076863     Source Verified  ...            0.0         NaN         0.0   
+1075358     Source Verified  ...            0.0         NaN         0.0   
+
+         mort_acc  num_actv_bc_tl  pub_rec_bankruptcies  tax_liens  \
+id                                                                   
+1077501       NaN             NaN                   0.0        0.0   
+1077430       NaN             NaN                   0.0        0.0   
+1077175       NaN             NaN                   0.0        0.0   
+1076863       NaN             NaN                   0.0        0.0   
+1075358       NaN             NaN                   0.0        0.0   
+
+        total_bal_ex_mort  total_il_high_credit_limit  loan_status  
+id                                                                  
+1077501               NaN                         NaN   Fully Paid  
+1077430               NaN                         NaN  Charged Off  
+1077175               NaN                         NaN   Fully Paid  
+1076863               NaN                         NaN   Fully Paid  
+1075358               NaN                         NaN   Fully Paid  
+
+[5 rows x 34 columns]
+```
 ## Dates
 df['issued'].value_counts().sort_index().plot(figsize=(10,6), color='black', linewidth=1);
 
