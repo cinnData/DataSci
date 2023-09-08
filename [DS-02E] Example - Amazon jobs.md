@@ -34,23 +34,23 @@ The file `amzn.csv` (zipped) contains data for 8,116 software developement posit
 
 ### Questions
 
-Q1. Leaving aside the job ID, which is unique for every job posting, how many duplicates do you find in this data set? Drop the duplicates, so all the positions are different, in at least one field. 
+Q1. Leaving aside the job ID, which is unique for every job posting, how many **duplicates** do you find in this data set? Drop the duplicates, so all the positions are different, in at least one field. 
 
-Q2. Which are the top-ten locations for software developement at AWS? Suppose that a potential candidate is interested in finding a position in India. Does Amazon have something for him/her? In which locations? 
+Q2. Which are the **top-ten locations** for software developement at AWS? 
 
-Q3. Programming languages are often mentioned in the basic qualifications field, and C is a classic. Which flavor of C is preferred here, C++ or C#?
+Q3. Suppose that a potential candidate is interested in finding a **position in India**. Does Amazon have something for him/her? In which locations? 
 
-Q4. How often is experience mentioned in the preferred qualifications field?
+Q4. **Programming languages** are often mentioned in the basic qualifications field, and C is a classic. Which flavor of C is preferred here, C++ or C#?
 
 # Importing the data
 
-We use here the Pandas funcion `read_csv()` to import the data. First, we import the package:
+As in the previous example, we use the Pandas funcion `read_csv()` to import the data. First, we import the package:
 
 ```
 In [1]: import pandas as pd
 ```
 
-The source file is in a GitHub repository, so we use a remote path to get access. The source file comes zipped, but `.read_csv()` can manage this without any specification if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV file, whose header is `id` is taken as the index, so te resulting data frame will have 10 columns.
+The (zipped) source file is in a GitHub repository, so we use a remote path to get access. The first column of the CSV file (`id`) is taken as the index, so the resulting data frame will have 10 columns.
 
 ``` 
 In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
@@ -83,7 +83,7 @@ dtypes: object(10)
 memory usage: 697.5+ KB
 ```
 
-Second, `.head()` displays the first five rows. The datqa look as expected, so far.
+Second, `.head()` displays the first five rows. The data look as expected, so far.
 
 ```
 In [4]: df.head()
@@ -131,15 +131,21 @@ id
 
 ## Q1. Count and drop duplicates
 
+Applied to a data frame, the method `.duplicated()` returns a Boolean series, indicating the rows which are duplicated. The default reads the data top-down, returning `False` for the rows occurring for the first time, and `True` for those having occurred before. Applying `.sum()` to that series, we get the number of duplicated rows.
+
 ``` 
 In [5]: df.duplicated().sum()
 Out[5]: 366
 ``` 
 
+The same can be applied to the index:
+
 ```
 In [6]: df.index.duplicated().sum()
 Out[6]: 0
 ```
+
+So, we have 366 job postings which are repetitions, but with the same ID. They may be errors, or positions which are identical. As suggested in question Q1, we drop them. The method `.drop_duplicates()` is applied in a straightforward way. Note that, as the default, this methods keeps the first occurrence of a duplicated row.
 
 ```
 In [7]: df = df.drop_duplicates()
@@ -149,14 +155,14 @@ Out[7]: (7750, 10)
 
 ## Q2. Top locations for software developers at Amazon
 
-The top locations for software developers at Amazon can be spotted with the method `.value_counts()`. First we see that that there 174 distinct locations in the data set. 
+The top locations for software developers at Amazon can be spotted with the method `.value_counts()`. First, we see that that there are 174 distinct locations in the data set. This is given by the length of the series returned by `.value_counts()`.
 
 ```
 In [8]: df['location'].value_counts().shape
 Out[8]: (174,)
 ```
 
-Now, with `.head(10)`, we select the top ten.
+Now, with `.head(10)`, we select the top ten locations.
 
 ```
 In [9]: df['location'].value_counts().head(10)
@@ -174,6 +180,10 @@ DE, BE, Berlin             152
 Name: location, dtype: int64
 ```
 
+## Q3. Positions in India
+
+Since, in the location, the country comes first, as a two-letter code, the Indian locations must those starting with 'IN'. We can capture them easily by slicing the location, as follows.
+
 ```
 In [10]: df['location'][df['location'].str[:2] == 'IN'].value_counts()
 Out[10]: 
@@ -187,8 +197,11 @@ IN, Hyderabad            1
 Name: location, dtype: int64
 ```
 
-```
+India has already provided two examples showing that some locations do not have the three parts country, state and town. See the homewrok for one question related to this.
 
+An alternative (and more involved) approach would be to use `.str.contains()`, specifying the substring 'IN' to be at the beginning. Since the default of  `.str.contains()` is `regex=True`, we can do ths by inserting a **caret** symbol (`^`):
+
+```
 In [11]: df['location'][df['location'].str.contains('^IN', regex=True)].value_counts()
 Out[11]: 
 IN, KA, Bangalore      129
@@ -201,26 +214,35 @@ IN, Hyderabad            1
 Name: location, dtype: int64
 ```
 
-## Q3. Programming languages in the basic qualifications field
+## Q4. Programming languages in the basic qualifications field
+
+Search for the postings including 'C#' in the basic qualifications is easy with `.str.contains()`. Since computer languages are sometimes written in lowercase, we include here the argument `case=False`, writing the search string in lowercase.
 
 ```
 In [12]: df['basic_qualifications'].str.contains('c#', case=False).mean().round(3)
 Out[12]: 0.64
 ```
 
+Searching for C++, we have to be careful, because the default of  `.str.contains()` is `regex=True`, and the plus symbol (`+`) has a special role in regular expressions. A solution is to specify `regex=False`, as we see next.
+
 ```
 In [13]: df['basic_qualifications'].str.contains('c+', case=False, regex=False).mean().round(3)
 Out[13]: 0.72
 ```
 
-```
-In [14]: df['basic_qualifications'].str.contains('c+', case=False).mean().round(3)
-Out[14]: 1.0
-```
+So, C++ is mentioned more often than C#. The same result could be obtained with the default version of `.str.contains()` but the search string '\+'. The backslash symbol (`\`) makes Python to read the plus sign literally.
+
 
 ```
-In [15]: df['basic_qualifications'].str.contains('c\+', case=False).mean().round(3)
+In [14]: df['basic_qualifications'].str.contains('c\+', case=False).mean().round(3)
 Out[15]: 0.72
+```
+
+Note that, as a regular expression, `'c+'` covers any string that contains the letter 'c' at least once, so you get lost if you don't pay attention to this technicality:
+
+```
+In [15]: df['basic_qualifications'].str.contains('c+', case=False).mean().round(3)
+Out[14]: 1.0
 ```
 
 An alternative approach.
@@ -237,84 +259,12 @@ id
 981888     [5, years, of, experience, in, chip, design, b...
 ```
 
-## Q4. Experience mentioned in the preferred qualifications field
-
-```
-In [17]: df['preferred_qualifications'].str.contains('experience', case=False).mean().round(3)
-Out[17]: 0.903
-```
-
-Expressions like '3+ years' or similar, with or without the word experience.
-
-```
-In [18]: df['preferred_qualifications'].str.count('\+?[0-9]\+? years').value_counts()
-Out[18]: 
-0    6160
-1    1209
-2     251
-3      94
-4      24
-5      10
-8       1
-7       1
-Name: preferred_qualifications, dtype: int64
-```
-
-```
-In [2]: df[df['preferred_qualifications'].str.count('[0-9]\+? years')> 5]
-Out[2]: 
-                                                  title   
-id                                                        
-1588664                        Senior Software Engineer  \
-1542577  Sr. Software Development Engineer-Verification   
-
-                         company_name   
-id                                      
-1588664  Amazon Dev Center U.S., Inc.  \
-1542577    Amazon Data Services, Inc.   
-
-                                               description   
-id                                                           
-1588664  AWS Commerce platform is looking for a Senior ...  \
-1542577  Do you enjoy solving complex problems and driv...   
-
-                                      basic_qualifications   
-id                                                           
-1588664   4+ years of professional software development...  \
-1542577   Bachelors degree or higher in Computer Scienc...   
-
-                                  preferred_qualifications   job_type   
-id                                                                      
-1588664   5+ years of experience in writing code using ...  full-time  \
-1542577   +10 years' experience developing fully automa...  full-time   
-
-                  location posted_date updated_time   
-id                                                    
-1588664  US, VA, Arlington  2021-06-08      12 days  \
-1542577  US, CA, Cupertino  2021-05-04       7 days   
-
-                                      team  
-id                                          
-1588664                   team-sde-primary  
-1542577  team-hardware-development-primary  
-```
-
-```
-In [20]: df['preferred_qualifications'][1542577]
-Out[20]: " +10 years' experience developing fully automated end to end test infrastructure. +10 years' experience of scripting languages like Python and Shell. +10 years' experience working with Intel/AMD architecture. +10 years' experience with IPMI. +10 years' experience with I2C and SPI bus devices. +10 years' experience closing code and functional test coverage. +10 years' experience with SW/HW interface. embedded SW, drivers, HW security. Meets/exceeds Amazons leadership principles requirements for this role. Meets/exceeds Amazons functional/technical depth and complexity for this role."
-```
-
-```
-In [21]: df['preferred_qualifications'][1588664]
-Out[21]: ' 5+ years of experience in writing code using C++ or RUST. 3+ years of experience in writing code using C# or Java. Proficient in writing secured code. Test driven development.Basic.4+ years of professional software development experience.3+ years of programming experience with at least one modern language such as Java, C++, or C# including object-oriented design.2+ years of experience contributing to the architecture and design (architecture, design patterns, reliability and scaling) of new and current systems.Bachelor of Science (BS) degree in Computer Science or related field.5+ years of experience building large scale distributed applications.Preferrred. 5+ years of experience in writing code using C++ or RUST. 3+ years of experience in writing code using C# or Java. Proficient in writing secured code. Test driven development.Amazon is committed to a diverse and inclusive workplace. Amazon is an equal opportunity employer and does not discriminate on the basis of race, national origin, gender, gender identity, sexual orientation, protected veteran status, disability, age, or other legally protected status. For individuals with disabilities who would like to request an accommodation, please visit https://www.amazon.jobs/en/disability/us.'
-```
-
 ## Homework
 
 1. Positions incomplete.
 
-2. What happens if in question Q3 we use 'c++' instead of 'c+'?
+2. What happens if in `In [15]` we use `'c++'` instead of `'c+'`? Why?
 
 3. Is Java more demanded than C++ in the basic qualifications field? Take care of distinguish Java from JavaScript, which is a different beast. 
 
-4. When the basic qualifications specifiy a number of years, which is the most frequent number?
+4. Q4. How often is experience mentioned in the preferred qualifications field? Expressions like '3+ years' or similar, with or without the word experience. For instance, you can find '4+ years of professional sotware development ...'. When the basic qualifications specifiy a number of years of experience, which is the most frequent number?
