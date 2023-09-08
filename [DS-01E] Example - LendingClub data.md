@@ -92,10 +92,6 @@ The columns are:
 
 * `total_bal_ex_mort`, the total credit balance excluding mortgage.
 
-* `hardship`, whether or not the borrower is on a hardship plan (1/0).
-
-* `debt_settlement` whether or not the borrower, who has charged-off, is working with a debt-settlement company (1/0).
-
 * `loan_status`, the current status of the loan. Eight values: 'Charged Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 'Issued', 'Late (16-30 days)' and 'Late (31-120 days)'. LendingClub charges off a loan when we no longer reasonably expect further payments. Generally, charge-offs occur no later than 30 days after the loan enters the default status. Once a loan is charged off, the remaining principal balance is deducted from the account balance.
 
 ## Questions
