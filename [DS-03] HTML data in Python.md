@@ -254,7 +254,7 @@ Out[24]: [<div class="course">Data Visualization</div>]
 
 ## Homework
 
-The following string is the HTML element containing the information about one professor in the web page `https://www.iese.edu/search/profesors` (it is not the source code for the whole page). Display this page in your browser to be sure that you understand these concepts. Then, enter this string in the Python console as `html_str` (use triple quote marks as in `In [2]`). Then, use the tools discussed in this lecture to extract from the name of the professor, his job description and the URL of his personal page. 
+The following string is the HTML element containing the information about one of the professors appearing in the web page `https://www.iese.edu/search/profesors` (it is not the source code for the whole page). Display this page in your browser to be sure that you understand these concepts. Then, enter this string in the Python console as `html_str` (use triple quote marks as in `In [2]`). Then, use the tools discussed in this lecture to extract from the name of the professor, his job description and the URL of his personal page. 
 
 ```
 <div class="col-12 col-md-4 col-lg-3 employee-card-box">
