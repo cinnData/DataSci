@@ -6,9 +6,9 @@
 
 HTML is assisted by two technologies:
 
-* **CSS** (Cascading Style Sheets) is a language used to describe the style of HTML documents.
+* **CSS** (Cascading Style Sheets) is a language used to describe the **style** of HTML documents.
 
-* **JavaScript** is a scripting language, that is, one for integrating and communicating with other languages. Scripting languages are used for small jobs. The source of a dynamic web page typically contains JavaScript scripts to perform actions such as accepting cookies or asking for more information. 
+* **JavaScript** is a **scripting language**, that is, one for integrating and communicating with other languages. Scripting languages are used for small jobs. The source of a dynamic web page typically contains JavaScript scripts to perform actions such as accepting cookies or asking for more information. 
 
 An extremely simple example of a HTML document follows. It is easy to see, in this example, why HTML is called a **markup language**. The markup, consisting here of the **tags** `<head>`, `<body>`, `<title>`, `<div>` and `<a>`, is used for creating a structure in the document and for including **links** to web pages, pictures, etc.
 
@@ -31,7 +31,7 @@ Unfortunately, in a HTML document captured from Internet, you will not find such
 
 The structure of a HTML document is made by the tags. Every part of the document is opened by a **start tag** (`<tag>`) and closed by an **end tag** (`</tag>`). These parts are called **HTML elements**. The tags create a tree-like structure in the document, with HTML elements nested within HTML elements. The representation of the HTML document as a logical tree is called the **Document Object Model** (DOM). 
 
-*Note*. Though we may insert white space between consecutive elements to make the document readable, as in the example below, white space between tags belonging to different elements is ignored by the HTML interpreter.
+*Note*. Though we may insert white space between consecutive elements to make the document readable, as in the example below, white space between tags that belong to different elements is ignored by the HTML interpreter.
 
 The tag `<html>` tells the browser that this is a HTML document. The `html` element is the whole document. It has two **child elements**, `head` and `body`. A HTML document is always split in this way. In the example, the `head` element has one **child**, while the `body` element has three children, which are **siblings**.
 
@@ -51,9 +51,9 @@ You can install Beautiful Soup by entering in the shell (or the console) `pip in
 In [1]: from bs4 import BeautifulSoup
 ```
 
-This allows us to use the function `BeautifulSoup`, which can be applied to any string containing HTML code. `BeautifulSoup` **parses** the HTML code, learning the tree structure encoded there, which is then stored in a **soup object**. Let us see how this works in our example. 
+This allows us to use the function `BeautifulSoup()`, which can be applied to any string containing HTML code. `BeautifulSoup` **parses** the HTML code, learning the tree structure encoded there, which is then stored in a **soup object**. Let us see how this works in our example. 
 
-We create a string variable, whose value is the HTML document. . The triple quote mark stops the Python interpeter having trouble with the line breaks.
+We create a string variable, whose value is the HTML document. The triple quote mark stops the Python interpeter having trouble with the line breaks.
 
 ```
 In [2]: html_str = '''<html>
@@ -82,7 +82,7 @@ To parse the string `html_str`, learning the tree structure, we enter:
 In [4]: soup = BeautifulSoup(html_str, 'html.parser')
 ```
 
-`BeautifulSoup` returns a soup object, which stores the contents of `html_str` in a way that the different HTML elements, called here **tags**, can be extracted. To get this, it uses a **parser**, which is a program which breaks the string into substrings based on the tags. 
+`BeautifulSoup()` returns a soup object, which stores the contents of `html_str` in a way that the different HTML elements, called **tags** in Beautiful Soup, can be extracted. To get this, it uses a **parser**, which is a program which breaks the string into substrings based on the tags. 
 
 Beautiful Soup does not come with a parser. It uses the one that it prefers among those available in your computer. If `'html.parser'` is specified, the choice is the parser provided by the Python Standard Library, so you do not need any additional package. Since this is a rather technical issue, Iwe follow here the recommended practice. 
 
@@ -136,9 +136,9 @@ In [11]: soup.div
 Out[11]: <div class="course">Data Visualization</div>
 ```
 
-HTML elements are called **tags** in Beautiful Soup. The simplest way to extract tags from the soup is based on the methods `.find()` and `.find_all()`. The method `.find_all()` returns a list containing all the tags that satisfy a specification (eventually empty), while `.find()` returns only the first one (or `None`, if there is no tag satisfying it). Let us see how to use in this method in our example.
+The simplest way to extract tags from the soup is based on the methods `.find()` and `.find_all()`. The method `.find_all()` returns a list containing all the tags that satisfy a specification (eventually empty), while `.find()` returns only the first one (or `None`, if there is no tag satisfying it). Let us see how to use in this method in our example.
 
-## The method find
+## The method .find()
 
 A first example of `.find()` follows.
  
@@ -209,7 +209,7 @@ In [20]: soup.find('a').string
 Out[20]: 'Miguel Ángel Canela'
 ```
 
-Note that this method cannot be applied directly to a list returned by `find_all`: 
+Note that this method cannot be applied directly to a list returned by `.find_all()`: 
 
 ```
 In [21]: soup.find_all('div').string
@@ -228,7 +228,7 @@ File /opt/homebrew/lib/python3.11/site-packages/bs4/element.py:2428, in ResultSe
 AttributeError: ResultSet object has no attribute 'string'. You're probably treating a list of elements like a single element. Did you call find_all() when you meant to call find()?
 ```
 
-But we can use a comprehension list to extract the text from every item of the list and store it in a new list:
+But we can use a **comprehension list** to extract the text from every item of the list and store it in a new list:
 
 ```
 In [22]: [t.string for t in soup.find_all('div')]
