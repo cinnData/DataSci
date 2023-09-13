@@ -257,6 +257,9 @@ Out[24]: [<div class="course">Data Visualization</div>]
 <div class="col-12 col-md-4 col-lg-3 employee-card-box">
 <a href="https://www.iese.edu/faculty-research/faculty/miguel-angel-canela/" class="employee-card-link">
 <figure class="row employee-card employee-card--subdirector">
+<div class="col-12 employee-card__picture">
+<img alt="Miguel Ángel Canela" data-src="https://www.iese.edu/wp-content/uploads/2019/09/Miguel-Angel-Canela-d.jpg" class="image-fluid ls-is-cached lazyloaded" src="https://www.iese.edu/wp-content/uploads/2019/09/Miguel-Angel-Canela-d.jpg"><noscript><img src="https://www.iese.edu/wp-content/uploads/2019/09/Miguel-Angel-Canela-d.jpg" alt="Miguel Ángel Canela" class="image-fluid"></noscript>
+</div>
 <div class="col-12 col-employee-card">
 <figcaption class="employee-card__description">
 <p class="employee-card__description__name">Miguel Ángel Canela</p>
@@ -267,6 +270,5 @@ Out[24]: [<div class="course">Data Visualization</div>]
 </div>
 </figure>
 </a>
-</div>
-```
+</div>```
 
