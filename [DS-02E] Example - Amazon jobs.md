@@ -245,26 +245,16 @@ In [15]: df['basic_qualifications'].str.contains('c+', case=False).mean().round(
 Out[14]: 1.0
 ```
 
-An alternative approach.
-
-```
-In [16]: bags = df['basic_qualifications'].str.lower().str.findall('\w+\+*')
-    ...: bags.head()
-Out[16]: 
-id
-996246     [4+, years, of, professional, software, develo...
-995357     [bachelors, degree, in, computer, science, or,...
-994952     [4+, years, of, professional, software, develo...
-990063     [4+, years, of, professional, software, develo...
-981888     [5, years, of, experience, in, chip, design, b...
-```
-
 ## Homework
 
-1. Positions incomplete.
+1. As we have seen in question Q3, some positions are incomplete. How often does this happen?
 
 2. What happens if in `In [15]` we use `'c++'` instead of `'c+'`? Why?
 
-3. Is Java more demanded than C++ in the basic qualifications field? Take care of distinguish Java from JavaScript, which is a different beast. 
+3. In question Q4, we have just counted the postings mentioning C# and C++ in the basic qualifications field, irrespective of the number of times they were mentioned? Can you refine the analysis counting the postings that mention these languages one, two, three, etc times?
 
-4. Q4. How often is experience mentioned in the preferred qualifications field? Expressions like '3+ years' or similar, with or without the word experience. For instance, you can find '4+ years of professional sotware development ...'. When the basic qualifications specifiy a number of years of experience, which is the most frequent number?
+4. Is Java more demanded than C++ in the basic qualifications field? Take care of distinguishing Java from JavaScript, which is a different beast. 
+
+5. How often is experience mentioned in the preferred qualifications field? 
+
+6. Expressions like '3+ years' or similar, with or without the word experience. For instance, you can find '4+ years of professional sotware development ...'. When the basic qualifications specifiy a number of years of experience, which is the top frequent number?
