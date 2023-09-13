@@ -53,19 +53,19 @@ In [1]: from bs4 import BeautifulSoup
 
 This allows us to use the function `BeautifulSoup`, which can be applied to any string containing HTML code. `BeautifulSoup` **parses** the HTML code, learning the tree structure encoded there, which is then stored in a **soup object**. Let us see how this works in our example. 
 
-We create a string variable, whose value is the HTML document. Note that the end of the line is marked with the backslash (`\`).
+We create a string variable, whose value is the HTML document. . The triple quote mark stops the Python interpeter having trouble with the line breaks.
 
 ```
-In [2]: html_str = '<html>\
-   ...: <head>\
-   ...:   <title>Data Viz</title>\
-   ...: </head>\
-   ...: <body>\
-   ...:   <div class="course">Data Visualization</div>\
-   ...:   <div class="program">MBA full-time</div>\
-   ...:   <a class="professor" href="faculty-research/faculty/miguel-angel-canela">Miguel Ángel Canela</a>\
-   ...: </body>\
-   ...: </html>'
+In [2]: html_str = '''<html>
+   ...: <head>
+   ...:   <title>Data Viz</title>
+   ...: </head>
+   ...: <body>
+   ...:   <div class="course">Data Visualization</div>
+   ...:   <div class="program">MBA full-time</div>
+   ...:   <a class="professor" href="faculty-research/faculty/miguel-angel-canela">Miguel Ángel Canela</a>
+   ...: </body>
+   ...: </html>'''
 ```
 This is stored as:
 
@@ -252,6 +252,9 @@ In [24]: soup.find_all('div', string='Data Visualization')
 Out[24]: [<div class="course">Data Visualization</div>]
 ```
 
+## Homework
+
+The following string is the HTML element containing the information about one professor in the web page `https://www.iese.edu/search/profesors` (it is not the source code for the whole page). Display this page in your browser to be sure that you understand these concepts. Then, enter this string in the Python console as `html_str` (use triple quote marks as in `In [2]`). Then, use the tools discussed in this lecture to extract from the name of the professor, his job description and the URL of his personal page. 
 
 ```
 <div class="col-12 col-md-4 col-lg-3 employee-card-box">
@@ -272,4 +275,3 @@ Out[24]: [<div class="course">Data Visualization</div>]
 </a>
 </div>
 ```
-
