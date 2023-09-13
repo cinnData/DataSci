@@ -251,3 +251,22 @@ In `find_all`, the parameter `string` allows searching elements by the text encl
 In [24]: soup.find_all('div', string='Data Visualization')
 Out[24]: [<div class="course">Data Visualization</div>]
 ```
+
+
+```
+<div class="col-12 col-md-4 col-lg-3 employee-card-box">
+<a href="https://www.iese.edu/faculty-research/faculty/miguel-angel-canela/" class="employee-card-link">
+<figure class="row employee-card employee-card--subdirector">
+<div class="col-12 col-employee-card">
+<figcaption class="employee-card__description">
+<p class="employee-card__description__name">Miguel Ángel Canela</p>
+<div class="employee-jobs">
+<p class="employee-card__description__job">Associate Professor of Managerial Decision Sciences</p>
+</div>
+</figcaption>
+</div>
+</figure>
+</a>
+</div>
+```
+
