@@ -170,7 +170,7 @@ Out[18]:
 dtype: float64
 ```
 
-The method `str.contains()` provides a vectorized version of the statement `substr in str` which has been discussed above. It returns a Boolean series. 
+The method `.str.contains()` provides a vectorized version of the statement `substr in str` which has been discussed above. It returns a Boolean series. 
 
 ```
 In [19]: pres.str.contains('a')
@@ -182,7 +182,7 @@ Out[19]:
 dtype: object
 ```
 
-`str.contains()`  can be used to filter out documents. For instance, it drops Donald Trump from the presidents list in the following example.
+`.str.contains()`  can be used to filter out documents. For instance, it drops Donald Trump from the presidents list in the following example.
 
 ```
 In [20]: pres = pres[~(pres.isna())]
@@ -208,7 +208,7 @@ dtype: object
 
 ## Regular expressions
 
-Quite often, the transformations performed by the methods described above can be simplified by means of **regular expressions**. More specifically, they can be used as the first argument in the methods `str.contains`, `str.findall`, `str.replace`, `str.split` and `str.count`.
+Quite often, the transformations performed by the methods described above can be simplified by means of **regular expressions**. More specifically, they can be used as the first argument in the methods `.str.contains`, `.str.findall`, `.str.replace`, `.str.split` and `.str.count`.
 
 A regular expression is a pattern which describes a collection of strings. Among them, **character classes** are the simplest case. They are built by enclosing a collection of characters in square brackets. The square brackets indicate *any of the characters enclosed*. For instance, `[0-9]` stands for any digit, and `[A-Z]` for any capital letter. Two simple examples follow.
 
@@ -229,7 +229,7 @@ Out[23]:
 dtype: object
 ```
 
-The default value of `regex` in `str.replace()` is currently `regex=False` (Pandas 2.0.3), but this has recently changed. `str.split()` and `str.contains()` also admit a `regex` argument, but the default is `regex=None` for the first one and `regex=True` for the second one. To avoid confusion, it is better to specify a `regex` value for these three methods. To make things worse, `str.findall()`  and `str.count()` don't admit a `regex` argument, and they always read the pattern as a regular expression. Sorry about the mess!
+The default value of the parameter `regex` in `.str.replace()` is currently `regex=False` (Pandas 2.0.3), but this has recently changed. `.str.split()` and `.str.contains()` also admit a `regex` argument, but the default is `regex=None` for the first one and `regex=True` for the second one. To avoid confusion, it is better to specify a `regex` value for these three methods. To make things worse, `.str.findall()`  and `.str.count()` don't admit a `regex` argument, and they always read the pattern as a regular expression. Sorry about the mess!
  
 Character classes get more powerful when complemented with **quantifiers**. For instance, followed by a plus sign (`+`), a character class indicates a sequence of any length. So, `[0-9]+` indicates any sequence of digits, therefore any number, and `[a-z]+` indicates any word in lowercase (using only English letters). We can also specify the length of the sequence, as in `[A-Z]{2}`, or the minimum and maximum length, as in `[0-9]{1,3}`.
 
@@ -265,7 +265,7 @@ Out[26]:
 dtype: object
 ```
 
-Some symbols, like the quantifier `+` or the wildcard `.` have a special role in regular expressions. You have to be careful when using them in patterns for the methods `str.findall()` and `str.count()`, because they can give unexpected results. The following example illustrates this. 
+Some symbols, like the quantifier `+` or the wildcard `.` have a special role in regular expressions. You have to be careful when including them in a search string in the methods `.str.findall()` and `.str.count()`, because they can give unexpected results. The following example illustrates this. 
 
 ```
 In [27]: comment = pd.Series(['Sally and Tim came to dinner. A nice couple.'])
