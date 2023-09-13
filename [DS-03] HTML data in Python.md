@@ -270,5 +270,6 @@ Out[24]: [<div class="course">Data Visualization</div>]
 </div>
 </figure>
 </a>
-</div>```
+</div>
+```
 
