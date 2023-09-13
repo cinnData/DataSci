@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Job offers are posted at the **Amazon Jobs** website (`amazon.jobs/en-gb`). Given the interest of these data for the community, a **web scraping** project at IESE Business School was started, with the focus on this website. At that time (no longer, unfortunately), more than 50,000 job offers were posted there. It was discovered that the information shown at the Amazon Jobs pages was loaded from JSON documents which could be accessed directly at `amazon.jobs/en-gb/search.json`. So the project was reoriented and the data were extracted directly from the JSON documents, captured by playing with the URL parameters at that site.
+Job offers are posted at the **Amazon Jobs** website (`amazon.jobs/en-gb`). Given the interest of these data for the community, a **web scraping** project at IESE Business School was started in 2021, with the focus on that website. At that time (no longer, unfortunately), more than 50,000 job offers were posted there. It was discovered that the information shown at the Amazon Jobs pages was loaded from JSON documents which could be accessed directly at `amazon.jobs/en-gb/search.json`. So the project was reoriented and the data extracted directly from the JSON documents, which were captured by playing with the URL parameters at that site.
 
 This example is based on a data subset resulting from selecting the job category **Software Development** and the business category **Amazon Web Services** (AWS).
 
@@ -50,7 +50,7 @@ As in the previous example, we use the Pandas funcion `read_csv()` to import the
 In [1]: import pandas as pd
 ```
 
-The (zipped) source file is in a GitHub repository, so we use a remote path to get access. The first column of the CSV file (`id`) is taken as the index, so the resulting data frame will have 10 columns.
+The (zipped) source file is stored in a GitHub repository, so we can use a remote path to get access. We take the first column of the source file (`id`) as the index, so the resulting data frame will have 10 columns.
 
 ``` 
 In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
@@ -83,7 +83,7 @@ dtypes: object(10)
 memory usage: 697.5+ KB
 ```
 
-Second, `.head()` displays the first five rows. The data look as expected, so far.
+Second, `.head()` extracts the first rows. The data look as expected, so far.
 
 ```
 In [4]: df.head()
@@ -131,7 +131,7 @@ id
 
 ## Q1. Count and drop duplicates
 
-Applied to a data frame, the method `.duplicated()` returns a Boolean series, indicating the rows which are duplicated. The default reads the data top-down, returning `False` for the rows occurring for the first time, and `True` for those having occurred before. Applying `.sum()` to that series, we get the number of duplicated rows.
+Applied to a data frame, the method `.duplicated()` returns a Boolean series, indicating the rows (not including the index) which are duplicated. The default reads the data top-down, returning `False` for the rows occurring for the first time, and `True` for those having occurred before. Applying `.sum()` to that series, we get the number of duplicated rows.
 
 ``` 
 In [5]: df.duplicated().sum()
@@ -145,7 +145,7 @@ In [6]: df.index.duplicated().sum()
 Out[6]: 0
 ```
 
-So, we have 366 job postings which are repetitions, but with the same ID. They may be errors, or positions which are identical. As suggested in question Q1, we drop them. The method `.drop_duplicates()` is applied in a straightforward way. Note that, as the default, this methods keeps the first occurrence of a duplicated row.
+So, we have 366 job postings which are repetitions, but with a different ID. They may be errors, or positions which are identical. As suggested in question Q1, we drop them. The method `.drop_duplicates()` works in a straightforward way, dropping the rows for which `df.duplicated() == True`. So, the default of this methods keeps only the first occurrence of a every unique row.
 
 ```
 In [7]: df = df.drop_duplicates()
@@ -155,14 +155,14 @@ Out[7]: (7750, 10)
 
 ## Q2. Top locations for software developers at Amazon
 
-The top locations for software developers at Amazon can be spotted with the method `.value_counts()`. First, we see that that there are 174 distinct locations in the data set. This is given by the length of the series returned by `.value_counts()`.
+The method `.value_counts()` counts the occurrences of every unique value of a series, sorting the counts top down. the length of the series returned by `.value_counts()` is the number of unique values. 
 
 ```
 In [8]: df['location'].value_counts().shape
 Out[8]: (174,)
 ```
 
-Now, with `.head(10)`, we select the top ten locations.
+So, there are 174 distinct locations for software developers at Amazon. The top ten can be extracted with `.head(10)`.
 
 ```
 In [9]: df['location'].value_counts().head(10)
@@ -182,7 +182,7 @@ Name: location, dtype: int64
 
 ## Q3. Positions in India
 
-Since, in the location, the country comes first, as a two-letter code, the Indian locations must those starting with 'IN'. We can capture them easily by slicing the location, as follows.
+Since, in the location, the country comes first, as a two-letter code, the Indian locations must be those starting with 'IN'. We can capture them easily by slicing the location, as follows.
 
 ```
 In [10]: df['location'][df['location'].str[:2] == 'IN'].value_counts()
@@ -197,9 +197,9 @@ IN, Hyderabad            1
 Name: location, dtype: int64
 ```
 
-India has already provided two examples showing that some locations do not have the three parts country, state and town. See the homewrok for one question related to this.
+Note. we have already found two examples showing that some locations do not have the expected three parts, country, state and town. See the homework for an exercise on this.
 
-An alternative (and more involved) approach would be to use `.str.contains()`, specifying the substring 'IN' to be at the beginning. Since the default of  `.str.contains()` is `regex=True`, we can do ths by inserting a **caret** symbol (`^`):
+An alternative (and more involved) approach would be to use `.str.contains()`, specifying the substring 'IN' to be at the beginning. Under `regex=True`, we can do this by inserting a **caret** symbol (`^`):
 
 ```
 In [11]: df['location'][df['location'].str.contains('^IN', regex=True)].value_counts()
@@ -216,7 +216,7 @@ Name: location, dtype: int64
 
 ## Q4. Programming languages in the basic qualifications field
 
-Search for the postings including 'C#' in the basic qualifications is easy with `.str.contains()`. Since computer languages are sometimes written in lowercase, we include here the argument `case=False`, writing the search string in lowercase.
+Search for the postings including 'C#' in the basic qualifications is easy with `.str.contains()`. Since computer languages are sometimes written in lowercase, we include here the argument `case=False`, with the search string in lowercase.
 
 ```
 In [12]: df['basic_qualifications'].str.contains('c#', case=False).mean().round(3)
@@ -230,7 +230,7 @@ In [13]: df['basic_qualifications'].str.contains('c+', case=False, regex=False).
 Out[13]: 0.72
 ```
 
-So, C++ is mentioned more often than C#. The same result could be obtained with the default version of `.str.contains()` but the search string '\+'. The backslash symbol (`\`) makes Python to read the plus sign literally.
+So, C++ is mentioned more often than C#. The same result could be obtained with the default version of `.str.contains()` but the search string '\\+'. The backslash symbol (`\`) makes Python to read the plus sign literally.
 
 
 ```
