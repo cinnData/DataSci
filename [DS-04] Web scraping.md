@@ -32,11 +32,11 @@ Let us refresh the context. Through the browser, you can access to resources, sp
 
 The **Hypertext Transfer Protocol** (HTTP) was designed to enable communications between clients and servers. For instance, a client (such as your browser) sends a **HTTP request** to the server. Then, the server returns the response to the client. The response contains status information about the request and, if the request is accepted, the requested content.
 
-**GET** is one of the most common HTTP methods. It is used to request data from a specified resource. The function `requests.get` is a Python implementation. You can manage this as follows:
+**GET** is one of the most common HTTP methods. It is used to request data from a specified resource. The Requests function `get()` is a Python implementation. You can manage this as follows:
 
 ```
 import requests
 html_str = requests.get(url).text
 ```
 
-`requests.get` returns a `requests` object (type `requests.models.Response`), containing data about the request. The attribute `text` of this object is a string which, for an ordinary web page, is the HTML source code. Now you can parse this string with the function `BeautifulSoup` from the package `bs4`, and then extract the information sought by means of the methods `find` and `find_all`. This information, after cleaning, can be exported to your preferred data format. In the example of this lecture, we export the data extracted to a CSV file.
+`get()` returns a `requests` object (type `requests.models.Response`), containing data about the request. The attribute `text` of this object is a string which, for an ordinary web page, is the HTML source code. Now you can parse this string with the function `BeautifulSoup()` from the package `bs4`, and then extract the information sought by means of the methods `.find()` and `.find_all()`. This information, after cleaning, can be exported to your preferred data format. In the example of this lecture, we export the data extracted to a CSV file.
