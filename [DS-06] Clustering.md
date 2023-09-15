@@ -4,15 +4,15 @@
 
 A **clustering algorithm** groups data units into **clusters**, based on their similarity. Clustering methods have been applied for a long time in many fields, under specific names. For instance, in marketing, clustering customers is called **market segmentation**. 
 
-There are many clustering methods, all based on the same principle, to achieve the maximum similarity within clusters and the minimum similarity between clusters. This is operationalized through a **similarity measure**. You will find, basically, two approaches to clustering: the **distance-based** methods, such as the $k$-means algorithm, and the **probability-based** methods, such as the EM clustering algorithm. Only the $k$-means algorithm is considered here, because most of the other methods, in spite of their popularity in textbooks, have **scalability** problems, meaning that they do not work, or become too slow, with big data sets.
+There are many clustering methods, all based on the same principle, which is to achieve the maximum similarity within clusters and the minimum similarity between clusters. This is operationalized through a **similarity measure**. You will find, basically, two approaches to clustering: the **distance-based** methods, such as the $k$-means algorithm, and the **probability-based** methods, such as the EM clustering algorithm. Only the $k$-means algorithm is considered here, because most of the other methods, in spite of their popularity in the textbooks, have **scalability** problems, meaning that they do not work, or become too slow, with big data sets.
 
-A warning note: clustering algorithms always produce clusters. But the clusters you get could be useless for their intended application. For instance, if you expect them to help to understand your customers, they have to be described in a intelligible way. This would probably imply a low number of clusters.
+A warning note: clustering algorithms always produce clusters. But those clusters could be useless for their intended application. For instance, to contribute to a better understanding of your customers, the customer segments have to be described in a intelligible way. This would probably imply a low number of segments.
 
-Frequently, professors and teaching materials suggest that, for a clustering to be useful, the number of clusters have to be small, which can be adequate when the clusters are intended to be managed by humans. But that is not always the case in business applications. A big e-retailer like Amazon can easily manage hundreds of clusters, with no human mind understanding what they are. Also, in some cases, the clusters are used only to speed up computation. For instance, to get recommendations faster, you can search them within clusters of products.
+Frequently, professors and teaching materials suggest that, for clusters to be useful, their number has to be low. Though this can be adequate when the clusters are intended to be managed by humans, it may not be so in some business applications. A big e-retailer like Amazon can easily manage hundreds of clusters, with no human mind understanding what they are. Also, in some cases, the clusters are used only to speed up computation. For instance, to get recommendations faster, you can search them within clusters of products.
 
 ## Similarities
 
-In the distance-based methods, the similarity of two samples is measured by a distance formula, which is usually the **Euclidean distance**. The Euclidean distance is the ordinary, real-life distance. The following example illustrates this.
+In the distance-based methods, the similarity of two data units is measured by means of a distance formula, which is usually the **Euclidean distance**. The Euclidean distance is the ordinary, real-life distance. The following example illustrates this.
 
 Pick two points in a 3-dimensional space, such as $x=(2,-1,3)$ and $y=(2,2,4)$. The distance between them is
 
@@ -22,7 +22,7 @@ The general formula, for a $p$-dimensional space, is
 
 $$\textrm{dist}(x,y)=\sqrt{(x_1-y_1 )^2 + \cdots + (x_p-y_p)^2}.$$
 
-This formula can be applied to any pair of rows of a data set with $p$ numeric columns. 
+This formula can be applied to any pair of rows of a data set with $p$ numeric columns, providing a numerical similarity measure. The lower the distance between two data points, the stronger their similarity.
 
 ## Normalization
 
@@ -32,11 +32,11 @@ It is not rare, in real data, that some variables show a much higher variation t
 
 $$Z=\frac{X-\min(X)}{\max(X)-\min(X)}\hbox{\thinspace}.$$
 
-Some methods of statistical analysis require the variables to have zero mean and unit variance, so you may find in textbooks the formula
+An alternative formula, is **statistical standardization**, based on the mean and the standard deviation. It is frequently used in statistical analysis, since some methods require the variables involved to have zero mean and unit variance.
 
 $$Z=\frac{X-\bar X}{\textrm{std}(X)}\hbox{\thinspace}.$$
 
-This is called **standardization**. These transformations are available in some Python packages, like scikit-learn. You can also create a specific function for your preferred normalization formula. For the min-max normalization, this would be:
+These transformations are available in some Python packages, like scikit-learn. You can also create a specific function for your preferred normalization formula. For the min-max normalization, this would be:
 
 ```
 def normalize(x): return (x - x.min())/(x.max() - x.min())
@@ -51,9 +51,9 @@ These functions can be applied to any numeric column of a Pandas data frame. Irr
 
 ## Cluster centers
 
-Suppose that you wish to group the data units in $k$ clusters using $p$ numeric variables. Many clustering methods are based on finding a set of $k$ points in the $p$-dimensional space of the variables, called **centers**, and clustering the units around the centers. Every sample will be assigned to the cluster whose center is most similar. Typically, the similarity is the Euclidean distance.
+Suppose that you wish to group the data units in $k$ clusters using $p$ numeric variables. Many clustering methods are based on finding a set of $k$ points in the $p$-dimensional space of those variables, called **centers**, and clustering the units around the centers. Every unit will be assigned to the cluster whose center is most similar to that unit. Typically, the similarity is the Euclidean distance.
 
-The centers can also be used to assign a cluster to a new unit which has not been used to find the centers. We just select the cluster whose center is closer to that new unit.
+The centers can also be used to assign a cluster to a new unit which has not been used to extract the centers. The selected cluster would be the one whose center is closer to the new unit.
 
 In real-world applications, we look at the center as an artificial unit which we consider as the "typical element'' of the cluster. The values that this artificial unit takes for the different variables are used to produce a description of the cluster, as far as that makes sense. This is the typical approach in customer segmentation. So a marketing manager can describe a segment of customers as individuals above 60, with annual family income between $100,000 and $250,000, who frequently watch soap opera TV comedy series. This would be nothing but a description of the center of that segment.
 
@@ -87,29 +87,32 @@ In $k$-means clustering, you have to specify the number of clusters. Even if thi
 
 ## *k*-means clustering in Python
 
-$k$-means clustering is available in the Python packages SciPy and scikit-learn, both included in the Anaconda distribution. It is not difficult to manage if you have a clear mind about what you will extract from the data, meaning:
+$k$-means clustering is available in the Python packages SciPy and scikit-learn, both included in the Anaconda distribution. It is not difficult to manage if you have a clear mind about what you are going to get, more specifically:
 
-* A vector, of length equal to the number of rows of the data set, containing the cluster labels.
+* A vector, of length equal to the number of rows of the data set, containing the **cluster labels**.
 
-* A matrix with one row for every center. For every row, the terms of that row would be the mean values of the features on the corresponding cluster.
+* A matrix containing the **cluster centers**, with one row for every center. For every row, the terms of that row would be the mean values of the features on the corresponding cluster.
 
-I explain here the **SciPy** version. $k$-means clustering is provided by the subpackage `scipy.cluster.vq`. You can import it, with a friendly name, as:
+We explain here the **SciPy** version. $k$-means clustering is provided by the subpackage `scipy.cluster.vq`. The functions `kmeans` and `vq()` will give you the labels and the centers, respectively.
+
+You can import the subpackage, with a friendly name, as:
 
 ```
 import scipy.cluster.vq as cluster
 ```
 
-Suppose that `X` is a Pandas data frame. The centers are obtained as:
+Now, suppose that `df` is a Pandas data frame. The centers are obtained as:
 
 ```
-center = cluster.kmeans(data, k)[0]
+centers = cluster.kmeans(df, k)[0]
 ```
 
-Here, `k` is the number of clusters. `cluster.kmeans(X, k)` is a tuple containing two objects: the first one is the center matrix, as a 2D array, and the second one is the average (non-squared) Euclidean distance between the units and the closest center. This number, which is similar to the distortion, decreases as the number of clusters increases (it would be zero if you extract as many clusters as the number of units). It can be taken as a measure of the "quality" of a cluster, and used to decide about the best number of clusters.
+`k` is the number of clusters. The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, as a 2D array, and the second one is the average (non-squared) Euclidean distance between the units and the closest center. This number, which is similar to the distortion, decreases as the number of clusters increases (it would be zero if you extract as many clusters as the number of units). It can be taken as a measure of the "quality" of a cluster, and used to decide about the best number of clusters.
 
 The labels are obtained as:
 
 ```
-label = cluster.vq(data, center)[0]
+labels = cluster.vq(data, centers)[0]
 ```
-Here, also, `cluster.vq(data, center)` contains two objects. The first one is the vector of cluster labels, and the second one the vector of distances from the units to the closest center, both as 1D arrays.
+
+`vq()` also returns two objects. The first one is the vector of cluster labels, and the second one the vector of distances from the units to the closest center, both as 1D arrays.
