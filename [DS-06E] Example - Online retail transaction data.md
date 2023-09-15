@@ -6,29 +6,29 @@ The **RFM model** is commonly used in **customer relationship management** and h
 
 The RFM model is a three-dimensional representation of the customer. The three dimensions, which can be briefly defined as:
 
-* **Recency** (R): How recently did the customer purchase?
+* **Recency** (R): How recently did that customer purchase?
 
-* **Frequency** (F): How often do he/she purchase?
+* **Frequency** (F): How often does he/she purchase?
 
-* **Monetary value** (M): How much do he/she spend?
+* **Monetary value** (M): How much does he/she spend?
 
-These three dimensions can be calculated in different ways, depending on the data available. Once the data analist has them as three columns in a data set in which every row stands for a customer, they can be used for segmention, for predicting various outcomes, or other jobs.
+These three dimensions can be calculated in different ways, depending on the data available. Once the data analist has them as three columns in a data set in which every row stands for a customer, they can be used for **segmentation**, for predicting various outcomes, or other jobs.
 
-In the simplest versions, every dimension is coverted to a **categorical scale**. For instance, recency might be broken into three categories: customers with purchases within the last 90 days, between 91 and 365 days, and longer than 365 days. Such categories may be derived from business rules or using data mining techniques to find meaningful intervals.
+In the simplest versions, every dimension is coverted to a **categorical scale**. For instance, recency might be broken into three categories: customers with purchases within the last 90 days, between 91 and 365 days, and longer than 365 days. Such categories may be derived from business rules or by means of data mining techniques.
 
 RFM models are easy for managers to understand as they do not require statistical software or expertise and are straightforward to apply to customer data. For instance, once each of the attributes has the appropriate categories defined, customer segments can be created from the intersection of the values. If there were three categories for each attribute, then the resulting matrix would have 27 possible combinations (a well-known commercial approach uses five bins per attributes, which yields 125 segments). Identifying the most valuable RFM segments can capitalize on chance relationships in the data used for the analysis.
 
 In spite of the popularity of the discrete RFM model, it has been argued that valuable information is lost in the conversion to a categorical scale, so it would be better to keep the original scales. In that case, **clustering techniques** can be used for the segmentation, after normalizing the three dimensions, for instance into the 0-1 range.
 
-In this example, we use a real online retail transaction data set of two years. This data set contains all the transactions occurring for a UK-based and registered non-store online retail, between December 1rst 2009 and December 9th 2011. The company mainly sells unique all-occasion gift-ware. Many customers of the company are wholesalers.
+In this example, we use a real **online retail transaction** data set of two years. This data set contains all the transactions occurring for a UK-based and registered non-store online retail, between December 1rst 2009 and December 9th 2011. The company mainly sells unique all-occasion gift-ware. Many customers of the company are wholesalers.
 
 ## The data set
 
-The data come in the file `retail.csv` (zipped), which has 406,829 rows. Every row corresponds to an item included in a transaction. There are 22,190 transactions, identified by the invoice number. These transactions involve 4,372 different customers. 
+The data come in the file `retail.csv` (zipped), which has 406,829 rows. Every row corresponds to an item included in a transaction. There are 22,190 transactions, identified by the invoice number, involve 4,372 customers. 
 
 The columns are:
 
-* `InvoiceNo`, the invoice number. A 6-digit integral number uniquely assigned to each transaction. If this code starts with the letter 'C', it indicates a cancellation.
+* `InvoiceNo`, the invoice number. A 6-digit integer uniquely assigned to each transaction. If the transaction has been a cancellation, that integer is prceded by the letter 'C'.
 
 * `StockCode`, the product code. A 5-digit number uniquely assigned to each distinct product.
 
@@ -40,7 +40,7 @@ The columns are:
 
 * `UnitPrice`, the product unit price in sterling pounds (£).
 
-* `CustomerID`, the customer identifier. A 5-digit number uniquely assigned to each customer.
+* `CustomerID`, the customer identifier. A 5-digit integer uniquely assigned to that customer.
 
 * `Country`, the name of the country where the customer resides.
 
@@ -50,29 +50,27 @@ Source: Daqing Chen, School of Engineering, London South Bank University, London
 
 Q1. Create a new column indicating, for every transaction, the number of days from the date the invoice was generated to the last day in the data set (2011-12-09).
 
-Q2. Group by customer and aggregate to create the RFM data set. In this new data set there should be three columns: (a) `Recency`, obtained by averaging the variable suggested in the preceding question , (b) `Frequency`, obtained by counting the number of transactions per customer, and (c) `Monetary`, obtained by summing the money spent per customer.
+Q2. Group by customer and aggregate to create the **RFM data set**. This new data set must include the following three columns: (a) `Recency`, obtained by averaging the variable suggested in the preceding question , (b) `Frequency`, obtained by counting the number of transactions per customer, and (c) `Monetary`, obtained by summing the money spent per customer.
 
-Q3. Perform a 8-cluster analysis of the RFM data set. 
-
-Q4. Convert every dimension of the RFM data set to a binary scale (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with that of the preceding question and discuss. 
-
+Q3. Perform a **8-cluster analysis** of the RFM data set. 
 
 ## Importing the data
 
-```
-In [1]: import pandas as pd
-```
+We import Pandas as usual. In this example, we use the argument `parse_col=[4]` in  `read_csv()`, to indicate that the column `InvoiceData` is to be converted to data type `datetime64`. We could also import the data in the usual way, applying `.astype(datetime64[ns])` to that column. 
 
 ```
-In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
+In [1]: import pandas as pd
+   ...: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
    ...: filename = path + 'retail.csv.zip'
    ...: df = pd.read_csv(filename, parse_dates=[4])
 ```
 
 ## Exploring the data
 
+We explore now the data as usual, with the methods `. info()` and `.head()`. The data are complete and look right. Note the data type of `InvoiceDate`.  
+
 ```
-In [3]: df.info()
+In [2]: df.info()
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 406829 entries, 0 to 406828
 Data columns (total 8 columns):
@@ -91,8 +89,8 @@ memory usage: 24.8+ MB
 ```
 
 ```
-In [4]: df.head()
-Out[4]: 
+In [3]: df.head()
+Out[3]: 
   InvoiceNo StockCode                          Description  Quantity   
 0    536365    85123A   WHITE HANGING HEART T-LIGHT HOLDER         6  \
 1    536365     71053                  WHITE METAL LANTERN         6   
@@ -108,10 +106,11 @@ Out[4]:
 4  2010-12-01 08:26:00       3.39       17850  United Kingdom  
 ```
 
+According to the description of the data, there must be cancellations, identified with a special ID. Indeed, we have 8,905 cancellations, with negative quantities.
 
 ```
-In [5]: pd.crosstab(df['InvoiceNo'].str.contains('C'), df['Quantity'] < 0)
-Out[5]: 
+In [4]: pd.crosstab(df['InvoiceNo'].str.contains('C'), df['Quantity'] < 0)
+Out[4]: 
 Quantity    False  True 
 InvoiceNo               
 False      397924      0
@@ -120,17 +119,20 @@ True            0   8905
 
 ## Q1. New column with the number of days since the invoice was generated
 
+We take as the reference for counting the days the date of the last invoice included in the data.
 
 ```
-In [6]: max_date = max(df['InvoiceDate'])
-    ...: max_date
-Out[6]: Timestamp('2011-12-09 12:50:00')
+In [5]: max_date = max(df['InvoiceDate'])
+   ...: max_date
+Out[5]: Timestamp('2011-12-09 12:50:00')
 ```
 
+Next, we subtract the invoice dates from the reference date. The new columns has a special data type, `timeDelta64`.
+
 ```
-In [7]: df['Diff'] = max_date - df['InvoiceDate']
-    ...: df['Diff']
-Out[7]: 
+In [6]: df['Diff'] = max_date - df['InvoiceDate']
+   ...: df['Diff']
+Out[6]: 
 0        373 days 04:24:00
 1        373 days 04:24:00
 2        373 days 04:24:00
@@ -145,10 +147,12 @@ Out[7]:
 Name: Diff, Length: 406829, dtype: timedelta64[ns]
 ```
 
+With `.days`, we convert the column `Diff` from type `timeDelta64` to type `int` (flooring down), getting a number of days, which indicates the recency of the invoice.
+
 ```
-In [8]: df['Diff'] = df['Diff'].dt.days
-    ...: df.head()
-Out[8]: 
+In [7]: df['Diff'] = df['Diff'].dt.days
+    ..: df.head()
+Out[7]: 
   InvoiceNo StockCode                          Description  Quantity   
 0    536365    85123A   WHITE HANGING HEART T-LIGHT HOLDER         6  \
 1    536365     71053                  WHITE METAL LANTERN         6   
@@ -166,12 +170,12 @@ Out[8]:
 
 ## Q2. Group by customer and aggregate to create the RFM data set
 
-Creating recency and frequency data
+In the RFM data set, every custmer must a row, with the RFM values. To creating the first two columns, `Recency` and `Frequency`, we group by customer and aggregate with functions `min()` and `count()`.
 
 ```
-In [9]: RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
-    ...: RF.head()
-Out[9]: 
+In [8]: RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
+   ...: RF.head()
+Out[8]: 
             min  count
 CustomerID            
 12346       325      2
@@ -386,6 +390,6 @@ Segment
 
 ## Homework
 
-1. Drop extreme values from the RFM data (before the normalization) and run the cluster analysis again.
+1. Drop extreme values from the RFM data (before the normalization), perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3.
 
-2. Compare the new clusters with those obtained in question Q3.
+2. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the . 
