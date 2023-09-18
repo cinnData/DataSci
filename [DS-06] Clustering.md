@@ -115,4 +115,4 @@ The labels are obtained as:
 labels = cluster.vq(data, centers)[0]
 ```
 
-`vq()` also returns two objects. The first one is the vector of cluster labels, and the second one the vector of distances from the units to the closest center, both as 1D arrays.
+`vq()` also returns two objects. The first one is the vector of cluster labels, and the second one is a vector containing the distance from every unit to the closest center, both as 1D arrays.
