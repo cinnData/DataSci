@@ -170,7 +170,7 @@ Out[7]:
 
 ## Q2. Group by customer and aggregate to create the RFM data set
 
-In the RFM data set, every custmer must a row, with the RFM values. To creating the first two columns, `Recency` and `Frequency`, we group by customer and aggregate with functions `min()` and `count()`.
+In the RFM data set, every custmer must a row, with the RFM values. To create the first two columns, `Recency` and `Frequency`, we group by customer and aggregate with functions `min()` and `count()`.
 
 ```
 In [8]: RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
@@ -185,20 +185,24 @@ CustomerID
 12350       309     17
 ```
 
-```
-In [10]: RF.columns = ['Recency', 'Frequency']
-```
-
-Creating monetary data
+For clarity, we change the names of the columns. Note that `Recency` contains, for every customer, the number of days since the last invoice of that customer.
 
 ```
-In [11]: df['Monetary'] = df['Quantity']*df['UnitPrice']
+In [9]: RF.columns = ['Recency', 'Frequency']
 ```
 
+For the monetary value, we first create a column in the original data set with the total amount of every invoice. This will the product of the unit price by the quantity.
+
 ```
-In [12]: M = df.groupby('CustomerID')['Monetary'].sum()
+In [10]: df['Monetary'] = df['Quantity']*df['UnitPrice']
+```
+
+By aggregating (now with `sum()`) for every customer, we get a series with the monetary data.
+
+```
+In [11]: M = df.groupby('CustomerID')['Monetary'].sum()
     ...: M.head()
-Out[12]: 
+Out[11]: 
 CustomerID
 12346       0.00
 12347    4310.00
@@ -207,12 +211,13 @@ CustomerID
 12350     334.40
 Name: Monetary, dtype: float64
 ``` 
-Joining the two data sets
+
+Finally, we join this series for the data frame `RF`. We use the method `merge()`, specifying that the join is based on the indexes. The same could be done with `.join()` and with the function `concat()` (everyone with its own rules).
 
 ```
-In [13]: RFM = RF.merge(M, left_index=True, right_index=True)
+In [12]: RFM = RF.merge(M, left_index=True, right_index=True)
     ...: RFM.head()
-Out[13]: 
+Out[12]: 
             Recency  Frequency  Monetary
 CustomerID                              
 12346           325          2      0.00
@@ -224,10 +229,11 @@ CustomerID
 
 ## Q3. 8-cluster analysis
 
-Normalization
+The quick exploration of the RFM data set given by `RFM.head()` suggests that, using the data as they are, we can give more weight to `Monetary` than the other two variables. This is confirmed by the statistical summary that follows. 
 
-In [14]: RFM.describe()
-Out[14]: 
+```
+In [13]: RFM.describe()
+Out[13]: 
            Recency    Frequency       Monetary
 count  4372.000000  4372.000000    4372.000000
 mean     91.047118    93.053294    1898.459701
@@ -237,18 +243,19 @@ min       0.000000     1.000000   -4287.630000
 50%      49.000000    42.000000     648.075000
 75%     142.000000   102.000000    1611.725000
 max     373.000000  7983.000000  279489.020000
-
-Normalization function
-
 ```
-In [15]: def normalize(x): return (x - x.min())/(x.max() - x.min())
-```
-Apply to every column of the data frame `RFM`.
+
+So, normalizing the data looks like a reasonable step. **Min-max normalization** can be performed directly by applying the following function to every column of the data frame.
 
 ```
-In [16]: RFM1 = RFM.apply(normalize, axis=0)
+In [14]: def normalize(x): return (x - x.min())/(x.max() - x.min())
+```
+This function can be applied to a vector-like data container (NumPy 1D array or Pandas series) which admits the methods `.max()` and `.min()`. There are many ways of applying it to the columns of the data frame `RFM`. One way to it in one line is by means of the method `.apply()`. The argument `axis=0` means that the function is applied by column. With `axis=1`, it woukld be applied by row.
+
+```
+In [15]: RFM1 = RFM.apply(normalize, axis=0)
     ...: RFM1.head()
-Out[16]: 
+Out[15]: 
              Recency  Frequency  Monetary
 CustomerID                               
 12346       0.871314   0.000125  0.015109
@@ -258,20 +265,20 @@ CustomerID
 12350       0.828418   0.002005  0.016288
 ```
 
-Cluster analysis. Use the package **SciPy** version. Import the $k$-means clustering tools as:
+We are ready now for the **cluster analysis**. We use the version of the package **SciPy**, import the $k$-means clustering tools, from the subpackage `scipy.cluster.vq`, as follows.
 
 ```
-In [17]: import scipy.cluster.vq as cluster
+In [16]: import scipy.cluster.vq as cluster
 ```
 
-Note that `cluster` is here a user-provided name. 
+Note that `cluster` is here a user-provided name. We extract from the data the eight **cluster centers**, and then use the centers to create a new column with **cluster labels**. The centers are obtained as a 2D array with eight rows and three columns. Every row stands for the center of one cluster, and the three entries there are the RFM values of that center. So, the center can be seen as the average customer of the corresponding cluster (in mathematical terms, this is, precisely what it is). 
 
-The centers are obtained as:
+The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, and the second one is the average (non-squared) Euclidean distance between a customer and the closest center (the homework includes an exercise on this). So, we extract the first item of that tuple to get the center matrix.
 
 ```
-In [18]: center = cluster.kmeans(RFM1, 8)[0]
-    ...: center
-Out[18]: 
+In [17]: centers = cluster.kmeans(RFM1, k=8)[0]
+    ...: centers
+Out[17]: 
 array([[0.51290262, 0.00406231, 0.01708207],
        [0.14106821, 0.00802362, 0.01890266],
        [0.90729203, 0.00279722, 0.01624688],
@@ -282,22 +289,21 @@ array([[0.51290262, 0.00406231, 0.01708207],
        [0.01576313, 0.0268319 , 0.03266514]])
 ```
 
-The labels are obtained as:
+The function `vq()` takes the centers and also returns two objects. The first one is the vector of cluster labels, and the second one a vector containing, for every customer, the distance to the closest center, both as 1D arrays. So the labels are obtained as:
 
 ```
-In [19]: label = cluster.vq(RFM1, center)[0]
-    ...: label
-Out[19]: array([2, 7, 4, ..., 7, 7, 1], dtype=int32)
+In [18]: labels = cluster.vq(RFM1, centers)[0]
+    ...: labels
+Out[18]: array([2, 7, 4, ..., 7, 7, 1], dtype=int32)
 
 ```
 
 Note that `centers` and `labels`are NumPy arrays. We can add the labels as a column to the data frame `RFM`:
 
-
 ```
-In [20]: RFM['Segment'] = label
+In [19]: RFM['Segment'] = label
     ...: RFM.head()
-Out[20]: 
+Out[19]: 
             Recency  Frequency  Monetary  Segment
 CustomerID                                       
 12346           325          2      0.00        2
@@ -310,8 +316,8 @@ CustomerID
 We can use now `.value_counts()` to check the sizes of the segments:
 
 ```
-In [21]: RFM['Segment'].value_counts()
-Out[21]: 
+In [20]: RFM['Segment'].value_counts()
+Out[20]: 
 Segment
 7    1022
 5     946
@@ -390,6 +396,10 @@ Segment
 
 ## Homework
 
-1. Drop extreme values from the RFM data (before the normalization), perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3.
+1. As explained in lecture DS-06, the $k$-means algorithm uses a random start. So, different runs will give different results. In real applications we don't these differences to be relevant. Compare the results of two partitions obtained in different runs of the $k$-means algorithm, using cross tabulation.
 
-2. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the . 
+2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and be taken as a measure of the "quality" of the segmentation. Apply `means()` with different values of the parameter `k` and compare the corresponding quality measures. Do you think that `k=8` was a good choice?
+
+3. Drop extreme values from the RFM data (before the normalization), perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3.
+
+4. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the clusters obtained in question Q3. 
