@@ -289,6 +289,8 @@ array([[0.51290262, 0.00406231, 0.01708207],
        [0.01576313, 0.0268319 , 0.03266514]])
 ```
 
+In general, the analysis of this matrix is not easy, and it may be a challenge for the CRM manager. In ths case, we notice that, while the recency values are covered the interval 0-1, those of frequency and monetary value are very low. This is a consequence of the extreme values that have already showed up in `Out[13]`. So, maybe we should have dropped the extreme values to avoid their influence. You can try this as part of the homework.
+
 The function `vq()` takes the centers and also returns two objects. The first one is the vector of cluster labels, and the second one a vector containing, for every customer, the distance to the closest center, both as 1D arrays. So the labels are obtained as:
 
 ```
@@ -328,70 +330,6 @@ Segment
 6     332
 2     281
 Name: count, dtype: int64
-```
-
-## Q4. Segments based on binarized RFM dimensions 
-
-Binarization
-
-```
-In [22]: RFM['BinRecency'] = ((RFM['Recency'] > RFM['Recency'].median()) + 0).astype(str)
-    ...: RFM['BinFrequency'] = ((RFM['Frequency'] > RFM['Frequency'].median()) + 0).astype(str)
-    ...: RFM['BinMonetary'] = ((RFM['Monetary'] > RFM['Monetary'].median()) + 0).astype(str)
-    ...: RFM.head()
-Out[22]: 
-            Recency  Frequency  Monetary  Segment BinRecency BinFrequency   
-CustomerID                                                                  
-12346           325          2      0.00        2          1            0  \
-12347             1        182   4310.00        7          0            1   
-12348            74         31   1797.24        4          1            0   
-12349            18         73   1757.55        5          0            1   
-12350           309         17    334.40        2          1            0   
-
-           BinMonetary  
-CustomerID              
-12346                0  
-12347                1  
-12348                1  
-12349                1  
-12350                0  
-```
-Compare this partition with that of the preceding question
-
-```
-In [23]: RFM['BinSegment'] = RFM['BinRecency'] + RFM['BinFrequency'] + RFM['BinMonetary']
-    ...: RFM.head()
-Out[23]: 
-            Recency  Frequency  Monetary  Segment BinRecency BinFrequency   
-CustomerID                                                                  
-12346           325          2      0.00        2          1            0  \
-12347             1        182   4310.00        7          0            1   
-12348            74         31   1797.24        4          1            0   
-12349            18         73   1757.55        5          0            1   
-12350           309         17    334.40        2          1            0   
-
-           BinMonetary BinSegment  
-CustomerID                         
-12346                0        100  
-12347                1        011  
-12348                1        101  
-12349                1        011  
-12350                0        100  
-```
-
-```
-In [24]: pd.crosstab(RFM['Segment'], RFM['BinSegment'])
-Out[24]: 
-BinSegment  000  001  010  011  100  101  110  111
-Segment                                           
-0             0    0    0    0  238   27   27   58
-1            92   24   25   96  170   47   37  139
-2             0    0    0    0  228   11   29   13
-3             0    0    0    0  277   22   20   24
-4             0    0    0    0  198   73   35  162
-5           295   77  101  473    0    0    0    0
-6             0    0    0    0  184   41   26   81
-7           143   65   61  753    0    0    0    0
 ```
 
 ## Homework
