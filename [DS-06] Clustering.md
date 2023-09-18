@@ -28,7 +28,7 @@ This formula can be applied to any pair of rows of a data set with $p$ numeric c
 
 It is not rare, in real data, that some variables show a much higher variation than the rest. Formulas like the Euclidean distance make those variables too influential on the clustering process. To prevent this, the features involved in the clustering process can be normalized. There are two favorite approaches to **normalization**, as we see next.
 
-**In min-max normalization**, all the variables are forced, through a linear transformation, into the 0-1 range. The formula for this transformation is
+In **min-max normalization**, all the variables are forced, through a linear transformation, into the 0-1 range. The formula for this transformation is
 
 $$Z=\frac{X-\min(X)}{\max(X)-\min(X)}\hbox{\thinspace}.$$
 
