@@ -107,7 +107,7 @@ Now, suppose that `df` is a Pandas data frame. The centers are obtained as:
 centers = cluster.kmeans(df, k)[0]
 ```
 
-`k` is the number of clusters. The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, as a 2D array, and the second one is the average (non-squared) Euclidean distance between the units and the closest center. This number, which is similar to the distortion, decreases as the number of clusters increases (it would be zero if you extract as many clusters as the number of units). It can be taken as a measure of the "quality" of a cluster configuration, and used to decide about the best number of clusters.
+`k` is the number of clusters. The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, as a 2D array, and the second one is the average (non-squared) Euclidean distance between a unit and the closest center. This number, which is similar to the distortion, decreases as the number of clusters increases (it would be zero if you extract as many clusters as the number of units). It can be taken as a measure of the "quality" of a cluster configuration, and used to decide about the best number of clusters.
 
 The labels are obtained as:
 
