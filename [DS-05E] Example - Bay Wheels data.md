@@ -209,7 +209,7 @@ We get rid of the index name, so that it does not appear in the plots below, whi
 In [12]: df.index.name = None
 ```
 
-Though this is not absolutely necessary, we create a new column with the total number of rides.
+For clarity, we create a new column with the total number of rides.
 
 ```
 In [13]: df['total'] = df['member'] + df['casual']
@@ -218,7 +218,7 @@ In [13]: df['total'] = df['member'] + df['casual']
 Time trends are typically spotted by means of **line charts**. See below a sample using the hourly total number of rides.
 
 ```
-In [14]: df['total'].plot(figsize=(10,6), color='black', linewidth=1);
+In [14]: df['total'].plot(figsize=(8,5), title='Figure 1. Hourly total demand', color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_1.png)
@@ -226,15 +226,15 @@ In [14]: df['total'].plot(figsize=(10,6), color='black', linewidth=1);
 We see here a combination of a trend with time-based patterns, but it is difficult to conclude much with so many observations and the current granularity of the data. Since intraday patterns can be responsible for a significant part of the variation that we see in the chart, we aggregate to a daily data set. We use the mean so the vertical scale in the successive charts remains the same. Note that here, we don't use `.groupby()`, but `.resample()`, and we don't need to create a new data set for plotting.
 
 ```
-In [15]: df['total'].resample('D').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [15]: df['total'].resample('D').mean().plot(figsize=(8,5), title='Figure 2. Daily total demand', color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_2.png)
 
-Now, the picture is more clear, though part of the variation is probably due to weekends and holidays. Going a bit further, we can aggregate to a weekly data set, again with `.resample()`.`
+Now, the picture is more clear, though part of the variation is probably due to weekends and holidays. Going a bit further, we can aggregate to a weekly data set, again with `.resample()`.
 
 ```
-In [16]: df['total'].resample('W').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [16]: df['total'].resample('W').mean().plot(figsize=(8,5), title='Figure 3. Weekly total demand', color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_3.png)
@@ -242,7 +242,7 @@ In [16]: df['total'].resample('W').mean().plot(figsize=(10,6), color='black', li
 Even further, we can aggregate to a monthly data set. The chart shows a combination of a trend plus monthly seasonality.
 
 ```
-In [17]: df['total'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [17]: df['total'].resample('M').mean().plot(figsize=(8,5), title='Figure 4. Monthly total demand', color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_4.png)
@@ -250,20 +250,21 @@ In [17]: df['total'].resample('M').mean().plot(figsize=(10,6), color='black', li
 To see whether the trend is the same for the two user types, we can draw separate charts, which show that the trend only happens in the member group. This may be due to workforce discountinuing remote work and going back to office after the Stay Home order.
 
 ```
-In [18]: df['casual'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [18]: df['casual'].resample('M').mean().plot(figsize=(8,5), title="Figure 5. Casuals' monthly total demand", color='black', linewidth=1);
+
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_5.png)
 
 ```
-In [19]: df['member'].resample('M').mean().plot(figsize=(10,6), color='black', linewidth=1);
+In [19]: df['member'].resample('M').mean().plot(figsize=(8,5), title="Figure 6. Members' monthly total demand", color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_6.png)
 
 ## Q4. Intraday variation
 
-To examine the intraday variation, we need to extract an average value for every hour. First, we create a column containing (only) the hour, with the method `.hour`.
+To examine the intraday variation, we need to extract an average value for every hour. First, we create a column containing (only) the hour, as an integer, with the method `.hour`.
 
 ```
 In [20]: df['hour'] = df.index.hour
@@ -313,13 +314,15 @@ hour
 You may prefere to see this in a **bar chart**. Comparing the charts of the two user types, we see the influence of work schedule in the intraday variation pattern of the members.  
 
 ```
-In [22: df[['casual', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), color='gray', legend=False);
+In [22: df[['casual', 'hour']].groupby('hour').mean().plot.bar(figsize=(7,5),
+    ...:    title="Figure 7. Intraday variation of casuals' average demand", color='gray', legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_7.png)
 
 ```
-In [23]: df[['member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), color='gray', legend=False);
+In [23]: df[['member', 'hour']].groupby('hour').mean().plot.bar(figsize=(7,5),
+    ...:    title="Figure 8. Intraday variation of members' average demand", color='gray', legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_8.png)
@@ -327,8 +330,8 @@ In [23]: df[['member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6), c
 You may prefer to pack both charts as a **stacked bar chart**, which is east in Pandas, as we seen next.
 
 ```
-In [24]: df[['casual', 'member', 'hour']].groupby('hour').mean().plot.bar(figsize=(8,6),
-    ...: 	color=['0.4', '0.7'], stacked=True);
+In [24]: df[['casual', 'member', 'hour']].groupby('hour').mean().plot.bar(figsize=(7,5),
+    ...:    title='Figure 9. Intraday variation of average demand', color=['0.4', '0.7'], stacked=True);
 
 ```
 
@@ -345,12 +348,11 @@ In [25]: df['weekday'] = df.index.weekday
 The stacked bar chart is obtained as in Q4. As there, the different patterns suggests that members and casuals use the bike  travelling with different purposes (work/leisure). 
 
 ```
-In [26]: df[['casual', 'member', 'weekday']].groupby('weekday').mean().plot.bar(figsize=(8,6),
-    ...:    color=['0.4', '0.7'], stacked=True);
+In [26]: df[['casual', 'member', 'weekday']].groupby('weekday').mean().plot.bar(figsize=(7,5),
+    ...:    title= 'Figure 10. Intraweek variation of total demand', color=['0.4', '0.7'], stacked=True);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_10.png)
-
 
 ## Q6. Monthly seasonality #
 
@@ -358,20 +360,38 @@ For the month seasonality we need twelve monthly averages. Again, we create a ne
 
 ```
 In [27]: df['month'] = df.index.month
+In [28]: df[['casual', 'member', 'month']].groupby('month').mean().round(1)
+Out[28]: 
+       casual  member
+month                
+1        80.0    88.8
+2        98.6   110.6
+3       106.5   118.2
+4       124.0   126.7
+5       136.5   131.6
+6       165.8   147.2
+7       158.6   145.3
+8       155.4   158.4
+9       167.4   167.2
+10      143.5   179.1
+11      105.2   154.7
+12       69.5   112.2
 ```
 
-The patterns are similar.
+We can plot just plot the total demand, since the seasonal patterns are quite similar for casulas and members.
 
 ```
-In [28]: df[['casual', 'member', 'month']].groupby('month').mean().plot(figsize=(10,6), color='black', linewidth=1, legend=False);
+In [29]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5), 
+    title='Figure 11. Monthly seasonality', color='black', linewidth=1, legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_05e_11.png)
 
-
 ## Homework
 
-1. Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
+1. Perform an analysis of the analysis of demand in which the patterns of variation for the demand of electric and classic bikes are compoared. Are classic bikes lagging behind of electric bikes?
+
+Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
 
 2. How frequent are circular rides, starting and ending at the same station?
 
