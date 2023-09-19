@@ -391,10 +391,10 @@ In [29]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5),
 
 1. Perform an analysis of the analysis of demand in which the patterns of variation for the demand of electric and classic bikes are compoared. Are classic bikes lagging behind of electric bikes?
 
-Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
+2. Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
 
-2. How frequent are circular rides, starting and ending at the same station?
+3. How frequent are circular rides, starting and ending at the same station?
 
-3. Are there stations with very low activity, so you can consider dropping them?
+4. Are there stations with very low activity, so you can consider dropping them?
 
-4. Seasonal patterns can be different across the stations of the Bay Wheels network. How can you detect the stations where the between-month variation is highest?
+5. Seasonal patterns can be different across the stations of the Bay Wheels network. How can you detect the stations where the between-month variation is highest?
