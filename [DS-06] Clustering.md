@@ -2,7 +2,7 @@
 
 ## What is a clustering algorithm?
 
-A **clustering algorithm** groups data units into **clusters**, based on their similarity. Clustering methods have been applied for a long time in many fields, under specific names. For instance, in marketing, clustering customers is called **market segmentation**. 
+A **clustering algorithm** uses a set of **clustering variables** to group the data units into **clusters**, based on their similarity. Clustering methods have been applied for a long time in many fields, under specific names. For instance, in marketing, clustering customers is called **market segmentation**. 
 
 There are many clustering methods, all based on the same principle, which is to achieve the maximum similarity within clusters and the minimum similarity between clusters. This is operationalized through a **similarity measure**. You will find, basically, two approaches to clustering: the **distance-based** methods, such as the $k$-means algorithm, and the **probability-based** methods, such as the EM clustering algorithm. Only the $k$-means algorithm is considered here, because most of the other methods, in spite of their popularity in the textbooks, have **scalability** problems, meaning that they do not work, or become too slow, with big data sets.
 
@@ -32,7 +32,7 @@ In **min-max normalization**, all the variables are forced, through a linear tra
 
 $$Z=\frac{X-\min(X)}{\max(X)-\min(X)}\hbox{\thinspace}.$$
 
-An alternative formula, is **statistical standardization**, based on the mean and the standard deviation. It is frequently used in statistical analysis, since some methods require the variables involved to have zero mean and unit variance.
+An alternative formula is **statistical standardization**, based on the mean and the standard deviation. It is frequently used in statistical analysis, since some methods require the variables involved to have zero mean and unit variance.
 
 $$Z=\frac{X-\bar X}{\textrm{std}(X)}\hbox{\thinspace}.$$
 
@@ -47,15 +47,13 @@ For the statistical standardization:
 def standardize(x): return (x - x.mean())/x.std()
 ```
 
-These functions can be applied to any numeric column of a Pandas data frame. Irrespective of the formula chosen, mind that normalization can change significantly your clusters. In customer segmentation, for instance, this is a relevant issue.
+These functions can be applied to any numeric column of a Pandas data frame. Mind that normalization can change significantly your clusters. In customer segmentation, for instance, this is a relevant issue.
 
 ## Cluster centers
 
-Suppose that you wish to group the data units in $k$ clusters using $p$ numeric variables. Many clustering methods are based on finding a set of $k$ points in the $p$-dimensional space of those variables, called **centers**, and clustering the units around the centers. Every unit will be assigned to the cluster whose center is most similar to that unit. Typically, the similarity is the Euclidean distance.
+Suppose that you wish to group the data units in $k$ clusters using $p$ numeric variables. Many clustering methods are based on finding a set of $k$ points, called **centers**, in the $p$-dimensional space of those variables, and clustering the units around the centers. Every unit will be assigned to the cluster whose center is most similar to that unit. The centers can also be used to assign a cluster to a new unit which has not been used to extract the centers. The selected cluster would be the one whose center is closer to the new unit.
 
-The centers can also be used to assign a cluster to a new unit which has not been used to extract the centers. The selected cluster would be the one whose center is closer to the new unit.
-
-In real-world applications, we look at the center as an artificial unit which we consider as the "typical element'' of the cluster. The values that this artificial unit takes for the different variables are used to produce a description of the cluster, as far as that makes sense. This is the typical approach in customer segmentation. So a marketing manager can describe a segment of customers as individuals above 60, with annual family income between $100,000 and $250,000, who frequently watch soap opera TV comedy series. This would be nothing but a description of the center of that segment.
+In real-world applications, we look at the center as the "typical element'' of the cluster. The values that the center takes for the different variables are used to produce a description of the cluster, as far as that makes sense. This is the typical approach in customer segmentation. So a marketing manager can describe a segment of customers as individuals above 60, with annual family income between $100,000 and $250,000, who frequently watch soap opera TV comedy series. This would be nothing but a description of the center of that segment.
 
 The methods that use this approach differ on how the centers are extracted from the data. Let us see how it works in the $k$-means clustering algorithm.
 
@@ -77,7 +75,7 @@ The $k$-means search is iterative. The steps are:
 
 * Iterate until a prespecified stopping criterion is met.
 
-* The algorithm returns the collection of centers and a vector containing the **cluster labels**, which indicate the cluster membership.
+* The outcome consists in a matrix containing the final cluster centers and a vector containing the cluster labels, which indicate the cluster membership.
 
 Despite some drawbacks, $k$-means remains the most widely used clustering algorithm. It is simple, easily understandable and reasonably scalable, and it can be easily modified to deal with streaming data.
 
@@ -91,7 +89,7 @@ $k$-means clustering is available in the Python packages SciPy and scikit-learn,
 
 * A vector, of length equal to the number of rows of the data set, containing the **cluster labels**.
 
-* A matrix containing the **cluster centers**, with one row for every center. For every row, the terms of that row would be the mean values of the features on the corresponding cluster.
+* A matrix containing the **cluster centers**, with one row for every center. For every row, the terms of that row would be the mean values of the clustering variables on the corresponding cluster.
 
 We explain here the **SciPy** version. $k$-means clustering is provided by the subpackage `scipy.cluster.vq`. The functions `kmeans` and `vq()` will give you the labels and the centers, respectively.
 
@@ -107,7 +105,7 @@ Now, suppose that `df` is a Pandas data frame. The centers are obtained as:
 centers = cluster.kmeans(df, k)[0]
 ```
 
-`k` is the number of clusters. The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, as a 2D array, and the second one is the average (non-squared) Euclidean distance between a unit and the closest center. This number, which is similar to the distortion, decreases as the number of clusters increases (it would be zero if you extract as many clusters as the number of units). It can be taken as a measure of the "quality" of a cluster configuration, and used to decide about the best number of clusters.
+`k` is the number of clusters. The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, as a 2D array, and the second one is the average Euclidean distance between a unit and the closest center. This number, which is similar to the distortion, decreases as the number of clusters increases (it would be zero if you extract as many clusters as the number of units). It can be taken as a measure of the "quality" of a cluster configuration, and used to decide about the best number of clusters.
 
 The labels are obtained as:
 
