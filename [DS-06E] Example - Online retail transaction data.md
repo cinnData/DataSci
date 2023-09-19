@@ -4,7 +4,7 @@
 
 The **RFM model** is commonly used in **customer relationship management** and has received particular attention in retail and professional services industries. It has been widely used in measuring customer lifetime value, customer segmentation and behavior analysis, and also for predicting the response to direct marketing campaigns.
 
-The RFM model is a three-dimensional representation of the customer. The three dimensions, which can be briefly defined as:
+The RFM model is a three-dimensional representation of the customer. The three dimensions can be briefly defined as:
 
 * **Recency** (R): How recently did that customer purchase?
 
@@ -12,7 +12,7 @@ The RFM model is a three-dimensional representation of the customer. The three d
 
 * **Monetary value** (M): How much does he/she spend?
 
-These three dimensions can be calculated in different ways, depending on the data available. Once the data analist has them as three columns in a data set in which every row stands for a customer, they can be used for **segmentation**, for predicting various outcomes, or other jobs.
+These dimensions can be calculated in different ways, depending on the data available. Once the data analist has them as columns in a data set in which every row stands for a customer, they can be used for **segmentation**, for predicting various outcomes, or in other jobs.
 
 In the simplest versions, every dimension is coverted to a **categorical scale**. For instance, recency might be broken into three categories: customers with purchases within the last 90 days, between 91 and 365 days, and longer than 365 days. Such categories may be derived from business rules or by means of data mining techniques.
 
@@ -24,11 +24,11 @@ In this example, we use a real **online retail transaction** data set of two yea
 
 ## The data set
 
-The data come in the file `retail.csv` (zipped), which has 406,829 rows. Every row corresponds to an item included in a transaction. There are 22,190 transactions, identified by the invoice number, involve 4,372 customers. 
+The data come in the file `retail.csv` (zipped), which has 406,829 rows. Every row corresponds to a product included in a transaction. There are 22,190 transactions, identified by the invoice number, involving 4,372 customers. 
 
 The columns are:
 
-* `InvoiceNo`, the invoice number. A 6-digit integer uniquely assigned to each transaction. If the transaction has been a cancellation, that integer is prceded by the letter 'C'.
+* `InvoiceNo`, the invoice number. A 6-digit integer uniquely assigned to each transaction. If the transaction has been a cancellation, that integer is preceded by the letter 'C'.
 
 * `StockCode`, the product code. A 5-digit number uniquely assigned to each distinct product.
 
@@ -50,13 +50,13 @@ Source: Daqing Chen, School of Engineering, London South Bank University, London
 
 Q1. Create a new column indicating, for every transaction, the number of days from the date the invoice was generated to the last day in the data set (2011-12-09).
 
-Q2. Group by customer and aggregate to create the **RFM data set**. This new data set must include the following three columns: (a) `Recency`, obtained by averaging the variable suggested in the preceding question , (b) `Frequency`, obtained by counting the number of transactions per customer, and (c) `Monetary`, obtained by summing the money spent per customer.
+Q2. Group by customer and aggregate to create the **RFM data set**. This new data set must include the following three columns: (a) `Recency`, obtained from the variable suggested in question Q1, (b) `Frequency`, obtained by counting the number of transactions per customer, and (c) `Monetary`, obtained by summing the money spent per customer.
 
 Q3. Perform a **8-cluster analysis** of the RFM data set. 
 
 ## Importing the data
 
-We import Pandas as usual. In this example, we use the argument `parse_col=[4]` in  `read_csv()`, to indicate that the column `InvoiceData` is to be converted to data type `datetime64`. We could also import the data in the usual way, applying `.astype(datetime64[ns])` to that column. 
+We import Pandas as usual. In this example, we include the argument `parse_col=[4]` in  `read_csv()`, to indicate that the column `InvoiceData` is to be converted to data type `datetime64`. We could also import the data in the usual way, applying `.astype(datetime64[ns])` to that column. 
 
 ```
 In [1]: import pandas as pd
@@ -67,7 +67,7 @@ In [1]: import pandas as pd
 
 ## Exploring the data
 
-We explore now the data as usual, with the methods `. info()` and `.head()`. The data are complete and look right. Note the data type of `InvoiceDate`.  
+Once again, we explore the data with the methods `. info()` and `.head()`, which show that the data are complete and they look right. Note the data type of `InvoiceDate`.  
 
 ```
 In [2]: df.info()
@@ -106,7 +106,7 @@ Out[3]:
 4  2010-12-01 08:26:00       3.39       17850  United Kingdom  
 ```
 
-According to the description of the data, there must be cancellations, identified with a special ID. Indeed, we have 8,905 cancellations, with negative quantities.
+According to the description of the data, they include cancellations, identified with a special ID which starts with 'C'. Indeed, we have 8,905 cancellations, with negative quantities.
 
 ```
 In [4]: pd.crosstab(df['InvoiceNo'].str.contains('C'), df['Quantity'] < 0)
@@ -119,15 +119,15 @@ True            0   8905
 
 ## Q1. New column with the number of days since the invoice was generated
 
-We take as the reference for counting the days the date of the last invoice included in the data.
+We take, as the reference for counting the days, the date of the last invoice included in the data.
 
 ```
-In [5]: max_date = max(df['InvoiceDate'])
+In [5]: max_date = df['InvoiceDate'].max()
    ...: max_date
 Out[5]: Timestamp('2011-12-09 12:50:00')
 ```
 
-Next, we subtract the invoice dates from the reference date. The new columns has a special data type, `timeDelta64`.
+We subtract the invoice dates from the reference date. The new column has a special data type, `timeDelta64`. This data type is used for the difference between two datetime values.
 
 ```
 In [6]: df['Diff'] = max_date - df['InvoiceDate']
@@ -147,7 +147,7 @@ Out[6]:
 Name: Diff, Length: 406829, dtype: timedelta64[ns]
 ```
 
-With `.days`, we convert the column `Diff` from type `timeDelta64` to type `int` (flooring down), getting a number of days, which indicates the recency of the invoice.
+With `.days`, we convert the column `Diff` from type `timeDelta64` to type `int` (flooring down). So, `Diff` becomes a number of days, indicating the recency of the invoice.
 
 ```
 In [7]: df['Diff'] = df['Diff'].dt.days
@@ -170,7 +170,7 @@ Out[7]:
 
 ## Q2. Group by customer and aggregate to create the RFM data set
 
-In the RFM data set, every custmer must a row, with the RFM values. To create the first two columns, `Recency` and `Frequency`, we group by customer and aggregate with functions `min()` and `count()`.
+In the RFM data set, every customer must have a row, with the RFM values. To create the first two columns, `Recency` and `Frequency`, we group by customer and aggregate with functions `min()` and `count()`.
 
 ```
 In [8]: RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
@@ -191,7 +191,7 @@ For clarity, we change the names of the columns. Note that `Recency` contains, f
 In [9]: RF.columns = ['Recency', 'Frequency']
 ```
 
-For the monetary value, we first create a column in the original data set with the total amount of every invoice. This will the product of the unit price by the quantity.
+For the monetary value, we first create a column in the original data set with the total amount spent on that product in that transaction. This will the product of the unit price by the quantity.
 
 ```
 In [10]: df['Monetary'] = df['Quantity']*df['UnitPrice']
@@ -212,7 +212,7 @@ CustomerID
 Name: Monetary, dtype: float64
 ``` 
 
-Finally, we join this series for the data frame `RF`. We use the method `merge()`, specifying that the join is based on the indexes. The same could be done with `.join()` and with the function `concat()` (everyone with its own rules).
+Finally, we join this series to the data frame `RF`. We use the method `.merge()`, specifying that the join is based on the indexes. The same could be done with `.join()` and with the function `concat()`, everyone with its own rules.
 
 ```
 In [12]: RFM = RF.merge(M, left_index=True, right_index=True)
@@ -250,7 +250,7 @@ So, normalizing the data looks like a reasonable step. **Min-max normalization**
 ```
 In [14]: def normalize(x): return (x - x.min())/(x.max() - x.min())
 ```
-This function can be applied to a vector-like data container (NumPy 1D array or Pandas series) which admits the methods `.max()` and `.min()`. There are many ways of applying it to the columns of the data frame `RFM`. One way to it in one line is by means of the method `.apply()`. The argument `axis=0` means that the function is applied by column. With `axis=1`, it woukld be applied by row.
+This function can be applied to any vector-like data container which admits the methods `.max()` and `.min()`, in particlar to a NumPy 1D array or a Pandas series. There are many ways of applying it to the columns of the data frame `RFM`. One way to do it in one line is by means of the method `.apply()`. The argument `axis=0` means that the function is applied by column. With `axis=1`, it would be applied by row.
 
 ```
 In [15]: RFM1 = RFM.apply(normalize, axis=0)
@@ -271,7 +271,7 @@ We are ready now for the **cluster analysis**. We use the version of the package
 In [16]: import scipy.cluster.vq as cluster
 ```
 
-Note that `cluster` is here a user-provided name. We extract from the data the eight **cluster centers**, and then use the centers to create a new column with **cluster labels**. The centers are obtained as a 2D array with eight rows and three columns. Every row stands for the center of one cluster, and the three entries there are the RFM values of that center. So, the center can be seen as the average customer of the corresponding cluster (in mathematical terms, this is, precisely what it is). 
+Note that `cluster` is here a user-provided name. We extract from the data the eight **cluster centers**, and then use the centers to create a new column containing the **cluster labels**. The centers are obtained as a 2D array with eight rows and three columns. Every row stands for the center of one cluster, and the three entries in a row are the RFM values of the corresponding center. So, the center can be seen as the average customer of the corresponding cluster (in mathematical terms, this is, precisely what it is). 
 
 The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, and the second one is the average (non-squared) Euclidean distance between a customer and the closest center (the homework includes an exercise on this). So, we extract the first item of that tuple to get the center matrix.
 
@@ -289,7 +289,7 @@ array([[0.51290262, 0.00406231, 0.01708207],
        [0.01576313, 0.0268319 , 0.03266514]])
 ```
 
-In general, the analysis of this matrix is not easy, and it may be a challenge for the CRM manager. In ths case, we notice that, while the recency values are covered the interval 0-1, those of frequency and monetary value are very low. This is a consequence of the extreme values that have already showed up in `Out[13]`. So, maybe we should have dropped the extreme values to avoid their influence. You can try this as part of the homework.
+In general, the analysis of this matrix is not easy, and it may be a challenge for the CRM manager. In this case, we notice that, while the recency values are spread along the interval 0-1, those of frequency and monetary value are very low. This is a consequence of the extreme values that have already showed up in `Out[13]`. So, maybe we should have dropped the extreme values to avoid their influence. You can try this as part of the homework.
 
 The function `vq()` takes the centers and also returns two objects. The first one is the vector of cluster labels, and the second one a vector containing, for every customer, the distance to the closest center, both as 1D arrays. So the labels are obtained as:
 
@@ -315,7 +315,7 @@ CustomerID
 12350           309         17    334.40        2
 ```
 
-We can use now `.value_counts()` to check the sizes of the segments:
+We can use now `.value_counts()` to check the sizes of the segments, which look reasonable balanced.
 
 ```
 In [20]: RFM['Segment'].value_counts()
@@ -334,10 +334,10 @@ Name: count, dtype: int64
 
 ## Homework
 
-1. As explained in lecture DS-06, the $k$-means algorithm uses a random start. So, different runs will give different results. In real applications we don't these differences to be relevant. Compare the results of two partitions obtained in different runs of the $k$-means algorithm, using cross tabulation.
+1. As explained in lecture DS-06, the $k$-means algorithm uses a **random start**. So, different runs will give different results. In real applications we don't these differences to be relevant. Compare the results of two partitions obtained in different runs of the $k$-means algorithm, using cross tabulation. What do yoy think?
 
-2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and be taken as a measure of the "quality" of the segmentation. Apply `means()` with different values of the parameter `k` and compare the corresponding quality measures. Do you think that `k=8` was a good choice?
+2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and can be taken as a measure of the "quality" of the segmentation. Apply `means()` with different values of the parameter `k` and compare the corresponding quality measures. Do you think that `k=8` was a good choice?
 
-3. Drop extreme values from the RFM data (before the normalization), perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3.
+3. Drop some extreme values from the RFM data. Then, perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3. What do yoy think?
 
-4. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the clusters obtained in question Q3. 
+4. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the clusters obtained in question Q3. What do yoy think?
