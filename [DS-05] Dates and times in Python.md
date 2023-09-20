@@ -2,17 +2,17 @@
 
 ## Date and datetime
 
-In computer environments, we usually find two **time data types**, called `date` and `datetime` (or `timestamp`). In type `date` we store dates, that is, year, month and day. Software applications for data management and analysis can deal with different date formats. The default format for dates in most languages, including Python, is `'yyyy-mm-dd'`. I advise you to use this format everywhere. 
+In computer environments, we usually find two **time data types**, called `date` and `datetime` (or `timestamp`). In type `date` we store dates, that is, year, month and day. Software applications for data management and analysis can deal with different date formats. The default format for dates in most languages, including Python, is 'yyyy-mm-dd'. It is recommended to use this format everywhere. 
 
-In data type `datetime`, we also store hour, minute and second. The preferred format is `yyyy-mm-dd hh:mm:ss`. In some languages, an indication of the time zone is added at the end. Examples are CET (Central European Time), CEST (Central European Summer Time), GMT (Greenwich Mean Time) and UTC (Coordinated Universal Time). Under the hood, a datetime is just the number of seconds since a time origin, recorded down to the microsecond. The time origin in Python is `1970-01-01 01:00:00`. 
+In data type `datetime`, we also store hour, minute and second. The preferred format is 'yyyy-mm-dd hh:mm:ss'. In some languages, an indication of the time zone is added at the end. Examples are CET (Central European Time), CEST (Central European Summer Time), GMT (Greenwich Mean Time) and UTC (Coordinated Universal Time). Under the hood, a datetime is just the number of seconds since a time origin, recorded down to the microsecond. The time origin in Python is `1970-01-01 01:00:00`. 
 
-Data of type `datetime` can be managed in many ways in Python, by means of different packages. In the Python Standard Library, we have the package `datetime`, recommended for dealing with times one by one. The functions `datetime.date` and `datetime.datetime` can be used to create dates and datetimes. The dates are just datetimes in disguise, that is, the date `1954-04-30` is the same as the datetime `1954-04-30 00:00:00`.
+Data of type `datetime` can be managed in many ways in Python, by means of different packages. In the Python Standard Library, we have the package `datetime`, recommended for dealing with times one by one. The functions `datetime.date` and `datetime.datetime` can be used to create dates and datetimes. In `datetime`, the dates are just datetimes in disguise, that is, the date `1954-04-30` is the same as the datetime `1954-04-30 00:00:00`.
 
 ## Datetimes in Pandas
 
-The types `date` and `datetime`  became obsolete when the type `datetime64` was introduced in NumPy. In this data type, times are recorded down to the nanosecond. So, a `datetime64` is just the number of nanoseconds since the time origin. 
+The types `date` and `datetime`  became obsolete when the type `datetime64` was introduced in NumPy. In this data type, times are recorded down to the nanosecond. So, a `datetime64` value is just the number of nanoseconds since the time origin. NumPy also introduced the data type `timedelta64` data type to complement `datetime64`. The difference between two datetimes is a timedelta.
 
-Pandas inherits the type `datetime64` from NumPy. Just as Pandas incorporates vectorized versions of many string functions, as `.str.method`, it also incorporates vectorized versions of time functions, as `.dt.method`. For instance, for a series of type `datetime64`, we can use `.dt.weekday()` to get the weekday as a number (Monday = 0, Sunday = 6), or `.dt.month` to get the month as a number (January = 1, December = 12).
+Pandas inherits the types `datetime64` and `timedelta64` from NumPy. Just as Pandas incorporates vectorized versions of many string functions, as `.str.method`, it also incorporates vectorized versions of time functions, as `.dt.method`. For instance, for a series of type `datetime64`, we can use `.dt.weekday()` to get the weekday as a number (Monday = 0, Sunday = 6), or `.dt.month` to get the month as a number (January = 1, December = 12).
 
 ## Datetime indexes in Pandas
 
