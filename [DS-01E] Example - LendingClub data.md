@@ -12,17 +12,17 @@ In April 2016, a LendingClub employee reported to Laplanche that the dates on ap
 
 *The New York Times* reported that the investigation found that Laplanche had not disclosed to the board that he owned part of an investment fund which LendingClub was considering purchasing. *The Wall Street Journal* also stated that Laplanche was found to have not fully disclosed what he knew about the problematic loans.
 
-On May 6, LendingClub's board made it clear to Laplanche that he no longer had their confidence, leading to his resignation on 9 May. The Wall Street Journal reported that Laplanche had been fired by the board. Three of the firm's other managers had also been fired or had resigned by that time as a result of the problematic loans. LendingClub's stock price fell by a further 34% after Laplanche's departure was announced. This placed the stock price at 70% of the price at the time of the firm's initial public offering. As a result of the incident, the Securities and Exchange Commission was reported to be investigating the LendingClub's disclosures to investors.
+On May 6, LendingClub's board made it clear to Laplanche that he no longer had their confidence, leading to his resignation. Three of the firm's other managers had also been fired or had resigned by that time as a result of the problematic loans. LendingClub's stock price fell by a further 34% after Laplanche's departure was announced. This placed the stock price at 70% of the price at the time of the firm's initial public offering. The Securities and Exchange Commission was reported to be investigating the LendingClub's disclosures to investors.
 
-In December 2017, *Financial Times* reported that LendingClub "has struggled to overcome the effects of a governance scandal last May", and that the firm "has battled to keep big investors buying loans" despite improvements to its internal governance. These challenges have led it to raise its loss estimate, and have led to further drops in its share price. At this time many other peer-to-peer lending companies were also experiencing difficulties.
+In December 2017, *Financial Times* reported that LendingClub "has struggled to overcome the effects of a governance scandal last May", and that the firm "has battled to keep big investors buying loans" despite improvements to its internal governance. These challenges have led it to raise its loss estimate, and have led to further drops in its share price. At this time many other peer-to-peer lending companies were also experiencing difficulties. LendingClub grew to $10.8 billion in annual loan originations in the year 2018.
 
-In an interview with *Business Insider* in December 2019, executive Valerie Kay noted that LendingClub had switched focus to institutional investors as well as its traditional peer-to-peer lending through a new project called "Scale", focused on delivering representative samples of loans instead of individual loans. LendingClub had grown to $10.8 billion in annual loan originations in the year 2018.
+In an interview with *Business Insider* in December 2019, executive Valerie Kay noted that LendingClub had switched focus to institutional investors as well as its traditional peer-to-peer lending through a new project called "Scale", focused on delivering representative samples of loans instead of individual loans. 
 
-In April 2020, the company announced it would lay off around one third of its employees in anticipation of the economic downturn resulting from the COVID-19 pandemic. In August, it discontinued its secondary trading platform, hosted by Folio, reducing liquidity for existing peer-to-peer investors. In October, LendingClub ceased all new loan accounts on their website as part of restructuring into a neobank after the acquisition of Radius Bank. In December 2020, the company ceased to operate as a peer-to-peer lender
+In April 2020, the company announced it would lay off around one third of its employees in anticipation of the economic downturn resulting from the COVID-19 pandemic. In August, it discontinued its secondary trading platform, hosted by Folio, reducing liquidity for existing peer-to-peer investors. In October, LendingClub ceased all new loan accounts on their website as part of restructuring into a neobank after the acquisition of Radius Bank. In December 2020, the company ceased to operate as a peer-to-peer lender.
 
 ## The data set
 
-The data set (split in several zipped CSV files) for this example contains data on the personal loans given by LendingClub from August 20812 through September 2020. It covers 2,925,493 loans. Only those loans for which the loan amount was funded are included. This means excluding a 0.07% of the records.
+The data set for this example contains data on the personal loans given by LendingClub from August 20812 through September 2020, split in four zipped CSV files. It covers 2,925,493 loans. Only those loans for which the loan amount was funded are included. This means excluding a 0.07% of the records.
 
 The columns are:
 
@@ -56,130 +56,96 @@ The columns are:
 
 * `dti`, a ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested loan, divided by the borrower’s self-reported monthly income. Missing for about 3,100 loans.
 
-* `fico`, the lower boundary range the borrower's FICO at loan origination belongs to.
-
-* `open_acc`, the number of open credit lines in the borrower's credit file.
-
-* `total_acc`, the total number of credit lines currently in the borrower's credit file.
+* `fico`, the lower boundary range the borrower's FICO score at loan origination belongs to. FICO scores were created by the Fair Isaac Corporation (FICO). Lenders use FICO scores along with other details on borrowers credit reports to assess credit risk and determine whether to extend credit. They take into account data in five areas: payment history, the current level of indebtedness, types of credit used, length of credit history and new credit accounts.
 
 * `initial_list_status`, the initial listing status of the loan. The possible values are 'w' (whole) and 'f' (fractional). Loans listed 'w' become available for fractional funding (and vice versa) if there are no buyers within a certain time frame.
 
-* `out_prncp`, the remaining outstanding principal for the total amount funded.
-
-* `total_pymnt`, payments received to date for the total amount funded.
-
-* `total_rec_prncp`, the principal received to date.
-
-* `total_rec_int`, the interest received to date.
-
 * `application_type`, indicates whether the loan is an individual application or a joint application with two co-borrowers.
-
-* `acc_now_delinq`, the number of accounts on which the borrower is now delinquent.
-
-* `avg_cur_bal`, average current balance of all accounts.
-
-* `delinq_amnt`, the past-due amount owed for the accounts on which the borrower is now delinquent.
-
-* `mort_acc`, the number of mortgage accounts.
-
-* `num_actv_bc_tl`,	the number of currently active bankcard accounts.
-
-* `pub_rec_bankruptcies`, the number of public record bankruptcies.
-
-* `tax_liens`, the number of tax liens. A tax lien is a legal claim against the assets of an individual or business that fails to pay taxes owed to the government.
-
-* `total_il_high_credit_limit`, the total installment high credit/credit limit.
-
-* `total_bal_ex_mort`, the total credit balance excluding mortgage.
 
 * `loan_status`, the current status of the loan. Eight values: 'Charged Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 'Issued', 'Late (16-30 days)' and 'Late (31-120 days)'. LendingClub charges off a loan when we no longer reasonably expect further payments. Generally, charge-offs occur no later than 30 days after the loan enters the default status. Once a loan is charged off, the remaining principal balance is deducted from the account balance.
 
 ## Questions
 
-Q1.
+Q1. Is there a clear **time trend** in the number of loans given by LendingClub along its working period as a peer-to-peer lender?
 
-Q2.
+Q2. Some of the features in this data set have a relevant proportion of **missing values**. One of them is the job title. Has the proportion of missing job titles been about the same along this period, or there has a substantial variation?
 
-Q3.
-
+Q3. LendingClub grades the loans of an accepted borrowers based on a risk assessment of that borrower. Is the interest rate directly determined by the grade? How much variation can you expect among loans with the same grade?  
 
 ## Import the data
 
-We use here the Pandas funcion `read_csv()` to import the data. First, we import the package:
+We use the Pandas funcion `read_csv()` to import the data. First, we import the package.
 
 ```
 In [1]: import pandas as pd
 ```
 
-The source file is in a GitHub repository, so we use a remote path to get access. The source file comes zipped, but `.read_csv()` can manage this without any specification if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV file, whose header is `id` is taken as the index, so the resulting data frame will have 34 columns.
+The source files for this course are in a GitHub repository, so we use a remote path to get access. This path will be the same for all the examples. 
 
-``` 
+```
 In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
-   ...: filename = path + 'lending.csv.zip'
-   ...: df = pd.read_csv(filename, index_col=0)
 ```
 
-## Exploring tha data
+The source files of this example come zipped, but `.read_csv()` can manage this without any specification if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV file, whose header is `id`, is taken as the index, so the resulting data frames will have 18 columns.
+
+``` 
+In [3]: df1 = pd.read_csv(path + 'lending-1.csv.zip', index_col=0)
+   ...: df2 = pd.read_csv(path + 'lending-2.csv.zip', index_col=0)
+   ...: df3 = pd.read_csv(path + 'lending-3.csv.zip', index_col=0)
+   ...: df4 = pd.read_csv(path + 'lending-4.csv.zip', index_col=0)
+```
+
+So, we have four data frames, one for each source file. With the Pandas function `concat`, we can get the **union**.
+
+```
+In [4]: df = pd.concat([df1, df2, df3, df4])
+```
+
+## Exploring the data
 
 To explore the data set, we use the standard Pandas methods. First, the method `.info()` prints a report of the data frame content. By default, the non-null count is shown only if the data frame is smaller than a certain size specified somewhere (don't ask), which is not the case in this example. The argument `show_counts=True` forces the counts to be printed, irrespective of the data frame's shape. As explained in the introduction of this example, there are missing values in some columns.
 
 ```
-In [3]: df.info(show_counts=True)
+In [5]: df.info(show_counts=True)
 <class 'pandas.core.frame.DataFrame'>
 Int64Index: 2923423 entries, 1077501 to 99799684
-Data columns (total 34 columns):
- #   Column                      Non-Null Count    Dtype  
----  ------                      --------------    -----  
- 0   loan_amnt                   2923423 non-null  int64  
- 1   term                        2923423 non-null  int64  
- 2   int_rate                    2923423 non-null  float64
- 3   installment                 2923423 non-null  float64
- 4   grade                       2923423 non-null  object 
- 5   emp_title                   2659461 non-null  object 
- 6   emp_length                  2718240 non-null  object 
- 7   home_ownership              2923423 non-null  object 
- 8   annual_inc                  2923423 non-null  int64  
- 9   verification_status         2923423 non-null  object 
- 10  issued                      2923423 non-null  object 
- 11  purpose                     2923423 non-null  object 
- 12  addr_state                  2923423 non-null  object 
- 13  dti                         2920315 non-null  float64
- 14  fico                        2923423 non-null  int64  
- 15  open_acc                    2923399 non-null  float64
- 16  total_acc                   2923399 non-null  float64
- 17  initial_list_status         2923423 non-null  object 
- 18  out_prncp                   2923423 non-null  float64
- 19  out_prncp_inv               2923423 non-null  float64
- 20  total_pymnt                 2923423 non-null  float64
- 21  total_rec_prncp             2923423 non-null  float64
- 22  total_rec_int               2923423 non-null  float64
- 23  application_type            2923423 non-null  object 
- 24  acc_now_delinq              2923399 non-null  float64
- 25  avg_cur_bal                 2855093 non-null  float64
- 26  delinq_amnt                 2923399 non-null  float64
- 27  mort_acc                    2875418 non-null  float64
- 28  num_actv_bc_tl              2855205 non-null  float64
- 29  pub_rec_bankruptcies        2922090 non-null  float64
- 30  tax_liens                   2923325 non-null  float64
- 31  total_bal_ex_mort           2875418 non-null  float64
- 32  total_il_high_credit_limit  2855205 non-null  float64
- 33  loan_status                 2923423 non-null  object 
-dtypes: float64(19), int64(4), object(11)
-memory usage: 780.6+ MB
+Data columns (total 18 columns):
+ #   Column               Non-Null Count    Dtype  
+---  ------               --------------    -----  
+ 0   loan_amnt            2923423 non-null  int64  
+ 1   term                 2923423 non-null  int64  
+ 2   int_rate             2923423 non-null  float64
+ 3   installment          2923423 non-null  float64
+ 4   grade                2923423 non-null  object 
+ 5   emp_title            2659461 non-null  object 
+ 6   emp_length           2718240 non-null  object 
+ 7   home_ownership       2923423 non-null  object 
+ 8   annual_inc           2923423 non-null  int64  
+ 9   verification_status  2923423 non-null  object 
+ 10  issued               2923423 non-null  object 
+ 11  purpose              2923423 non-null  object 
+ 12  addr_state           2923423 non-null  object 
+ 13  dti                  2920315 non-null  float64
+ 14  fico                 2923423 non-null  int64  
+ 15  initial_list_status  2923423 non-null  object 
+ 16  application_type     2923423 non-null  object 
+ 17  loan_status          2923423 non-null  object 
+dtypes: float64(3), int64(4), object(11)
+memory usage: 423.8+ MB
 ```
 
 The method `.head()` displays the first five rows.
 
 ```
-In [4]: df.head()
-Out[4]: 
+In [6]: df.head()
+Out[6]: 
          loan_amnt  term  int_rate  installment grade  \
 id                                                      
-1077501       5000     3     10.65       162.87    B2   
-1077430       2500     6     15.27        59.83    C4   
-1077175       2400     3     15.96        84.33    C5   
-1076863      10000     3     13.49       339.31    C1   
-1075358       3000     6     12.69        67.79    B5   
+1077501       5000    36     10.65       162.87    B2   
+1077430       2500    60     15.27        59.83    C4   
+1077175       2400    36     15.96        84.33    C5   
+1076863      10000    36     13.49       339.31    C1   
+1075358       3000    60     12.69        67.79    B5   
 
                         emp_title emp_length home_ownership  annual_inc  \
 id                                                                        
@@ -189,84 +155,179 @@ id
 1076863       AIR RESOURCES BOARD  10+ years           RENT       49200   
 1075358  University Medical Group     1 year           RENT       80000   
 
-        verification_status  ... acc_now_delinq avg_cur_bal delinq_amnt  \
-id                           ...                                          
-1077501            Verified  ...            0.0         NaN         0.0   
-1077430     Source Verified  ...            0.0         NaN         0.0   
-1077175        Not Verified  ...            0.0         NaN         0.0   
-1076863     Source Verified  ...            0.0         NaN         0.0   
-1075358     Source Verified  ...            0.0         NaN         0.0   
+        verification_status   issued         purpose addr_state    dti  fico  \
+id                                                                             
+1077501            Verified  2011-12     credit_card         AZ  27.65   735   
+1077430     Source Verified  2011-12             car         GA   1.00   740   
+1077175        Not Verified  2011-12  small_business         IL   8.72   735   
+1076863     Source Verified  2011-12           other         CA  20.00   690   
+1075358     Source Verified  2011-12           other         OR  17.94   695   
 
-         mort_acc  num_actv_bc_tl  pub_rec_bankruptcies  tax_liens  \
-id                                                                   
-1077501       NaN             NaN                   0.0        0.0   
-1077430       NaN             NaN                   0.0        0.0   
-1077175       NaN             NaN                   0.0        0.0   
-1076863       NaN             NaN                   0.0        0.0   
-1075358       NaN             NaN                   0.0        0.0   
-
-        total_bal_ex_mort  total_il_high_credit_limit  loan_status  
-id                                                                  
-1077501               NaN                         NaN   Fully Paid  
-1077430               NaN                         NaN  Charged Off  
-1077175               NaN                         NaN   Fully Paid  
-1076863               NaN                         NaN   Fully Paid  
-1075358               NaN                         NaN   Fully Paid  
-
-[5 rows x 34 columns]
+        initial_list_status application_type  loan_status  
+id                                                         
+1077501                   f       Individual   Fully Paid  
+1077430                   f       Individual  Charged Off  
+1077175                   f       Individual   Fully Paid  
+1076863                   f       Individual   Fully Paid  
+1075358                   f       Individual   Fully Paid  
 ```
-## Dates
-df['issued'].value_counts().sort_index().plot(figsize=(10,6), color='black', linewidth=1);
+## Q1. Trend in the number of loans
 
-## Trends
-pd.pivot_table(df, values='int_rate', index='issued', aggfunc='mean').plot(figsize=(10,6), color='black', linewidth=1);
-pd.pivot_table(df, values='loan_amnt', index='issued', aggfunc='mean').plot(figsize=(10,6), color='black', linewidth=1);
+Applying the method `.value_counts()` to the column `issued`, we get the number of occurrences of every value, so number of loans for every month. The months come in the index of the resulting series, which is sorted top down. Applying `.sort_index()`, we get the series in chronological order.
 
-## Missing values
-df.isna().sum()
+```
+In [7]: df['issued'].value_counts().sort_index()
+Out[7]: 
+2007-06       23
+2007-07       59
+2007-08       70
+2007-09       53
+2007-10       98
+           ...  
+2020-05     2755
+2020-06     4134
+2020-07     7849
+2020-08     8372
+2020-09    12178
+Name: issued, Length: 160, dtype: int64
+```
 
-## Current situation of loan status - Charged off rate
-df['loan_status'].value_counts()
-past = df[df['loan_status'].isin(['Charged Off', 'Fully Paid'])]
-(past['loan_status'] == 'Charged Off').mean().round(3)
-past['fail'] = past['loan_status'] == 'Charged Off'
-running = df[~df['loan_status'].isin(['Charged Off', 'Fully Paid'])]
-running['current'] = running['loan_status'] == 'Current'
+We can visualize now in a **line chart** the variation of the number of loans along this period. There was, indeed, a trend upwards, which collapsed at the begining of the last year. To get the plot, we use the method, whose default produces a line chart. The meaning of the graphic specifications is clear. Without `xlabel=''`, the name of the series, which is `issued`, will appear below the horizontal axis. Note the indexes are not recognized as dates, so the tickmarks in the horizontal axis cannot be set with a date logic. 
 
-## Riskier purposes
-xx = pd.crosstab(past['purpose'], past['loan_status'])
-xx
-(xx['Charged Off']/xx['Fully Paid']).sort_values(ascending=False)
+```
+In [8]: df['issued'].value_counts().sort_index().plot(figsize=(8,5),
+   ...:         title='Figure 1. Number of loans', xlabel='', color='black', linewidth=1);
 
-## Longer installments riskier
-pd.pivot_table(past, values='installment', index='loan_status', aggfunc='mean').round()
-pd.pivot_table(running, values='installment', index='current', aggfunc='mean').round()
+```
 
-## Distribution of the loan amount and interest rate
-df['loan_amnt'].describe().round()
-df['loan_amnt'].plot.hist(figsize=(8,6), color='gray', edgecolor='white');
-df['int_rate'].describe().round()
-df['int_rate'].plot.hist(figsize=(8,6), color='gray', edgecolor='white');
+![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_1.png)
 
-## Higher interest rate is riskier
-pd.pivot_table(past, values='int_rate', index='loan_status', aggfunc='mean').round()
-pd.pivot_table(running, values='int_rate', index='current', aggfunc='mean').round()
+## Q2. Missing values
 
-## Grading
-df['grade'].value_counts().sort_index()
-grade_rate = pd.pivot_table(df, values='int_rate', index='grade', aggfunc='mean').round()
-grade_rate.plot(figsize=(6,6), color='black', linewidth=1);
+The missing values can be counted in the report extracted in `In [5]`. Pandas has also a specific method for detecting missing values, the method `.isna()`. Applied to a Pandas data container, it returns a Boolean Pandas container of the same shape, indicating whether every entry is or is not missing. With `.sum()`, we can then get the number of missing values for every column, or, with `.mean()`, the proportion.
 
-## Risk by grade
-pd.pivot_table(running, values='current', index='grade', aggfunc='mean')
-pd.pivot_table(past, values='fail', index='grade', aggfunc='mean')
+```
+In [9]: df.isna().sum()
+Out[9]: 
+loan_amnt                   0
+term                        0
+int_rate                    0
+installment                 0
+grade                       0
+emp_title              263962
+emp_length             205183
+home_ownership              0
+annual_inc                  0
+verification_status         0
+issued                      0
+purpose                     0
+addr_state                  0
+dti                      3108
+fico                        0
+initial_list_status         0
+application_type            0
+loan_status                 0
+dtype: int64
+```
 
-## Other topics
-term
-installment
-missing employee title and length
-annual income
-dti
-initial listing status
-total payment over loan amount
-application type
+To explore how this vary across months for the job title, we can create a specific column.
+
+```
+In [10]: df['empl_title_na'] = df.emp_title.isna()
+```
+
+Now, we can **group by** month and **aggregate**, getting an aggregate value for every month. Given the variation in the number of loans across months, it is better to use the mean as the aggregate function, to get the proportion of missing values. 
+
+```
+In [11]: df[['issued', 'empl_title_na']].groupby('issued').mean()
+Out[11]: 
+         empl_title_na
+issued                
+2007-06       0.173913
+2007-07       0.135593
+2007-08       0.100000
+2007-09       0.075472
+2007-10       0.061224
+...                ...
+2020-05       0.096552
+2020-06       0.086841
+2020-07       0.081666
+2020-08       0.082895
+2020-09       0.087289
+
+[160 rows x 1 columns]
+```
+
+The dates are in the index, already sorted, so we can ask for the line chart. Leaving aside the initial values, this chart suggests that LendingClub has been more permissive about missing information in certain epochs.
+
+```
+In [12]: df[['issued', 'empl_title_na']].groupby('issued').mean().plot(figsize=(8,5),
+    ...:        title='Figure 2. NA rate for job title', xlabel='', color='black', linewidth=1, legend=False);
+```
+
+![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_2.png)
+
+*Note*. The argument `legend=False` is needed here because `.plot()` is applied to a data frame instead of a seruies as in `In [8]`
+
+# Q3. Interest rate as a function of the grade
+
+We prepare a statistical summary of the grades given and the interest rate, in three columns. This can be done with the method `.groupby()`, as in `In [11]`, or with the function `pivot_table()`, as we do here. 
+
+```
+In [13]: grade_rate = pd.pivot_table(df, values='int_rate', index='grade', aggfunc=['count', 'mean', 'std']).round(2)
+    ...: grade_rate.columns = ['count', 'mean', 'std']
+    ...: grade_rate
+Out[13]: 
+        count   mean   std
+grade                     
+A1     133275   5.97  0.68
+A2     101002   6.74  0.50
+A3     106282   7.31  0.54
+A4     158259   7.86  0.55
+A5     156984   8.47  0.63
+B1     163406   9.41  0.94
+B2     164804  10.26  0.85
+B3     162073  10.92  0.86
+B4     185031  11.64  0.82
+B5     181693  12.30  0.88
+C1     178976  13.06  0.87
+C2     161700  13.85  0.97
+C3     158945  14.46  1.03
+C4     153132  15.22  1.06
+C5     149177  16.18  1.10
+D1     100812  16.96  1.05
+D2     108595  18.46  1.50
+D3      83014  19.30  2.05
+D4      67048  19.94  2.47
+D5      56592  21.31  3.44
+E1      34789  20.46  2.12
+E2      30282  21.07  2.34
+E3      27171  21.96  2.52
+E4      23169  22.86  2.57
+E5      23352  24.23  2.55
+F1      13386  24.56  2.83
+F2       9286  25.00  2.80
+F3       7770  25.79  2.73
+F4       6109  26.37  2.77
+F5       5161  27.12  2.75
+G1       4105  27.86  2.74
+G2       2686  27.70  2.60
+G3       2091  28.12  2.69
+G4       1705  28.59  2.90
+G5       1561  28.84  2.95
+```
+
+The first column shows that the bulk of the borrowers are in the range A-C, and the occurrences of the worse grades become increasingly rare. The second column shows a relevant remarkable varation of the interest rate. The average interest rate looks like a linear function of the grade, which is confirmed by  the following chart. The third column shows that the interest rate is not determined exclusively from the grade, but has a variation within grades (as measured by the standard deviation) which is more or less proportional to the average interest rate.
+
+```
+In [14]: grade_rate['mean'].plot(figsize=(5,5), title='Figure 3. Average interest rate vs grade', 
+    ...:        xlabel='Grade', color='black', linewidth=1);
+```
+
+![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_3.png)
+
+## Homework
+
+1. The employment length also shows a relevant number of missing values. Does it change in the same way as the number of missing job titles?
+
+2. The FICO score can be expected to have an influence on the grade. Could you conclude something more specific from these
