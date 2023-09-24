@@ -4,7 +4,7 @@
 
 **LendingClub** is a financial services company headquartered in San Francisco, California. It was the first **peer-to-peer lender** to register its offerings as securities with the Securities and Exchange Commission (SEC) and to offer loan trading on a secondary market. At its height, LendingClub was the world's largest peer-to-peer lending platform. The company reported that $15.98 billion in loans had been originated through its platform up to December 31, 2015. Renaud Laplanche, the company’s founder and CEO, received The Economist Innovation Award in 2014 for the consumer products category.
 
-LendingClub enabled borrowers to create unsecured personal loans between $1,000 and $40,000. The standard loan period was three years. Investors were able to search and browse the loan listings on the LendingClub website, selecting loans on which to invest, based on the information supplied about the borrower, amount of loan, loan grade, and loan purpose. Those investors made money from the interest on these loans. LendingClub made money by charging borrowers an **origination fee** and investors a **service fee**. All personal loans offered by LendingClub were fixed **rate loans**.
+LendingClub enabled borrowers to create unsecured personal loans between $1,000 and $40,000. Investors were able to search and browse the loan listings on the LendingClub website, selecting loans on which to invest, based on the information supplied about the borrower, amount of loan, loan grade, and loan purpose. Those investors made money from the interest on these loans, while LendingClub made money by charging borrowers an **origination fee** and investors a **service fee**. All personal loans offered by LendingClub were **fixed rate** loans.
 
 Like other peer-to-peer lenders, LendingClub experienced increasing difficulty attracting investors during early 2016. This led the firm to increase the interest rate on three occasions during the first months of the year. The increase in interest rates and concerns over the impact of the slowing US economy caused a large drop in the LendingClub's share price.
 
@@ -32,7 +32,7 @@ The columns are:
 
 * `term`, the number of (monthly) payments on the loan. Values are either 36 or 60.
 
-* `int_rate`, the interest rate on the loan (%).
+* `int_rate`, the interest rate (%) on the loan.
 
 * `installment`, the monthly payment owed by the borrower (US dollar).
 
@@ -40,7 +40,7 @@ The columns are:
 
 * `emp_title`, the job title supplied by the borrower when applying for the loan. Missing for about 260,000 loans.
 
-* `emp_length`,	the employment length in years. Eleven possible values, from '< 1 year' to '10+ years'. Missing for about 205,000 loans.
+* `emp_length`, the employment length in years. Eleven possible values, from '< 1 year' to '10+ years'. Missing for about 205,000 loans.
 
 * `home_ownership`, the home ownership status provided by the borrower during registration or obtained from the credit report. The values are 'ANY', 'MORTGAGE', 'NONE', 'OTHER', 'OWN' and 'RENT'.
 
@@ -52,11 +52,11 @@ The columns are:
 
 * `purpose`, a category provided by the borrower for the loan request. Fourteen values: 'car', 'credit_card', 'debt_consolidation', 'educational', 'home_improvement', 'house', 'major_purchase', 'medical', 'moving', 'other', 'renewable_energy', 'small_business', 'vacation' and 'wedding'.
 
-* `addr_state`,	the state provided by the borrower in the loan application. 51 values, from 'AK' through 'WY'.
+* `addr_state`, the state provided by the borrower in the loan application. 51 values, from 'AK' through 'WY'.
 
-* `dti`, a ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested loan, divided by the borrower’s self-reported monthly income. Missing for about 3,100 loans.
+* `dti`, the **debt to income ratio** (%), calculated as the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested loan, divided by the borrower’s self-reported monthly income. Missing for about 3,100 loans.
 
-* `fico`, the lower boundary range the borrower's FICO score at loan origination belongs to. FICO scores were created by the Fair Isaac Corporation (FICO). Lenders use FICO scores along with other details on borrowers credit reports to assess credit risk and determine whether to extend credit. They take into account data in five areas: payment history, the current level of indebtedness, types of credit used, length of credit history and new credit accounts.
+* `fico`, the lower boundary range the borrower's **FICO score** at loan origination belongs to. FICO scores are created by the Fair Isaac Corporation (FICO). Lenders use FICO scores along with other details on borrowers credit reports to assess credit risk and determine whether to extend credit. They take into account data in five areas: payment history, the current level of indebtedness, types of credit used, length of credit history and new credit accounts.
 
 * `initial_list_status`, the initial listing status of the loan. The possible values are 'w' (whole) and 'f' (fractional). Loans listed 'w' become available for fractional funding (and vice versa) if there are no buyers within a certain time frame.
 
@@ -66,11 +66,15 @@ The columns are:
 
 ## Questions
 
-Q1. Is there a clear **time trend** in the number of loans given by LendingClub along its working period as a peer-to-peer lender?
+Q1. Is there a clear **time trend** in the **number of loans** given by LendingClub along its working period as a peer-to-peer lender?
 
-Q2. Some of the features in this data set have a relevant proportion of **missing values**. One of them is the job title. Has the proportion of missing job titles been about the same along this period, or there has a substantial variation?
+Q2. Some of the features in this data set have a relevant proportion of **missing values**. One of them is the **job title**. Has the proportion of missing job titles been about the same along this period, or there has been a substantial variation?
 
-Q3. LendingClub grades the loans of an accepted borrowers based on a risk assessment of that borrower. Is the interest rate directly determined by the grade? How much variation can you expect among loans with the same grade?  
+Q3. LendingClub **grades** the loans of an accepted borrowers based on a risk assessment of that borrower. Is the **interest rate** directly determined by the grade? How much variation can you expect among loans with the same grade?  
+
+Q4. The **loan period** is either three or five years. Add this number of years to the date the loan was funded, to get a final date. Then use this date to filter out the loans whose final date is 2020-01 or later. In the resulting data set, only a few loans will have status different from 'Charged Off' and 'Fully Paid'. Drop them, so that `loan_status` becomes a binary variable. Has the **charged-off rate** been stable along this period?  
+
+Q5. Does the charged-off rate depend on the interest rate as it could be expected, if higher interest rates are applied to riskier loans? Is this the same for the 3-year and the 5-year loans?
 
 ## Import the data
 
@@ -80,13 +84,13 @@ We use the Pandas funcion `read_csv()` to import the data. First, we import the 
 In [1]: import pandas as pd
 ```
 
-The source files for this course are in a GitHub repository, so we use a remote path to get access. This path will be the same for all the examples. 
+The source files for this course are in a **GitHub repository**, so we use a **remote path** to get access. This path will be the same for all the examples of this course. 
 
 ```
 In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
 ```
 
-The source files of this example come zipped, but `.read_csv()` can manage this without any specification if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV file, whose header is `id`, is taken as the index, so the resulting data frames will have 18 columns.
+The source files of this example come zipped, but `.read_csv()` can manage this without any extra argument if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV files, whose header is `id`, is taken as the **index**, so the resulting data frames will have 18 columns.
 
 ``` 
 In [3]: df1 = pd.read_csv(path + 'lending-1.csv.zip', index_col=0)
@@ -95,7 +99,7 @@ In [3]: df1 = pd.read_csv(path + 'lending-1.csv.zip', index_col=0)
    ...: df4 = pd.read_csv(path + 'lending-4.csv.zip', index_col=0)
 ```
 
-So, we have four data frames, one for each source file. With the Pandas function `concat`, we can get the **union**.
+So, we have four data frames, one for each source file. With the Pandas function `concat`, we can get the **union** of the four data subsets.
 
 ```
 In [4]: df = pd.concat([df1, df2, df3, df4])
@@ -103,7 +107,7 @@ In [4]: df = pd.concat([df1, df2, df3, df4])
 
 ## Exploring the data
 
-To explore the data set, we use the standard Pandas methods. First, the method `.info()` prints a report of the data frame content. By default, the non-null count is shown only if the data frame is smaller than a certain size specified somewhere (don't ask), which is not the case in this example. The argument `show_counts=True` forces the counts to be printed, irrespective of the data frame's shape. As explained in the introduction of this example, there are missing values in some columns.
+To explore the data set, we use the standard Pandas methods. First, the method `.info()` prints a report of the data frame content. The default includes the non-null count sonly if the data frame is smaller than a certain size specified somewhere, which is not the case here. The argument `show_counts=True` forces the counts to be printed, irrespective of the data frame's shape. As explained in the introduction of this example, there are missing values in some columns.
 
 ```
 In [5]: df.info(show_counts=True)
@@ -134,7 +138,7 @@ dtypes: float64(3), int64(4), object(11)
 memory usage: 423.8+ MB
 ```
 
-The method `.head()` displays the first five rows.
+The method `.head()` displays the first five rows, which do not give us any surprise.
 
 ```
 In [6]: df.head()
@@ -173,7 +177,7 @@ id
 ```
 ## Q1. Trend in the number of loans
 
-Applying the method `.value_counts()` to the column `issued`, we get the number of occurrences of every value, so number of loans for every month. The months come in the index of the resulting series, which is sorted top down. Applying `.sort_index()`, we get the series in chronological order.
+Applying the method `.value_counts()` to the column `issued`, we get the number of occurrences of every value, so the number of loans for every month, as a series whose index contains the unique values of `issued`. This series is sorted top down. So, we apply the method `.sort_index()`, we get the counts in chronological order.
 
 ```
 In [7]: df['issued'].value_counts().sort_index()
@@ -192,19 +196,20 @@ Out[7]:
 Name: issued, Length: 160, dtype: int64
 ```
 
-We can visualize now in a **line chart** the variation of the number of loans along this period. There was, indeed, a trend upwards, which collapsed at the begining of the last year. To get the plot, we use the method, whose default produces a line chart. The meaning of the graphic specifications is clear. Without `xlabel=''`, the name of the series, which is `issued`, will appear below the horizontal axis. Note the indexes are not recognized as dates, so the tickmarks in the horizontal axis cannot be set with a date logic. 
+We can visualize now in a **line chart** (Figure 1) the variation of the number of loans along this period. There was, indeed, a trend upwards, which collapsed at the begining of the last year. 
 
 ```
 In [8]: df['issued'].value_counts().sort_index().plot(figsize=(8,5),
    ...:         title='Figure 1. Number of loans', xlabel='', color='black', linewidth=1);
-
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_1.png)
 
+To get the plot, we use the method `.plot()`, whose default produces a line chart. The meaning of the graphic specifications is clear. Without `xlabel=''`, the name of the series, which is `issued`, will appear below the horizontal axis. Note the indexes are not recognized as dates, so the tickmarks in the horizontal axis cannot be set with a date logic. 
+
 ## Q2. Missing values
 
-The missing values can be counted in the report extracted in `In [5]`. Pandas has also a specific method for detecting missing values, the method `.isna()`. Applied to a Pandas data container, it returns a Boolean Pandas container of the same shape, indicating whether every entry is or is not missing. With `.sum()`, we can then get the number of missing values for every column, or, with `.mean()`, the proportion.
+The missing values can already be counted in the report extracted in `In [5]`. Pandas has also a specific method for detecting missing values, the method `.isna()`. Applied to a Pandas data container, it returns a Boolean Pandas container of the same shape, indicating whether a value is or is not missing, term by term. With `.sum()`, we can then get the number of missing values for every column, or, with `.mean()`, the proportion.
 
 ```
 In [9]: df.isna().sum()
@@ -230,7 +235,7 @@ loan_status                 0
 dtype: int64
 ```
 
-To explore how this vary across months for the job title, we can create a specific column.
+To explore how the missingness of the job title varies across months, we add a specific Boolean column.
 
 ```
 In [10]: df['empl_title_na'] = df.emp_title.isna()
@@ -258,7 +263,7 @@ issued
 [160 rows x 1 columns]
 ```
 
-The dates are in the index, already sorted, so we can ask for the line chart. Leaving aside the initial values, this chart suggests that LendingClub has been more permissive about missing information in certain epochs.
+The dates are in the index, already sorted, so we can ask directly for the line chart (Figure 2). This chart suggests that LendingClub has been more permissive about missing information in certain epochs.
 
 ```
 In [12]: df[['issued', 'empl_title_na']].groupby('issued').mean().plot(figsize=(8,5),
@@ -267,11 +272,11 @@ In [12]: df[['issued', 'empl_title_na']].groupby('issued').mean().plot(figsize=(
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_2.png)
 
-*Note*. The argument `legend=False` is needed here because `.plot()` is applied to a data frame instead of a seruies as in `In [8]`
+*Note*. The argument `legend=False` is needed here because the default `.plot()`, applied to a data frame, includes legends. This was not needed in `In [8]`, since this method was applied to a series. 
 
 # Q3. Interest rate as a function of the grade
 
-We prepare a statistical summary of the grades given and the interest rate, in three columns. This can be done with the method `.groupby()`, as in `In [11]`, or with the function `pivot_table()`, as we do here. 
+We prepare now a statistical summary of the grade and the interest rate, in three columns. This can be done with the method `.groupby()`, as in `In [11]`, or with the function `pivot_table()`, as we do here. 
 
 ```
 In [13]: grade_rate = pd.pivot_table(df, values='int_rate', index='grade', aggfunc=['count', 'mean', 'std']).round(2)
@@ -317,7 +322,7 @@ G4       1705  28.59  2.90
 G5       1561  28.84  2.95
 ```
 
-The first column shows that the bulk of the borrowers are in the range A-C, and the occurrences of the worse grades become increasingly rare. The second column shows a relevant remarkable varation of the interest rate. The average interest rate looks like a linear function of the grade, which is confirmed by  the following chart. The third column shows that the interest rate is not determined exclusively from the grade, but has a variation within grades (as measured by the standard deviation) which is more or less proportional to the average interest rate.
+The first column shows that the bulk of the borrowers are in the range A-C, and the occurrences of the worse grades become increasingly rare. The second column shows a relevant remarkable varation of the interest rate. The average interest rate looks like a linear function of the grade, which is confirmed by  the following chart (Figure 3). 
 
 ```
 In [14]: grade_rate['mean'].plot(figsize=(5,5), title='Figure 3. Average interest rate vs grade', 
@@ -326,8 +331,88 @@ In [14]: grade_rate['mean'].plot(figsize=(5,5), title='Figure 3. Average interes
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_3.png)
 
+The third column shows that the interest rate is not determined exclusively from the grade, but has a variation within grades (as measured by the standard deviation) which is more or less proportional to the average interest rate.
+
+## Q4. Charged-off loans
+
+To create a column with the final date, let us split `issued` in two parts. For instance `'2007-06'` is `'2006'` plus `'-06'`. The first can be sliced as `df['issued'].str[:4]` and the second part as `df['issued'].str[4:]`. We have to convert the first to integer type and sum 3 or 5 years, depending on the loan term. This is obtained as `df['term']/12`. The double slash `//` denotes **integer division** in Python. Integer division is used here to get an integer as the outcome of the division, because the ordinary division returns type `float`, which will not work for a date.
+
+Pasting the two parts:
+
+```
+In [15]: df['final_date'] = (df['issued'].str[:4].astype(int) + (df['term']//12)).astype(str) + df['issued'].str[4:]
+     ...: df[['issued', 'term', 'final_date']]
+Out[15]: 
+            issued  term final_date
+id                                 
+1077501    2011-12    36    2014-12
+1077430    2011-12    60    2016-12
+1077175    2011-12    36    2014-12
+1076863    2011-12    36    2014-12
+1075358    2011-12    60    2016-12
+...            ...   ...        ...
+102556443  2017-04    60    2022-04
+102653304  2017-04    36    2020-04
+102628603  2017-04    36    2020-04
+102196576  2017-04    36    2020-04
+99799684   2017-04    60    2022-04
+```
+
+We filter out the loans whose final date is later than 2020, getting a subset containing 1,070,945 loans.
+
+```
+In [16]: df_closed = df[df['final_date'] < '2020-01']
+   ...: df_closed.shape
+Out[16]: (1070945, 21)
+```
+
+Most of the loans are closed, as expected.
+
+```
+In [17]: df_closed['loan_status'].value_counts()
+Out[17]: 
+loan_status
+Fully Paid            899874
+Charged Off           170938
+Default                   64
+Current                   34
+Late (31-120 days)        26
+In Grace Period            6
+Late (16-30 days)          3
+Name: count, dtype: int64
+```
+
+We drop the non-closed loans, getting a binary feature. The method `.isin()` retains the rows for which the value of `loan_status` is one of the item of the list specified.
+
+```
+In [18]: df_closed = df_closed[df_closed['loan_status'].isin(['Fully Paid', 'Charged Off'])]
+```
+
+For clarity, we add a dummy feature for the loan being charged off.
+
+```
+In [19]: df_closed['charged_off'] = (df_closed['loan_status'] == 'Charged Off').astype(int)
+```
+
+Now the obtain the monthly proportion of charged-off loans by using `.groupby()` as we have done in questions Q1 and Q2, displaying it in a line chart (Figure 4). The charged_off rate seems to have been controlled at about 15% for the last years.  
+
+```
+In [20]: df_closed[['issued', 'charged_off']].groupby('issued').mean().plot(figsize=(8,5),
+   ...:   title='Figure 4. Charged off rate', xlabel='', color='black', linewidth=1, legend=False);
+```
+
+![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_4.png)
+
 ## Homework
 
 1. The employment length also shows a relevant number of missing values. Does it change in the same way as the number of missing job titles?
 
-2. The FICO score can be expected to have an influence on the grade. Could you conclude something more specific from these
+2. The FICO score can be expected to have an influence on the grade. Could you conclude something more specific from the data?
+
+3. Is there a trend in the interest rate?
+
+4. The same for the debt to income ratio and the loan amount.
+
+5. Is there an association between the loan amount and the grade given to the loan?
+
+6. How does the charged-off rate depend on the grade and term?
