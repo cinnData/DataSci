@@ -56,13 +56,13 @@ The columns are:
 
 * `dti`, the **debt to income ratio** (%), calculated as the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested loan, divided by the borrower’s self-reported monthly income. Missing for about 3,100 loans.
 
-* `fico`, the lower boundary range the borrower's **FICO score** at loan origination belongs to. FICO scores are created by the Fair Isaac Corporation (FICO). Lenders use FICO scores along with other details on borrowers credit reports to assess credit risk and determine whether to extend credit. They take into account data in five areas: payment history, the current level of indebtedness, types of credit used, length of credit history and new credit accounts.
+* `fico`, the lower boundary range the borrower's **FICO score** at loan origination belongs to. FICO scores are assigned by the Fair Isaac Corporation (FICO). Lenders use FICO scores along with other details on borrowers credit reports to assess credit risk and determine whether to extend credit. They take into account data in five areas: payment history, the current level of indebtedness, types of credit used, length of credit history and new credit accounts.
 
 * `initial_list_status`, the initial listing status of the loan. The possible values are 'w' (whole) and 'f' (fractional). Loans listed 'w' become available for fractional funding (and vice versa) if there are no buyers within a certain time frame.
 
-* `application_type`, indicates whether the loan is an individual application or a joint application with two co-borrowers.
+* `application_type`, indicates whether the loan is an individual application or a joint application of two co-borrowers.
 
-* `loan_status`, the current status of the loan. Eight values: 'Charged Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 'Issued', 'Late (16-30 days)' and 'Late (31-120 days)'. LendingClub charges off a loan when we no longer reasonably expect further payments. Generally, charge-offs occur no later than 30 days after the loan enters the default status. Once a loan is charged off, the remaining principal balance is deducted from the account balance.
+* `loan_status`, the current status of the loan. Eight values: 'Charged Off', 'Current', 'Default', 'Fully Paid', 'In Grace Period', 'Issued', 'Late (16-30 days)' and 'Late (31-120 days)'. LendingClub charges off a loan when further payments were not reasonably expected. Generally, charge-offs occur no later than 30 days after the loan enters the default status. Once a loan is charged off, the remaining principal balance is deducted from the account balance.
 
 ## Questions
 
@@ -74,11 +74,9 @@ Q3. LendingClub **grades** the loans of an accepted borrowers based on a risk as
 
 Q4. The **loan period** is either three or five years. Add this number of years to the date the loan was funded, to get a final date. Then use this date to filter out the loans whose final date is 2020-01 or later. In the resulting data set, only a few loans will have status different from 'Charged Off' and 'Fully Paid'. Drop them, so that `loan_status` becomes a binary variable. Has the **charged-off rate** been stable along this period?  
 
-Q5. Does the charged-off rate depend on the interest rate as it could be expected, if higher interest rates are applied to riskier loans? Is this the same for the 3-year and the 5-year loans?
-
 ## Import the data
 
-We use the Pandas funcion `read_csv()` to import the data. First, we import the package.
+In this course, we use the Pandas function `read_csv()` to import the data from the source files. These files are CSV files, zipped when they are too big. First, we import that package.
 
 ```
 In [1]: import pandas as pd
@@ -90,7 +88,7 @@ The source files for this course are in a **GitHub repository**, so we use a **r
 In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
 ```
 
-The source files of this example come zipped, but `.read_csv()` can manage this without any extra argument if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV files, whose header is `id`, is taken as the **index**, so the resulting data frames will have 18 columns.
+The source files of this example come zipped, but `read_csv()` can manage this without any extra argument if the file extension is `.zip`. With the argument `index_col=0`, the first column of the CSV files, whose header is `id`, is taken as the **index**, so the resulting data frames will have 18 columns.
 
 ``` 
 In [3]: df1 = pd.read_csv(path + 'lending-1.csv.zip', index_col=0)
@@ -107,7 +105,7 @@ In [4]: df = pd.concat([df1, df2, df3, df4])
 
 ## Exploring the data
 
-To explore the data set, we use the standard Pandas methods. First, the method `.info()` prints a report of the data frame content. The default includes the non-null count sonly if the data frame is smaller than a certain size specified somewhere, which is not the case here. The argument `show_counts=True` forces the counts to be printed, irrespective of the data frame's shape. As explained in the introduction of this example, there are missing values in some columns.
+To explore the data set, we use the standard Pandas methods. First, the method `.info()` prints a report of the data frame content. The default of this report includes the non-null counts only when the data frame is smaller than a certain size (specified somewhere), which is not the case here. The argument `show_counts=True` forces the counts to be printed, irrespective of the data frame's size. As explained in the introduction of this example, there are missing values in some columns.
 
 ```
 In [5]: df.info(show_counts=True)
@@ -177,7 +175,7 @@ id
 ```
 ## Q1. Trend in the number of loans
 
-Applying the method `.value_counts()` to the column `issued`, we get the number of occurrences of every value, so the number of loans for every month, as a series whose index contains the unique values of `issued`. This series is sorted top down. So, we apply the method `.sort_index()`, we get the counts in chronological order.
+By applying the method `.value_counts()` to the column `issued`, we get the number of occurrences of every value, so the number of loans for every month. This series is sorted top down, and the unique values of `issued` come in the index. With the method `.sort_index()`, we get the counts in chronological order.
 
 ```
 In [7]: df['issued'].value_counts().sort_index()
@@ -200,7 +198,7 @@ We can visualize now in a **line chart** (Figure 1) the variation of the number 
 
 ```
 In [8]: df['issued'].value_counts().sort_index().plot(figsize=(8,5),
-   ...:         title='Figure 1. Number of loans', xlabel='', color='black', linewidth=1);
+   ...:        title='Figure 1. Number of loans', xlabel='', color='black', linewidth=1);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_1.png)
@@ -209,7 +207,7 @@ To get the plot, we use the method `.plot()`, whose default produces a line char
 
 ## Q2. Missing values
 
-The missing values can already be counted in the report extracted in `In [5]`. Pandas has also a specific method for detecting missing values, the method `.isna()`. Applied to a Pandas data container, it returns a Boolean Pandas container of the same shape, indicating whether a value is or is not missing, term by term. With `.sum()`, we can then get the number of missing values for every column, or, with `.mean()`, the proportion.
+The missing values can already be counted in the report extracted in `In [5]`. Pandas has also the specific method `.isna()` for detecting missing values. Applied to a Pandas data container, it returns a Boolean Pandas container of the same shape, indicating whether a value is or is not missing, term by term. With `.sum()` we can then get the number of missing values for every column. With `.mean()`, the proportion.
 
 ```
 In [9]: df.isna().sum()
@@ -263,7 +261,7 @@ issued
 [160 rows x 1 columns]
 ```
 
-The dates are in the index, already sorted, so we can ask directly for the line chart (Figure 2). This chart suggests that LendingClub has been more permissive about missing information in certain epochs.
+The dates are in the index, already sorted, so we can ask directly for the line chart (Figure 2). This chart suggests that LendingClub has been more permissive with missing information in certain epochs.
 
 ```
 In [12]: df[['issued', 'empl_title_na']].groupby('issued').mean().plot(figsize=(8,5),
@@ -279,7 +277,8 @@ In [12]: df[['issued', 'empl_title_na']].groupby('issued').mean().plot(figsize=(
 We prepare now a statistical summary of the grade and the interest rate, in three columns. This can be done with the method `.groupby()`, as in `In [11]`, or with the function `pivot_table()`, as we do here. 
 
 ```
-In [13]: grade_rate = pd.pivot_table(df, values='int_rate', index='grade', aggfunc=['count', 'mean', 'std']).round(2)
+In [13]: grade_rate = pd.pivot_table(df, values='int_rate', index='grade',
+    ...:        aggfunc=['count', 'mean', 'std']).round(2)
     ...: grade_rate.columns = ['count', 'mean', 'std']
     ...: grade_rate
 Out[13]: 
@@ -322,7 +321,7 @@ G4       1705  28.59  2.90
 G5       1561  28.84  2.95
 ```
 
-The first column shows that the bulk of the borrowers are in the range A-C, and the occurrences of the worse grades become increasingly rare. The second column shows a relevant remarkable varation of the interest rate. The average interest rate looks like a linear function of the grade, which is confirmed by  the following chart (Figure 3). 
+The first column shows that the bulk of the borrowers is in the range A-C, and that the worst grades seldom occur. The second column shows a relevant remarkable variation of the interest rate across grades. The average interest rate looks like a linear function of the grade, which is confirmed by  the following chart (Figure 3). The third column tells us about the within-grade variation of the interest rate.
 
 ```
 In [14]: grade_rate['mean'].plot(figsize=(5,5), title='Figure 3. Average interest rate vs grade', 
@@ -335,38 +334,38 @@ The third column shows that the interest rate is not determined exclusively from
 
 ## Q4. Charged-off loans
 
-To create a column with the final date, let us split `issued` in two parts. For instance `'2007-06'` is `'2006'` plus `'-06'`. The first can be sliced as `df['issued'].str[:4]` and the second part as `df['issued'].str[4:]`. We have to convert the first to integer type and sum 3 or 5 years, depending on the loan term. This is obtained as `df['term']/12`. The double slash `//` denotes **integer division** in Python. Integer division is used here to get an integer as the outcome of the division, because the ordinary division returns type `float`, which will not work for a date.
+To create a column with the final date, let us split `issued` in two parts. For instance `'2007-06'` is `'2007'` plus `'-06'`. The first part can be sliced out as `df['issued'].str[:4]` and the second part as `df['issued'].str[4:]`. We have to convert the first part to integer type and sum 3 or 5 years, depending on the loan term. This is obtained as `df['term']/12`. The double slash `//` denotes **integer division** in Python. Integer division is used here to get an integer as the outcome of the division, because the ordinary division returns type `float`, which will not work for a date.
 
 Pasting the two parts:
 
 ```
-In [15]: df['final_date'] = (df['issued'].str[:4].astype(int) + (df['term']//12)).astype(str) + df['issued'].str[4:]
-     ...: df[['issued', 'term', 'final_date']]
+In [15]: df['final'] = (df['issued'].str[:4].astype(int) + (df['term']//12)).astype(str) + df['issued'].str[4:]
+    ...: df[['issued', 'term', 'final']]
 Out[15]: 
-            issued  term final_date
-id                                 
-1077501    2011-12    36    2014-12
-1077430    2011-12    60    2016-12
-1077175    2011-12    36    2014-12
-1076863    2011-12    36    2014-12
-1075358    2011-12    60    2016-12
-...            ...   ...        ...
-102556443  2017-04    60    2022-04
-102653304  2017-04    36    2020-04
-102628603  2017-04    36    2020-04
-102196576  2017-04    36    2020-04
-99799684   2017-04    60    2022-04
+            issued  term    final
+id                               
+1077501    2011-12    36  2014-12
+1077430    2011-12    60  2016-12
+1077175    2011-12    36  2014-12
+1076863    2011-12    36  2014-12
+1075358    2011-12    60  2016-12
+...            ...   ...      ...
+102556443  2017-04    60  2022-04
+102653304  2017-04    36  2020-04
+102628603  2017-04    36  2020-04
+102196576  2017-04    36  2020-04
+99799684   2017-04    60  2022-04
 ```
 
-We filter out the loans whose final date is later than 2020, getting a subset containing 1,070,945 loans.
+We filter out the loans whose final date is later than 2020, getting a subset of 1,070,945 loans.
 
 ```
-In [16]: df_closed = df[df['final_date'] < '2020-01']
-   ...: df_closed.shape
+In [16]: df_closed = df[df['final'] < '2020-01']
+    ...: df_closed.shape
 Out[16]: (1070945, 21)
 ```
 
-Most of the loans are closed, as expected.
+Most of these loans are either fully paid or charged off, as expected.
 
 ```
 In [17]: df_closed['loan_status'].value_counts()
@@ -382,23 +381,23 @@ Late (16-30 days)          3
 Name: count, dtype: int64
 ```
 
-We drop the non-closed loans, getting a binary feature. The method `.isin()` retains the rows for which the value of `loan_status` is one of the item of the list specified.
+We retain the fully paid and the charged off loans, getting a binary feature. This is done with the method `.isin()`, which selects the rows for which the value of `loan_status` is one of the items of the list specified.
 
 ```
 In [18]: df_closed = df_closed[df_closed['loan_status'].isin(['Fully Paid', 'Charged Off'])]
 ```
 
-For clarity, we add a dummy feature for the loan being charged off.
+For clarity, we add a **dummy feature** for the loan being charged off.
 
 ```
 In [19]: df_closed['charged_off'] = (df_closed['loan_status'] == 'Charged Off').astype(int)
 ```
 
-Now the obtain the monthly proportion of charged-off loans by using `.groupby()` as we have done in questions Q1 and Q2, displaying it in a line chart (Figure 4). The charged_off rate seems to have been controlled at about 15% for the last years.  
+Now, we obtain the monthly proportion of charged-off loans by using `.groupby()` as we have done in questions Q1 and Q2, displaying it in a line chart (Figure 4). The charged_off rate seems to have been controlled at about 15% for the last years.  
 
 ```
 In [20]: df_closed[['issued', 'charged_off']].groupby('issued').mean().plot(figsize=(8,5),
-   ...:   title='Figure 4. Charged off rate', xlabel='', color='black', linewidth=1, legend=False);
+    ...:        title='Figure 4. Charged off rate', xlabel='', color='black', linewidth=1, legend=False);
 ```
 
 ![](https://github.com/cinnData/DataSci/blob/main/Figures/fig_01e_4.png)
@@ -415,4 +414,4 @@ In [20]: df_closed[['issued', 'charged_off']].groupby('issued').mean().plot(figs
 
 5. Is there an association between the loan amount and the grade given to the loan?
 
-6. How does the charged-off rate depend on the grade and term?
+6. Does the charged-off rate depend on the interest rate as it could be expected, if higher interest rates are applied to riskier loans? Is this the same for the 3-year and the 5-year loans?
