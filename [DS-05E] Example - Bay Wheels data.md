@@ -12,7 +12,7 @@ The Bay Wheels Program has undergone a bit of change. It started as the Bay Area
 
 ### The data set
 
-The data for the example come in two tables. The table `bay_stations` (in a CSV file) contains data on 507 docking stations. The columns are:
+The data for the example come in two tables. The table `bay_stations` (in a CSV file) contains data on 642 docking stations. These stations are not the same along the three-yer period, since the organization is dynamic. The columns are:
 
 * `station_id`, a unique identifier of the station. The first two characters indicate the location, with values 'BK' (Berkeley), 'SF' (San Francisco), 'SJ' (San Jose) and 'OK' (Oakland).
 
@@ -22,7 +22,7 @@ The data for the example come in two tables. The table `bay_stations` (in a CSV 
 
 * `station_longitude`, the longitude of the station, with three decimals.
 
-The table `bay_rides` (in three zipped CSV files) contains information on all rides starting in the years 2021 and 2022, a total of 4,602,456 rides. The columns are:
+The table `bay_rides` (in five zipped CSV files) contains information on all rides starting in the years 2021 and 2023, a total of 7,162,392 rides. The columns are:
 
 * `user_type`, either 'casual' or 'member'.
 
@@ -63,17 +63,20 @@ The table `rides` has been split in three data sets stores in zipped CSV files i
 In [2]: path = 'https://raw.githubusercontent.com/cinnData/DataSci/main/Data/'
 ```
 
-Next, we import to data frames the three files.
+Next, we import to data frames the five files.
 
 ```
 In [3]: rides1 = pd.read_csv(path + 'bay_rides-1.csv.zip')
    ...: rides2 = pd.read_csv(path + 'bay_rides-2.csv.zip')
    ...: rides3 = pd.read_csv(path + 'bay_rides-3.csv.zip')
+   ...: rides4 = pd.read_csv(path + 'bay_rides-4.csv.zip')
+   ...: rides5 = pd.read_csv(path + 'bay_rides-5.csv.zip')
 ```
+
 With the Pandas function `concat`, we can get the **union** of these three data sets.
 
 ```
-In [4]: rides = pd.concat([rides1, rides2, rides3])
+In [4]: rides = pd.concat([rides1, rides2, rides3, rides4, rides5]))
 ```
 
 ## Exploring the data
@@ -83,7 +86,7 @@ We check the content of the data frame `rides` as in other examples, with the me
 ```
 In [5]: rides.info()
 <class 'pandas.core.frame.DataFrame'>
-Index: 4602456 entries, 0 to 1602455
+Index: 7162392 entries, 0 to 1162391
 Data columns (total 6 columns):
  #   Column            Dtype 
 ---  ------            ----- 
@@ -94,7 +97,7 @@ Data columns (total 6 columns):
  4   end_time          object
  5   end_station_id    object
 dtypes: object(6)
-memory usage: 245.8+ MB
+memory usage: 382.5+ MB
 ```
 ```
 In [6]: rides.head()
@@ -141,21 +144,21 @@ We need to convert this new column to a datetime type, to be able to extract the
 
 ```
 In [8]: rides['hour'] = rides['hour'].astype('datetime64[ns]')
-   ...: rides['hour']
-Out[8]: 
-0         2021-01-01 00:00:00
-1         2021-01-01 00:00:00
-2         2021-01-01 00:00:00
-3         2021-01-01 00:00:00
-4         2021-01-01 00:00:00
-                  ...        
-1602451   2022-12-31 23:00:00
-1602452   2022-12-31 23:00:00
-1602453   2022-12-31 23:00:00
-1602454   2022-12-31 23:00:00
-1602455   2022-12-31 23:00:00
-Name: hour, Length: 4602456, dtype: datetime64[ns]
-
+   ...: rides.info()
+<class 'pandas.core.frame.DataFrame'>
+Index: 7162392 entries, 0 to 1162391
+Data columns (total 7 columns):
+ #   Column            Dtype         
+---  ------            -----         
+ 0   user_type         object        
+ 1   bike_type         object        
+ 2   start_time        object        
+ 3   start_station_id  object        
+ 4   end_time          object        
+ 5   end_station_id    object        
+ 6   hour              datetime64[ns]
+dtypes: datetime64[ns](1), object(6)
+memory usage: 437.2+ MB
 ```
 
 ## Q2. Aggregate to hourly data
@@ -193,12 +196,12 @@ DatetimeIndex(['2021-01-01 00:00:00', '2021-01-01 01:00:00',
                '2021-01-01 06:00:00', '2021-01-01 07:00:00',
                '2021-01-01 08:00:00', '2021-01-01 09:00:00',
                ...
-               '2022-12-31 14:00:00', '2022-12-31 15:00:00',
-               '2022-12-31 16:00:00', '2022-12-31 17:00:00',
-               '2022-12-31 18:00:00', '2022-12-31 19:00:00',
-               '2022-12-31 20:00:00', '2022-12-31 21:00:00',
-               '2022-12-31 22:00:00', '2022-12-31 23:00:00'],
-              dtype='datetime64[ns]', name='hour', length=17518, freq=None)
+               '2023-12-31 14:00:00', '2023-12-31 15:00:00',
+               '2023-12-31 16:00:00', '2023-12-31 17:00:00',
+               '2023-12-31 18:00:00', '2023-12-31 19:00:00',
+               '2023-12-31 20:00:00', '2023-12-31 21:00:00',
+               '2023-12-31 22:00:00', '2023-12-31 23:00:00'],
+              dtype='datetime64[ns]', name='hour', length=26277, freq=None)
 ```
 
 ## Q3. Time trend
@@ -285,30 +288,30 @@ In [21]: df[['casual', 'hour']].groupby('hour').mean().round(1)
 Out[21]: 
       casual
 hour        
-0       38.3
-1       29.8
-2       22.2
-3        9.5
-4        9.2
-5       13.4
-6       31.1
-7       75.6
-8      133.2
-9      132.7
-10     143.1
-11     175.0
-12     201.9
-13     209.6
-14     219.3
-15     236.5
-16     262.4
-17     294.3
-18     251.3
-19     171.8
-20     113.1
-21      99.5
-22      88.7
-23      62.0
+0       34.3
+1       26.3
+2       19.9
+3        8.5
+4        8.2
+5       12.3
+6       28.4
+7       70.5
+8      126.5
+9      123.3
+10     130.6
+11     158.2
+12     184.6
+13     191.4
+14     201.0
+15     217.8
+16     242.3
+17     269.9
+18     228.5
+19     155.1
+20     101.9
+21      90.6
+22      79.1
+23      54.7
 ```
 
 You may prefere to see this in a **bar chart**. Comparing the charts of the two user types, we see the influence of work schedule in the intraday variation pattern of the members.  
@@ -360,28 +363,28 @@ For the month seasonality we need twelve monthly averages. Again, we create a ne
 
 ```
 In [27]: df['month'] = df.index.month
-In [28]: df[['casual', 'member', 'month']].groupby('month').mean().round(1)
-Out[28]: 
+    ...: df[['casual', 'member', 'month']].groupby('month').mean().round(1)
+Out[27]: 
        casual  member
 month                
-1        80.0    88.8
-2        98.6   110.6
-3       106.5   118.2
-4       124.0   126.7
-5       136.5   131.6
-6       165.8   147.2
-7       158.6   145.3
-8       155.4   158.4
-9       167.4   167.2
-10      143.5   179.1
-11      105.2   154.7
-12       69.5   112.2
+1        74.4   107.4
+2        88.4   129.2
+3        94.3   133.2
+4       116.5   150.2
+5       123.9   152.8
+6       146.0   167.6
+7       142.2   165.4
+8       143.0   183.0
+9       150.4   189.4
+10      134.0   202.7
+11      100.0   176.0
+12       68.0   130.9
 ```
 
 We can plot just plot the total demand, since the seasonal patterns are quite similar for casulas and members.
 
 ```
-In [29]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5), 
+In [28]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5), 
     title='Figure 11. Monthly seasonality', color='black', linewidth=1, legend=False);
 ```
 
