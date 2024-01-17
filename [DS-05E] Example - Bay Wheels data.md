@@ -22,7 +22,7 @@ The data for the example come in two tables. The table `bay_stations` (in a CSV 
 
 * `station_longitude`, the longitude of the station, with three decimals.
 
-The table `bay_rides` (in five zipped CSV files) contains information on all rides starting in the years 2021 and 2023, a total of 7,162,392 rides. The columns are:
+The table `bay_rides` (in five zipped CSV files) contains information on all rides starting in the years 2021, 2022 and 2023, a total of 7,162,392 rides. The columns are:
 
 * `user_type`, either 'casual' or 'member'.
 
