@@ -235,14 +235,14 @@ So, C++ is mentioned more often than C#. The same result could be obtained with 
 
 ```
 In [14]: df['basic_qualifications'].str.contains('c\+', case=False).mean().round(3)
-Out[15]: 0.72
+Out[14]: 0.72
 ```
 
 Note that, as a regular expression, `'c+'` covers any string that contains the letter 'c' at least once, so you get lost if you don't pay attention to this technicality:
 
 ```
 In [15]: df['basic_qualifications'].str.contains('c+', case=False).mean().round(3)
-Out[14]: 1.0
+Out[15]: 1.0
 ```
 
 ## Homework
