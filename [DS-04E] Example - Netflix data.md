@@ -1,4 +1,4 @@
-# [DS-04E] Example - Finding a job at Netflix
+# [DS-04E] Example - Netflix data
 
 ## Introduction
 
