@@ -1,4 +1,4 @@
-## [DS-02E] Example - Amazon jobs ##
+## [DS-02E] Example - Amazon Jobs data ##
 
 # Importing the data #
 import pandas as pd
