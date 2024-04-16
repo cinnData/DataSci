@@ -1,20 +1,20 @@
 ## [DS-03] HTML data in Python ##
 
-# A toy HTML example #
-html_str = '<html>\
-<head>\
-  <title>Data Viz</title>\
-</head>\
-<body>\
-  <div class="course">Data Visualization</div>\
-  <div class="program">MBA full-time</div>\
-  <a class="professor" href="faculty-research/faculty/miguel-angel-canela">Miguel Ángel Canela</a>\
-</body>\
-</html>'
+# What is Beautiful Soup? #
+from bs4 import BeautifulSoup
+html_str = '''<html>
+<head>
+  <title>Data Viz</title>
+</head>
+<body>
+  <div class="course">Data Visualization</div>
+  <div class="program">MBA full-time</div>
+  <a class="professor" href="faculty-research/faculty/miguel-angel-canela">Miguel Ángel Canela</a>
+</body>
+</html>'''
 html_str
 
 # Parsing HTML code #
-from bs4 import BeautifulSoup
 soup = BeautifulSoup(html_str, 'html.parser')
 type(soup)
 soup
@@ -38,10 +38,10 @@ soup.find('head').find_all('div')
 soup.find_all('div', 'course')
 soup.find_all('div', 'course')[0]
 
-# Extracting information from a tag element #
+# Extracting information from the tags #
 soup.find('a').string
 soup.find_all('div').string
-[t.text for t in soup.find_all('div')]
+[t.string for t in soup.find_all('div')]
 soup.find('a')['href']
 
 # Finding the elements containing a string #
