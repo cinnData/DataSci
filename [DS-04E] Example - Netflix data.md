@@ -109,13 +109,6 @@ To create a list containing the text from these elements, we use a **list compre
 
 ```
 In [9]: job = [j.string for j in job]
-   ...: job[:5]
-Out[9]: 
-['Administrative Assistant, Technology - Feature Animation at Netflix',
- 'Software Engineer (L4), Applications Engineering - Feature Animation at Netflix',
- 'Software Engineer (L4), Pipeline Engineering - Feature Animation at Netflix',
- 'Animator - Games Studio',
- 'GM / Project Lead - Games Studio']
 ```
 
 Now:
