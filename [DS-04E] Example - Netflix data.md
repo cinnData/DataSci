@@ -14,11 +14,9 @@ We aim at capturing the following fields:
 
 * `title`, the job title. Example: 'Post Production Supervisor (Animation)'.
 
+* `worktype`, a workplace type label, such as *ON-SITE* or *REMOTE*.
+
 * `location`, the job location. Example: 'Los Angeles, California'.
-
-* `division`, the first part of the job team. The two parts are separated by an n-dash. Example: 'Animation'.
-
-* `dept`, the second part of the job team. Example: 'Editorial + Post'.
 
 * `link`, the link to a page specific for that position, which contains a description of the company and the role of the new employee. Example: `jobs.lever.co/netflix/620dd1ad-0345-42dc-a3b1-d94e1a08056b`.
 
@@ -60,7 +58,7 @@ In a web scraping job, we take advantage of the fact that web pages posting info
 
 The key assumption is that all the job titles are stored in HTML elements with the same name and attribute values, and that this is exclusive of job titles. This is, precisely, what allows Lever to update the pages in a programmatic way with the information supplied by Netflix.
 
-To use `.find_all()`, we need to know the name of the tag and, probably, some of the attributes. How can we find this? There are many ways, and every web scraper has his/her own cookbook. The simplest approach is based on browser tools. First, we count the number of times that 'APPLY' appears on the page. This is 253 (you will probably get a different number when you visit the page). So, we know the number of job titles that we have to capture.
+To use `.find_all()`, we need to know the name of the tag and, probably, some of the attributes. How can we find this? There are many ways, and every web scraper has his/her own cookbook. The simplest approach is based on browser tools. First, we count the number of times that 'APPLY' appears on the page. This is 377 (you will probably get a different number when you visit the page). So, we know the number of job titles that we have to capture.
 
 Next, we use the *Inspect tool* of the browser. We right-click on the first job title, opening a contextual menu, and we select *Inspect*. This opens a window showing a view of the source code in which the element containing that job title is highlighted. That element is (when this is being written):
 
@@ -78,7 +76,7 @@ If this is right, we must have a list with 253 items. Indeed:
 
 ```
 In [6]: len(job)
-Out[6]: 253
+Out[6]: 377
 ```
 
 To be sure, we can explore the head and the tail of this list:
@@ -86,21 +84,21 @@ To be sure, we can explore the head and the tail of this list:
 ```
 In [7]: job[:5]
 Out[7]: 
-[<h5 data-qa="posting-name">Production Pipeline Technical Director</h5>,
- <h5 data-qa="posting-name">Administrative Assistant, Technology - Feature Animation at Netflix</h5>,
- <h5 data-qa="posting-name">Software Engineer (L4), Applications Engineering - Feature Animation at Netflix</h5>,
- <h5 data-qa="posting-name">Software Engineer (L4), Pipeline Engineering - Feature Animation at Netflix</h5>,
- <h5 data-qa="posting-name">Animator - Games Studio</h5>]
+[<h5 data-qa="posting-name">Senior Product Manager</h5>,
+ <h5 data-qa="posting-name">Senior Technical Producer - Games Studio</h5>,
+ <h5 data-qa="posting-name">Director, Business Development, Game Licensing</h5>,
+ <h5 data-qa="posting-name">Director, Product Management &amp; Live Service - Internal Games</h5>,
+ <h5 data-qa="posting-name">Gameplay/Feature Engineer, Games Studio</h5>]
 ```
 
 ```
 In [8]: job[-5:]
 Out[8]: 
-[<h5 data-qa="posting-name">Manager, International Tax Compliance &amp; Reporting</h5>,
- <h5 data-qa="posting-name">Manager, Tax Operations</h5>,
- <h5 data-qa="posting-name">Software Engineer (L4) - Developer Tools &amp; Infrastructure</h5>,
- <h5 data-qa="posting-name">Software Engineer (L4) - UI Rendering &amp; Performance</h5>,
- <h5 data-qa="posting-name">Design &amp; Construction Regional Program Manager, APAC</h5>]
+[<h5 data-qa="posting-name">Android Software Engineer (L4) - Discovery &amp; Viewing Experiences</h5>,
+ <h5 data-qa="posting-name">Technical Program Manager (L6) - Algorithms Engineering</h5>,
+ <h5 data-qa="posting-name">Administrative Assistant, Enterprise Operations</h5>,
+ <h5 data-qa="posting-name">Manager, Security Operations (West Coast)</h5>,
+ <h5 data-qa="posting-name">Manager, Space &amp; Occupancy Planning - LA</h5>]
 ```
 
 The tags `h1`, `h2`, `h3`, `h4`, `h5` and `h6` are used for **headings**. They don't have a `class` attribute because their style is unique, specified in a `style` element within the `head` element. You may not need the attribute value to capture these elements. For instance, in this case, `soup.find_all('h5')` would have given you the same result.
@@ -116,90 +114,67 @@ Now:
 ```
 In [10]: job[:5]
 Out[10]: 
-['Production Pipeline Technical Director',
- 'Administrative Assistant, Technology - Feature Animation at Netflix',
- 'Software Engineer (L4), Applications Engineering - Feature Animation at Netflix',
- 'Software Engineer (L4), Pipeline Engineering - Feature Animation at Netflix',
- 'Animator - Games Studio']
+['Senior Product Manager',
+ 'Senior Technical Producer - Games Studio',
+ 'Director, Business Development, Game Licensing',
+ 'Director, Product Management & Live Service - Internal Games',
+ 'Gameplay/Feature Engineer, Games Studio']
+```
+
+## Workplace types
+
+The workplace type is found, following the same approach as for the job title, as the text within a `span` tag with `class="display-inline-block small-category-label workplaceTypes"`.
+
+```
+In [11]: worktype = soup.find_all('span', 'display-inline-block small-category-label workplaceTypes')
+    ...: worktype = [w.string for w in worktype]
+    ...: worktype[:5]
+Out[11]: 
+['Remote\xa0—\xa0',
+ 'Remote\xa0—\xa0',
+ 'On-site\xa0—\xa0',
+ 'Remote\xa0—\xa0',
+ 'Remote\xa0—\xa0']
+ ```
+
+What is the substring `\xa0—\xa0`? It corresponds to the dash, with white space on both sides, that separates the workplace type from another label that indicates the commitment (see the homework). The white space is not plain white space, but a special character called **Unicode non-breaking space**, which in HTML is denoted by `&nbsp;`. We can easily eliminate this with:
+
+```
+In [12]: worktype = [w.replace('\xa0—\xa0', '') for w in worktype]
+    ...: worktype[:5]
+Out[12]: ['Remote', 'Remote', 'On-site', 'Remote', 'Remote']
 ```
 
 ## Job locations
 
-Now, the job location, which is found, following the same approach as for the job title, as the text within a `span` tag with `class="sort-by-location posting-category small-category-label location"`.
+Now, the job location, which is found as the text within a `span` tag with `class="sort-by-location posting-category small-category-label location"`.
 
 ```
-In [11]: location = soup.find_all('span', 'sort-by-location posting-category small-category-label location')
+In [13]: location = soup.find_all('span', 'sort-by-location posting-category small-category-label location')
     ...: location = [l.string for l in location]
     ...: location[:5]
-Out[11]: 
-['Los Angeles, California',
- 'Burbank, California',
- 'Burbank, California',
- 'Burbank, California',
- ```
-
-## Teams
-
-The team is found in a `span` tag with `class="sort-by-team posting-category small-category-label department"`:
-
-```
-In [12]: team = soup.find_all('span', 'sort-by-team posting-category small-category-label department')
-    ...: team = [t.string for t in team]
-    ...: team[:5]
-Out[12]: 
-['Animation – Animation',
- 'Animation – Technology',
- 'Animation – Technology',
- 'Animation – Technology',
- 'Gaming – Boss Fight Entertainment']
-```
-
-The team comes in two parts: (a) a division, such as *Animation* or *Gaming*, and (b) a department, such as *Animation* or *Technology*. It might be interesting to split it in these two parts, which are separated by a symbol which looks like a hyphen but it is a bit longer. It is the **en dash** (see `jkorpela.fi/dashes.html` if you are curious about this). You can copypaste it in a Jupyter interface, or use the Unicode representation `\u2013`.
-
-```
-In [13]: team = [t.split(' – ') for t in team]
-    ...: team[:5]
 Out[13]: 
-[['Animation', 'Animation'],
- ['Animation', 'Technology'],
- ['Animation', 'Technology'],
- ['Animation', 'Technology'],
- ['Gaming', 'Boss Fight Entertainment']]
-```
-
-Once the split has been performed, we name the two parts:
-
-```
-In [14]: division = [t[0] for t in team]
-    ...: division[:5]
-Out[14]: ['Animation', 'Animation', 'Animation', 'Animation', 'Gaming']
-```
-
-```
-In [15]: dept = [t[1] for t in team]
-    ...: dept[:5]
-Out[15]: 
-['Animation',
- 'Technology',
- 'Technology',
- 'Technology',
- 'Boss Fight Entertainment']
-```
+['Remote, United States',
+ 'Remote, United States',
+ 'Los Angeles, California',
+ 'Los Angeles, California',
+ 'Remote, United States']
+ ```
 
 ## Links
 
 Since we know that every link has to appear as the value of a `href` attribute at an `a` element, we can search directly for these elements. There are two for every job, since you can call the job page from two places. The second one occurs in an `a` element with `class="posting-title"`. So, the links can be captured as:
 
 ```
-In [16]: link = soup.find_all('a', 'posting-title')
+In [14]: link = soup.find_all('a', 'posting-title')
     ...: link = [l['href'] for l in link]
     ...: link[:5]
-Out[16]: 
-['https://jobs.lever.co/netflix/f0615765-1451-42ae-bf76-7d3dfc1de481',
- 'https://jobs.lever.co/netflix/f83c8247-b863-4830-947d-6b5d07220ccc',
- 'https://jobs.lever.co/netflix/e8ac657b-05d0-49fb-af9d-1064d4888d71',
- 'https://jobs.lever.co/netflix/44912894-f070-4989-9f9f-92ffb2ed210a',
- 'https://jobs.lever.co/netflix/64e3cbb4-b6d2-4e1c-aafc-6888219027cc']
+Out[14]: 
+['https://jobs.lever.co/netflix/637f1ab3-a84b-4b6c-b6d7-d079a7888562',
+ 'https://jobs.lever.co/netflix/4354a21c-3d18-4cd9-bac6-436cdbd5ee9d',
+ 'https://jobs.lever.co/netflix/28e5b8e3-b7f3-4578-8862-6ba49ad65166',
+ 'https://jobs.lever.co/netflix/5e057849-5de6-4b41-92f0-62ed3908a41a',
+ 'https://jobs.lever.co/netflix/d1813381-ecde-48fa-8626-45c4a9ff2c6a']
 ```
 
 ## Packing
@@ -207,49 +182,41 @@ Out[16]:
 Now, we have the five lists `job`, `location`, `division`, `dept` and `link`. We can pack them as the columns of a Pandas data frame:
 
 ```
-In [17]: import pandas as pd
+In [15]: import pandas as pd
 ```
 
 ```
-In [18]: df = pd.DataFrame({'job': job, 'location': location, 'division': division, 'dept': dept, 'link': link})
+In [16]: df = pd.DataFrame({'job': job, 'worktype': worktype, 'location': location, 'link': link})
     ...: df.info()
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 253 entries, 0 to 252
-Data columns (total 5 columns):
+RangeIndex: 377 entries, 0 to 376
+Data columns (total 4 columns):
  #   Column    Non-Null Count  Dtype 
 ---  ------    --------------  ----- 
- 0   job       253 non-null    object
- 1   location  253 non-null    object
- 2   division  253 non-null    object
- 3   dept      253 non-null    object
- 4   link      253 non-null    object
-dtypes: object(5)
-memory usage: 10.0+ KB
+ 0   job       377 non-null    object
+ 1   worktype  377 non-null    object
+ 2   location  377 non-null    object
+ 3   link      377 non-null    object
+dtypes: object(4)
+memory usage: 11.9+ KB
 ```
 
 ```
-df.head()
-Out[19]: 
-                                                 job                 location   
-0             Production Pipeline Technical Director  Los Angeles, California  \
-1  Administrative Assistant, Technology - Feature...      Burbank, California   
-2  Software Engineer (L4), Applications Engineeri...      Burbank, California   
-3  Software Engineer (L4), Pipeline Engineering -...      Burbank, California   
-4                            Animator - Games Studio    Remote, United States   
+In [17]: df.head()
+Out[17]: 
+                                                 job worktype   
+0                             Senior Product Manager   Remote  \
+1           Senior Technical Producer - Games Studio   Remote   
+2     Director, Business Development, Game Licensing  On-site   
+3  Director, Product Management & Live Service - ...   Remote   
+4            Gameplay/Feature Engineer, Games Studio   Remote   
 
-    division                      dept   
-0  Animation                 Animation  \
-1  Animation                Technology   
-2  Animation                Technology   
-3  Animation                Technology   
-4     Gaming  Boss Fight Entertainment   
-
-                                                link  
-0  https://jobs.lever.co/netflix/f0615765-1451-42...  
-1  https://jobs.lever.co/netflix/f83c8247-b863-48...  
-2  https://jobs.lever.co/netflix/e8ac657b-05d0-49...  
-3  https://jobs.lever.co/netflix/44912894-f070-49...  
-4  https://jobs.lever.co/netflix/64e3cbb4-b6d2-4e...  
+                  location                                               link  
+0    Remote, United States  https://jobs.lever.co/netflix/637f1ab3-a84b-4b...  
+1    Remote, United States  https://jobs.lever.co/netflix/4354a21c-3d18-4c...  
+2  Los Angeles, California  https://jobs.lever.co/netflix/28e5b8e3-b7f3-45...  
+3  Los Angeles, California  https://jobs.lever.co/netflix/5e057849-5de6-4b...  
+4    Remote, United States  https://jobs.lever.co/netflix/d1813381-ecde-48...  
 ```
 
 ## Exporting the data to a CSV file
@@ -257,13 +224,13 @@ Out[19]:
 Finally, we can export the data to a CSV file by means of the method `.to_csv()`. You can edit the path of the file if you don't it to be placed in the working directory.
 
 ```
-In [20]: df.to_csv('netflix.csv', index=False)
+In [18]: df.to_csv('netflix.csv', index=False)
 ```
 
 The argument `index=False` has been used to skip the default of `.to_csv()`, which adds the index as the first column.
 
 ## Homework
 
-1. The Netflix Lever page also contains a **workplace type** label, such as *ON-SITE* or *REMOTE*. Add this field to the data set.
+1. An additional label, such as *FULL-TIME* or *PIPELINE*, indicates the **commitment**. Add this field to the the data set. Note that this label is sometimes missing, so `.find_all()` will return a shorter list, that will not match the other lists. You have to use a process that allows for placing a `NaN` value where the commitment is missing.
 
-2. An additional label, such as *FULL-TIME* or *PIPELINE*, indicates the **commitment**. Add this field to the the data set. Note that this label is sometimes missing, so `.find_all()` will return a shorter list, that will not match the other lists. You have to use a process that allows for placing a `NaN` value where the commitment is missing.
+2. Coupa Software is a technology platform for Business Spend Management, headquartered in San Mateo, California, with offices throughout Europe, Latin America, and Asia Pacific. Coupa also posts job positions in Lever (`https://jobs.lever.co/coupa`). Capture data on these job posts as we have done for Netflix and save them to a CSV file. Do you find positions in India whose job title is related to data?
