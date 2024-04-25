@@ -40,7 +40,7 @@ The table `bay_rides` (in five zipped CSV files) contains information on all rid
 
 Q1. Add a column `hour` to the table `rides`, containing the hour of the start time, in `datetime64` format. Example: the hour for `2021-01-01 01:20:23` will be `2021-01-01 01:00:00`.
 
-Q2. Group by `hour` and aggregate so you get a a new table with two columns, `casual` and `member` containing, for every hour, the total number of rides of the types of users. 
+Q2. Group by `hour` and aggregate so you get a a new table with two columns, `casual` and `member`, containing, for every hour, the total number of rides of the types of users. 
 
 Q3. After aggregating the data in the preceding question, can see you see a **time trend** in the number of rides? To visualize the trend, would it be better to aggregate more, *e.g*. to use daily data? Do you see a similar trend for the two user types?
 
