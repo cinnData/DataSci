@@ -12,7 +12,7 @@ The RFM model is a three-dimensional representation of the customer. The three d
 
 * **Monetary value** (M): How much does he/she spend?
 
-These dimensions can be calculated in different ways, depending on the data available. Once the data analist has them as columns in a data set in which every row stands for a customer, they can be used for **segmentation**, for predicting various outcomes, or in other jobs.
+These dimensions can be calculated in different ways, depending on the data available. Once the data analyst has them as columns in a data set in which every row stands for a customer, they can be used for **segmentation**, for predicting various outcomes, or in other jobs.
 
 In the simplest versions, every dimension is coverted to a **categorical scale**. For instance, recency might be broken into three categories: customers with purchases within the last 90 days, between 91 and 365 days, and longer than 365 days. Such categories may be derived from business rules or by means of data mining techniques.
 
@@ -56,7 +56,7 @@ Q3. Perform a **8-cluster analysis** of the RFM data set.
 
 ## Importing the data
 
-We import Pandas as usual. In this example, we include the argument `parse_col=[4]` in  `read_csv()`, to indicate that the column `InvoiceData` is to be converted to data type `datetime64`. We could also import the data in the usual way, applying `.astype(datetime64[ns])` to that column. 
+We import Pandas as usual. In this example, we include the argument `parse_col=[4]` in  `read_csv()`, to indicate that the column `InvoiceData` is to be converted to data type `datetime64`. This is equivalent to importing the data in the usual way, and then applying `.astype(datetime64[ns])` to that column. 
 
 ```
 In [1]: import pandas as pd
@@ -67,7 +67,7 @@ In [1]: import pandas as pd
 
 ## Exploring the data
 
-Once again, we explore the data with the methods `. info()` and `.head()`, which show that the data are complete and they look right. Note the data type of `InvoiceDate`.  
+Once again, we explore the data by means of the methods `. info()` and `.head()`, which show that the data are complete and they look right. Note the data type of `InvoiceDate`.  
 
 ```
 In [2]: df.info()
@@ -106,7 +106,7 @@ Out[3]:
 4  2010-12-01 08:26:00       3.39       17850  United Kingdom  
 ```
 
-According to the description of the data, they include cancellations, identified with a special ID which starts with 'C'. Indeed, we have 8,905 cancellations, with negative quantities.
+According to the description of this data set, it includes cancellations, identified with a special ID which starts with 'C'. Indeed, we have 8,905 cancellations, with negative quantities.
 
 ```
 In [4]: pd.crosstab(df['InvoiceNo'].str.contains('C'), df['Quantity'] < 0)
@@ -170,7 +170,7 @@ Out[7]:
 
 ## Q2. Group by customer and aggregate to create the RFM data set
 
-In the RFM data set, every customer must have a row, with the RFM values. To create the first two columns, `Recency` and `Frequency`, we group by customer and aggregate with functions `min()` and `count()`.
+In the RFM data set, every customer must have a row, with the RFM values. To create the first two columns, `Recency` and `Frequency`, we group the data by customer and aggregate them with the functions `min()` and `count()`.
 
 ```
 In [8]: RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
@@ -212,7 +212,7 @@ CustomerID
 Name: Monetary, dtype: float64
 ``` 
 
-Finally, we join this series to the data frame `RF`. We use the method `.merge()`, specifying that the join is based on the indexes. The same could be done with `.join()` and with the function `concat()`, everyone with its own rules.
+Finally, we join this series with the data frame `RF`. We use the method `.merge()`, specifying that the join is based on the indexes. The same could be done with the method `.join()` or with the function `concat()`, everyone with its own rules.
 
 ```
 In [12]: RFM = RF.merge(M, left_index=True, right_index=True)
