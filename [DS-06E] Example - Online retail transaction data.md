@@ -276,7 +276,7 @@ Note that `cluster` is here a user-provided name. We extract from the data the e
 The function `kmeans()` returns a tuple containing two objects: the first one is the center matrix, and the second one is the average (non-squared) Euclidean distance between a customer and the closest center (the homework includes an exercise on this). So, we extract the first item of that tuple to get the center matrix.
 
 ```
-In [17]: centers = cluster.kmeans(RFM1, k=8)[0]
+In [17]: centers = cluster.kmeans(RFM1, k_or_guess=8)[0]
     ...: centers
 Out[17]: 
 array([[0.51290262, 0.00406231, 0.01708207],
@@ -336,8 +336,8 @@ Name: count, dtype: int64
 
 1. As explained in lecture DS-06, the $k$-means algorithm uses a **random start**. So, different runs will give different results. In real applications we don't these differences to be relevant. Compare the results of two partitions obtained in different runs of the $k$-means algorithm, using cross tabulation. What do yoy think?
 
-2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and can be taken as a measure of the "quality" of the segmentation. Apply `means()` with different values of the parameter `k` and compare the corresponding quality measures. Do you think that `k=8` was a good choice?
+2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and can be taken as a measure of the "quality" of the segmentation. Apply `kmeans()` with different values of the parameter `k_or_guess` and compare the corresponding quality measures. Do you think that `k=8` was a good choice?
 
-3. Drop some extreme values from the RFM data. Then, perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3. What do yoy think?
+3. Drop some extreme values from the RFM data. Then, perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3. What do you think?
 
-4. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the clusters obtained in question Q3. What do yoy think?
+4. Convert every dimension of the RFM data set to a **binary scale** (High/Low), and a create a segmentation based on the eight combinations. Compare this partition with the clusters obtained in question Q3. What do you think?
