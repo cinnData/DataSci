@@ -166,8 +166,8 @@ memory usage: 437.2+ MB
 To build the data set for this question we need two additional columns, `casual` and `member`. We create them as dummies, so that we can aggregate them to get the number of rides for each group.
 
 ```
-In [9]: rides['casual'] = rides['user_type'] == 'casual'
-   ...: rides['member'] = rides['user_type'] == 'member'
+In [9]: rides['casual'] = (rides['user_type'] == 'casual')
+   ...: rides['member'] = (rides['user_type'] == 'member')
 ```
 
 Now, we group by hour and aggregate with the function `sum()`. To get a cleaner picture, we include only the columns which are relevant for the rest of this example. Note the double bracketing, which is needed, since the columns included have to be specified as a list.
