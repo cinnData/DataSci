@@ -163,7 +163,7 @@ memory usage: 437.2+ MB
 
 ## Q2. Aggregate to hourly data
 
-To build the data set for this question we need two additional columns, `casual` and `member``. We create them as dummies, so that we can aggregate them to get the number of rides for each group.
+To build the data set for this question we need two additional columns, `casual` and `member`. We create them as dummies, so that we can aggregate them to get the number of rides for each group.
 
 ```
 In [9]: rides['casual'] = rides['user_type'] == 'casual'
