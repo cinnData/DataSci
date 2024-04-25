@@ -336,7 +336,7 @@ Name: count, dtype: int64
 
 1. As explained in lecture DS-06, the $k$-means algorithm uses a **random start**. So, different runs will give different results. In real applications we don't these differences to be relevant. Compare the results of two partitions obtained in different runs of the $k$-means algorithm, using cross tabulation. What do yoy think?
 
-2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and can be taken as a measure of the "quality" of the segmentation. Apply `kmeans()` with different values of the parameter `k_or_guess` and compare the corresponding quality measures. Do you think that `k=8` was a good choice?
+2. The second item in the outcome of the function `kmeans()` is the average Euclidean distance between a customer and the closest center, and can be taken as a measure of the "quality" of the segmentation. Apply `kmeans()` with different values of the parameter `k_or_guess` and compare the corresponding quality measures. Do you think that `k_or_guess=8` was a good choice?
 
 3. Drop some extreme values from the RFM data. Then, perform the normalization and the cluster analysis again. Compare the new clusters with those obtained in question Q3. What do you think?
 
