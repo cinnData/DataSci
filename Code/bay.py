@@ -22,8 +22,8 @@ rides['hour'] = rides['hour'].astype('datetime64[ns]')
 rides.info()
 
 # Q2. Aggregate to hourly data #
-rides['casual'] = rides['user_type'] == 'casual'
-rides['member'] = rides['user_type'] == 'member'
+rides['casual'] = (rides['user_type'] == 'casual')
+rides['member'] = (rides['user_type'] == 'member')
 rides = rides.drop(columns=['bike_type', 'user_type', 'start_time', 'start_station_id', 'end_time', 'end_station_id'])
 df = rides[['hour', 'casual', 'member']].groupby(by='hour').sum()
 df.head()
