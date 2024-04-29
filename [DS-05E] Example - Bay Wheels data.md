@@ -392,7 +392,7 @@ In [28]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5),
 
 ## Homework
 
-1. Perform an analysis of the analysis of demand in which the patterns of variation for the demand of electric and classic bikes are compared. Are classic bikes lagging behind of electric bikes?
+1. Perform an analysis of the demand in which the patterns of variation for the demand of electric and classic bikes are compared. Are classic bikes lagging behind of electric bikes?
 
 2. Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
 
