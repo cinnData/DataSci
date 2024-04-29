@@ -392,12 +392,10 @@ In [28]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5),
 
 ## Homework
 
-1. Look at the trend of the demand of electric and classic bikes. Are classic bikes lagging behind electric bikes?
+1. How is the trend of the demand of electric and classic bikes? Are classic bikes lagging behind electric bikes?
 
-2. Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
+2. Check that the information about the start and end stations is missing only for electric bikes. If you take this missingness as an indication of dockless bike share, you can examine how dockless share has evolved during these three years. Would you say that dockless share is trending up?
 
-3. How frequent are circular rides, starting and ending at the same station?
+3. Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
 
 4. Are there stations with very low activity, so you can consider dropping them? Which threshold would you apply?
-
-5. Seasonal patterns can be different across the stations of the Bay Wheels network. How can you detect the stations where the between-month variation is highest?
