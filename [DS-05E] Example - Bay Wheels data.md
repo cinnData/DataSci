@@ -392,7 +392,7 @@ In [28]: df[['total', 'month']].groupby('month').mean().plot(figsize=(8,5),
 
 ## Homework
 
-1. Look at the trend of the the demand of electric and classic bikes. Are classic bikes lagging behind electric bikes?
+1. Look at the trend of the demand of electric and classic bikes. Are classic bikes lagging behind electric bikes?
 
 2. Which are the top-10 starting stations? Are they the same as the top-10 ending stations?
 
