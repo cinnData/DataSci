@@ -12,15 +12,14 @@ df.head()
 pd.crosstab(df['InvoiceNo'].str.contains('C'), df['Quantity'] < 0)
 
 # Q1. New column with the number of days since the invoice was generated #
-df['InvoiceDate'] = df['InvoiceDate']
-max_date = max(df['InvoiceDate'])
+max_date = df['InvoiceDate'].max()
 max_date
 df['Diff'] = max_date - df['InvoiceDate']
 df['Diff']
 df['Diff'] = df['Diff'].dt.days
 df.head()
 
-# Q2. Creating RFM data set #
+# Q2. Group by customer and aggregate to create the RFM data set #
 RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
 RF.head()
 RF.columns = ['Recency', 'Frequency']
@@ -36,10 +35,10 @@ def normalize(x): return (x - x.min())/(x.max() - x.min())
 RFM1 = RFM.apply(normalize, axis=0)
 RFM1.head()
 import scipy.cluster.vq as cluster
-center = cluster.kmeans(RFM1, 8)[0]
-center
-label = cluster.vq(RFM1, center)[0]
-label
-RFM['Segment'] = label
+centers = cluster.kmeans(RFM1, k_or_guess=8)[0]
+centers
+labels = cluster.vq(RFM1, centers)[0]
+labels
+RFM['Segment'] = labels
 RFM.head()
 RFM['Segment'].value_counts()
