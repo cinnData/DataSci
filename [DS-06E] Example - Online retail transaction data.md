@@ -250,7 +250,7 @@ So, normalizing the data looks like a reasonable step. **Min-max normalization**
 ```
 In [14]: def normalize(x): return (x - x.min())/(x.max() - x.min())
 ```
-This function can be applied to any vector-like data container which admits the methods `.max()` and `.min()`, in particlar to a NumPy 1D array or a Pandas series. There are many ways of applying it to the columns of the data frame `RFM`. One way to do it in one line is by means of the method `.apply()`. The argument `axis=0` means that the function is applied by column. With `axis=1`, it would be applied by row.
+This function can be applied to any vector-like data container which admits the methods `.max()` and `.min()`, in particular to a NumPy 1D array or a Pandas series. There are many ways of applying it to the columns of the data frame `RFM`. One way to do it in one line is by means of the method `.apply()`. The argument `axis=0` means that the function is applied by column. With `axis=1`, it would be applied by row.
 
 ```
 In [15]: RFM1 = RFM.apply(normalize, axis=0)
@@ -265,8 +265,8 @@ CustomerID
 12350       0.828418   0.002005  0.016288
 ```
 
-We are ready now for the **cluster analysis**. We use the version of the package **SciPy**, import the $k$-means clustering tools, from the subpackage `scipy.cluster.vq`, as follows.
-
+We are ready now for the **cluster analysis**. We use the version of the package **SciPy**, importing the $k$-means clustering tools, from the subpackage `scipy.cluster.vq`, as follows.
+ing
 ```
 In [16]: import scipy.cluster.vq as cluster
 ```
