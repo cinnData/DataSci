@@ -20,27 +20,21 @@ df['Diff']
 df['Diff'] = df['Diff'].dt.days
 df.head()
 
-# Q2a. Creating recency and frequency data #
+# Q2. Creating RFM data set #
 RF = df.groupby('CustomerID')['Diff'].agg(['min', 'count'])
 RF.head()
 RF.columns = ['Recency', 'Frequency']
-
-# Q2b. Creating monetary data #
 df['Monetary'] = df['Quantity']*df['UnitPrice']
 M = df.groupby('CustomerID')['Monetary'].sum()
 M.head()
-
-# Q2c. Joining the two data sets #
 RFM = RF.merge(M, left_index=True, right_index=True)
 RFM.head()
 
-# Q3a. Normalization #
+# Q3. 8-cluster analysis #
 RFM.describe()
 def normalize(x): return (x - x.min())/(x.max() - x.min())
 RFM1 = RFM.apply(normalize, axis=0)
 RFM1.head()
-
-# Q3b. 8-cluster analysis #
 import scipy.cluster.vq as cluster
 center = cluster.kmeans(RFM1, 8)[0]
 center
@@ -49,14 +43,3 @@ label
 RFM['Segment'] = label
 RFM.head()
 RFM['Segment'].value_counts()
-
-# Q4a. Binarization #
-RFM['BinRecency'] = ((RFM['Recency'] > RFM['Recency'].median()) + 0).astype(str)
-RFM['BinFrequency'] = ((RFM['Frequency'] > RFM['Frequency'].median()) + 0).astype(str)
-RFM['BinMonetary'] = ((RFM['Monetary'] > RFM['Monetary'].median()) + 0).astype(str)
-RFM.head()
-
-# Q4b. Compare this partition with that of the preceding question #
-RFM['BinSegment'] = RFM['BinRecency'] + RFM['BinFrequency'] + RFM['BinMonetary']
-RFM.head()
-pd.crosstab(RFM['Segment'], RFM['BinSegment'])
