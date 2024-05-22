@@ -44,7 +44,7 @@ Q4. **Programming languages** are often mentioned in the basic qualifications fi
 
 # Importing the data
 
-As in the previous example, we use the Pandas funcion `read_csv()` to import the data. First, we import the package:
+We use the Pandas function `read_csv()` to import the data. First, we import the package:
 
 ```
 In [1]: import pandas as pd
